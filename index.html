@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Finvare - Smart Financial Partner</title>
-  <link rel="icon" href="logo.png" />
+  <link rel="icon" href="logo.png">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,7 +11,6 @@
       background: linear-gradient(to right, #1e3c72, #2a5298);
       color: white;
     }
-
     header {
       background-color: #003366;
       padding: 20px;
@@ -20,59 +19,50 @@
       align-items: center;
       color: white;
     }
-
     .logo-text {
       font-size: 24px;
       font-weight: bold;
-      cursor: pointer;
+      color: white;
+      text-decoration: none;
     }
-
     nav a {
       color: white;
       margin-left: 20px;
       text-decoration: none;
       font-weight: bold;
     }
-
     nav a:hover {
       text-decoration: underline;
     }
-
     .hero {
       text-align: center;
       padding: 80px 20px;
       background-color: #f4f4f4;
-    }
-
-    .hero h1 {
-      font-size: 3em;
       color: #003366;
     }
-
+    .hero h1 {
+      font-size: 3em;
+    }
     .hero p {
       font-size: 1.5em;
       color: #666;
     }
-
     .services {
       text-align: center;
       padding: 50px 20px;
       background-color: white;
     }
-
     .services h2 {
       font-size: 2em;
       color: #003366;
     }
-
-    .service-options {
+    .services .service-options {
       display: flex;
       justify-content: center;
       gap: 40px;
       margin-top: 30px;
     }
-
-    .service-options span {
+    .services .service-options span {
       padding: 15px 30px;
       background-color: #003366;
       color: white;
@@ -80,33 +70,40 @@
       border-radius: 6px;
       cursor: pointer;
     }
-
-    .service-options span:hover {
+    .services .service-options span:hover {
       background-color: #004080;
     }
-
+    .apply-now-btn {
+      background-color: #003366;
+      color: white;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .apply-now-btn:hover {
+      background-color: #004080;
+    }
     .partners {
       padding: 50px 20px;
       background-color: #f7f7f7;
       text-align: center;
     }
-
     .partners h2 {
       color: #003366;
     }
-
     .partners p {
       color: #666;
       margin-bottom: 30px;
     }
-
     .partner-names {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
     }
-
     .partner-names span {
       color: #003366;
       font-weight: bold;
@@ -116,206 +113,186 @@
       border-radius: 8px;
       background-color: #e7f0f7;
     }
-
     .contact {
       padding: 50px 20px;
       text-align: center;
       background-color: white;
     }
-
     .contact h2 {
       font-size: 2em;
       color: #003366;
     }
-
     .contact a {
       display: block;
       margin: 10px 0;
       color: #003366;
       font-size: 1.2em;
     }
-
     .contact a:hover {
       color: #004080;
     }
-
-    .icons .youtube-icon {
+    .youtube-icon {
       font-size: 24px;
       color: #ff0000;
     }
-
-    .emi-calculator {
-      padding: 40px 20px;
-      background-color: white;
-      color: #003366;
-      text-align: center;
-    }
-
-    .emi-calculator input {
-      padding: 10px;
-      margin: 10px;
-      width: 200px;
-    }
-
-    .emi-calculator button {
-      padding: 10px 20px;
-      background-color: #003366;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .emi-calculator button:hover {
-      background-color: #004080;
-    }
-
-    .emi-result {
-      margin-top: 20px;
-      font-weight: bold;
-      font-size: 1.4em;
-    }
-
     footer {
       background-color: #003366;
       color: white;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       padding: 40px 20px;
       font-size: 1.1em;
-      flex-wrap: wrap;
     }
-
     footer .column {
-      width: 30%;
-      margin: 10px 0;
+      width: 22%;
+      margin-bottom: 20px;
     }
-
     footer .column h3 {
       color: #ff6600;
     }
-
     footer .column a {
       color: white;
       text-decoration: none;
       display: block;
       margin: 8px 0;
     }
-
     footer .column a:hover {
       color: #ff6600;
     }
-
-    .footer-bottom {
-      text-align: center;
+    .copyright {
       background-color: #002244;
+      text-align: center;
       padding: 15px;
       font-size: 0.9em;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div onclick="window.location.href='https://finvare.com'" class="logo-text">Finvare.com</div>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact Us</a>
-    </nav>
-  </header>
+<header>
+  <a href="https://finvare.com" class="logo-text">Finvare.com</a>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact Us</a>
+  </nav>
+</header>
 
-  <section id="home" class="hero">
-    <h1>Welcome to Finvare</h1>
-    <p>Your Smart Financial Partner</p>
-  </section>
+<section id="home" class="hero">
+  <h1>Welcome to Finvare</h1>
+  <p>Your Smart Financial Partner</p>
+</section>
 
-  <section id="services" class="services">
-    <h2>Our Services</h2>
-    <div class="service-options">
-      <span>Personal Loan</span>
-      <span>Home Loan</span>
-    </div>
-    <a href="#emi" style="text-decoration: none;">
-      <button class="apply-now-btn">Apply Now</button>
-    </a>
-  </section>
-
-  <section id="emi" class="emi-calculator">
-    <h2>Loan EMI Calculator</h2>
-    <input type="number" id="amount" placeholder="Loan Amount (₹)" />
-    <input type="number" id="rate" placeholder="Annual Interest Rate (%)" />
-    <input type="number" id="years" placeholder="Loan Tenure (Years)" />
-    <br />
-    <button onclick="calculateEMI()">Calculate EMI</button>
-    <div id="emi-output" class="emi-result"></div>
-  </section>
-
-  <section id="partners" class="partners">
-    <h2>Our Partners</h2>
-    <p>We collaborate with top financial institutions to bring you the best solutions.</p>
-    <div class="partner-names">
-      <span>IndusInd Bank</span>
-      <span>HDFC Bank</span>
-      <span>Axis Bank</span>
-      <span>Axis Finance</span>
-      <span>Bajaj Finserv</span>
-      <span>ICICI Bank</span>
-      <span>IDFC Bank</span>
-      <span>Tata Capital</span>
-      <span>Poonawalla Fincorp</span>
-      <span>Aditya Birla Capital</span>
-      <span>L&T Finance</span>
-    </div>
-  </section>
-
-  <section id="contact" class="contact">
-    <h2>Contact Us</h2>
-    <a href="https://wa.me/919509000080" target="_blank">📱 +91 9509000080</a>
-    <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
-    <div class="icons">
-      <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">
-        <span class="youtube-icon">▶️ YouTube</span>
-      </a>
-    </div>
-  </section>
-
-  <footer>
-    <div class="column">
-      <h3>About Company</h3>
-      <p>Our company is a leading loan provider dedicated to offering tailored financial solutions. With a focus on transparency, flexibility, and customer satisfaction.</p>
-    </div>
-    <div class="column">
-      <h3>Quick Links</h3>
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact Us</a>
-    </div>
-    <div class="column">
-      <h3>Address</h3>
-      <p>Ward No 1, Patan</p>
-    </div>
-  </footer>
-
-  <div class="footer-bottom">
-    © 2025 Finvare Capital Private Limited. All Rights Reserved. <br />
-    Created by Sandeep Yadav
+<section id="services" class="services">
+  <h2>Our Services</h2>
+  <div class="service-options">
+    <span>Personal Loan</span>
+    <span>Home Loan</span>
   </div>
+  <a href="#emi-calculator" style="text-decoration:none;">
+    <button class="apply-now-btn">Apply Now</button>
+  </a>
+</section>
 
-  <script>
-    function calculateEMI() {
-      const P = parseFloat(document.getElementById('amount').value);
-      const R = parseFloat(document.getElementById('rate').value) / 12 / 100;
-      const N = parseFloat(document.getElementById('years').value) * 12;
+<section id="emi-calculator" style="background-color: white; color: #003366; padding: 50px 20px; text-align: center;">
+  <h2 style="font-size: 2em; margin-bottom: 30px;">Loan EMI Calculator</h2>
+  <div style="max-width: 400px; margin: 0 auto; text-align: left;">
+    <label>Loan Amount (₹):</label><br>
+    <input type="number" id="loanAmount" placeholder="Enter loan amount" style="width:100%; padding:10px; margin:10px 0;"><br>
+    <label>Annual Interest Rate (%):</label><br>
+    <input type="number" id="interestRate" placeholder="Enter interest rate" step="0.01" style="width:100%; padding:10px; margin:10px 0;"><br>
+    <label>Loan Tenure (in Years):</label><br>
+    <input type="number" id="loanTenure" placeholder="Enter tenure in years" style="width:100%; padding:10px; margin:10px 0;"><br>
+    <h3 style="margin-top: 20px;">Estimated EMI: ₹ <span id="emiResult">0</span></h3>
+  </div>
+</section>
 
-      if (P && R && N) {
-        const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
-        document.getElementById('emi-output').innerText = `Your EMI is ₹${emi.toFixed(2)} per month`;
-      } else {
-        document.getElementById('emi-output').innerText = 'Please enter all values correctly.';
-      }
+<script>
+  const loanAmount = document.getElementById('loanAmount');
+  const interestRate = document.getElementById('interestRate');
+  const loanTenure = document.getElementById('loanTenure');
+  const emiResult = document.getElementById('emiResult');
+
+  function calculateEMI() {
+    const principal = parseFloat(loanAmount.value);
+    const annualInterest = parseFloat(interestRate.value);
+    const years = parseFloat(loanTenure.value);
+
+    if (!principal || !annualInterest || !years) {
+      emiResult.textContent = "0";
+      return;
     }
-  </script>
+
+    const monthlyInterest = annualInterest / 12 / 100;
+    const totalMonths = years * 12;
+
+    const emi = (principal * monthlyInterest * Math.pow(1 + monthlyInterest, totalMonths)) /
+                (Math.pow(1 + monthlyInterest, totalMonths) - 1);
+
+    emiResult.textContent = emi ? emi.toFixed(2) : "0";
+  }
+
+  loanAmount.addEventListener('input', calculateEMI);
+  interestRate.addEventListener('input', calculateEMI);
+  loanTenure.addEventListener('input', calculateEMI);
+</script>
+
+<section id="partners" class="partners">
+  <h2>Our Partners</h2>
+  <p>We collaborate with diverse banks and NBFCs to offer you the best solutions.</p>
+  <div class="partner-names">
+    <span>IndusInd Bank</span>
+    <span>HDFC Bank</span>
+    <span>Axis Bank</span>
+    <span>Axis Finance</span>
+    <span>Bajaj Finserv</span>
+    <span>ICICI Bank</span>
+    <span>IDFC Bank</span>
+    <span>Tata Capital</span>
+    <span>Aditya Birla Capital</span>
+    <span>Poonawalla Fincorp</span>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact Us</h2>
+  <a href="https://wa.me/919509000080" target="_blank">📱 +91 9509000080</a>
+  <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
+  <div class="icons">
+    <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">
+      <span class="youtube-icon">▶️ YouTube</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="column">
+    <h3>About Company</h3>
+    <p>Our company is a leading loan provider dedicated to offering tailored financial solutions.</p>
+  </div>
+  <div class="column">
+    <h3>Quick Links</h3>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact Us</a>
+  </div>
+  <div class="column">
+    <h3>Contact Us</h3>
+    <p>📞 +91 9509000080</p>
+    <p>📧 care@finvare.com</p>
+  </div>
+  <div class="column">
+    <h3>Address</h3>
+    <p>Ward No 1, Patan</p>
+  </div>
+</footer>
+
+<div class="copyright">
+  © 2025 Finvare Capital Private Limited. All Rights Reserved.<br>
+  Created by Sandeep Yadav
+</div>
 
 </body>
 </html>

@@ -37,6 +37,7 @@
             text-decoration: underline;
         }
 
+        /* Hero Section */
         .hero {
             text-align: center;
             padding: 80px 20px;
@@ -53,95 +54,22 @@
             color: #666;
         }
 
-        .services {
-            text-align: center;
-            padding: 50px 20px;
-            background-color: white;
+        /* Slider Styles */
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 500px;
+            overflow: hidden;
         }
 
-        .services h2 {
-            font-size: 2em;
-            color: #003366;
+        .slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .services .service-options {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 30px;
-        }
-
-        .services .service-options span {
-            padding: 15px 30px;
-            background-color: #003366;
-            color: white;
-            font-size: 1.2em;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .services .service-options span:hover {
-            background-color: #004080;
-        }
-
-        .partners {
-            padding: 50px 20px;
-            background-color: #f7f7f7;
-            text-align: center;
-        }
-
-        .partners h2 {
-            color: #003366;
-        }
-
-        .partners p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .partner-names {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .partner-names span {
-            color: #003366;
-            font-weight: bold;
-            font-size: 1.1em;
-            border: 1px solid #003366;
-            padding: 8px 14px;
-            border-radius: 8px;
-            background-color: #e7f0f7;
-        }
-
-        .contact {
-            padding: 50px 20px;
-            text-align: center;
-            background-color: white;
-        }
-
-        .contact h2 {
-            font-size: 2em;
-            color: #003366;
-        }
-
-        .contact a {
-            display: block;
-            margin: 10px 0;
-            color: #003366;
-            font-size: 1.2em;
-        }
-
-        footer {
-            background-color: #003366;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            font-weight: bold;
-        }
-
+        /* Apply Now Button */
         .apply-now-btn {
             background-color: #003366;
             color: white;
@@ -156,12 +84,20 @@
         .apply-now-btn:hover {
             background-color: #004080;
         }
+
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="finvare-logo.png" alt="Finvare Logo"> <!-- Updated logo -->
+        <img src="Finvare-logo.png" alt="Finvare Logo"> <!-- Updated Finvare Logo -->
         <nav>
             <a href="#home">Home</a>
             <a href="#services">Services</a>
@@ -169,7 +105,12 @@
         </nav>
     </header>
 
+    <!-- Slider Section -->
     <section id="home" class="hero">
+        <div class="slider">
+            <img src="image1.jpg" alt="Slide 1"> <!-- First image for the slider -->
+            <img src="image2.jpg" alt="Slide 2"> <!-- Second image for the slider -->
+        </div>
         <h1>Welcome to Finvare!</h1>
         <p>Your Smart Financial Partner</p>
     </section>

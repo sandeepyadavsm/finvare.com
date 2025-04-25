@@ -1,168 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Finvare - Smart Financial Partner</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #fff;
-      color: #003366;
-    }
-    header {
-      background: #003366;
-      color: white;
-      padding: 10px 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    .nav-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1100px;
-      margin: auto;
-      padding: 0 20px;
-    }
-    .nav-container img {
-      height: 40px;
-    }
-    nav a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
+    <meta charset="UTF-8">
+    <title>Finvare - Smart Financial Partner</title>
+    <link rel="icon" href="logo.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: white;
+            color: #002147;
+        }
 
-    .hero {
-      text-align: center;
-      padding: 50px 20px;
-    }
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-    .hero p {
-      font-size: 1.2rem;
-    }
+        header {
+            background-color: #002147;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .contact-section {
-      text-align: center;
-      padding: 30px 20px;
-    }
-    .contact-section a {
-      color: #003366;
-      font-size: 1.1rem;
-      display: block;
-      margin: 8px 0;
-      text-decoration: none;
-    }
-    .contact-section i {
-      margin-right: 8px;
-      color: #25D366;
-    }
-    .youtube {
-      color: red;
-      font-size: 28px;
-      margin-top: 15px;
-    }
+        header img {
+            height: 40px;
+        }
 
-    .partners {
-      background: #f4f4f4;
-      padding: 50px 20px;
-      text-align: center;
-    }
-    .partners h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-    .partners p {
-      color: #555;
-      margin-bottom: 30px;
-    }
-    .partner-logos {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-    }
-    .partner-logos img {
-      height: 60px;
-      max-width: 140px;
-      object-fit: contain;
-      filter: grayscale(100%);
-      transition: 0.3s;
-    }
-    .partner-logos img:hover {
-      filter: none;
-      transform: scale(1.05);
-    }
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #eaeaea;
-      color: #003366;
-    }
-  </style>
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+            color: #002147;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+        }
+
+        .contact {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .contact a {
+            display: block;
+            margin: 10px 0;
+            text-decoration: none;
+            color: #002147;
+        }
+
+        .contact i {
+            margin-right: 8px;
+        }
+
+        .icons a {
+            margin: 10px;
+            font-size: 24px;
+        }
+
+        .partners {
+            padding: 50px 20px;
+            background-color: white;
+            text-align: center;
+        }
+
+        .partners h2 {
+            color: #002147;
+        }
+
+        .partners p {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .partner-names {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .partner-names span {
+            color: #002147;
+            font-weight: bold;
+            font-size: 1em;
+            border: 1px solid #00214730;
+            padding: 8px 14px;
+            border-radius: 8px;
+            background-color: #f7f9fb;
+        }
+
+        footer {
+            background-color: #f0f0f0;
+            color: #002147;
+            text-align: center;
+            padding: 15px;
+            font-weight: bold;
+        }
+
+        .apply-now-btn {
+            background-color: #002147;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .apply-now-btn:hover {
+            background-color: #003366;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="nav-container">
-      <img src="logo.png" alt="Finvare Logo" />
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#services" onclick="window.alert('Redirecting to Personal Loan Page...')">Services</a>
-        <a href="#contact">Contact Us</a>
-      </nav>
-    </div>
-  </header>
+    <header>
+        <img src="logo.png" alt="Finvare Logo">
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact Us</a>
+        </nav>
+    </header>
 
-  <section class="hero" id="home">
-    <h1>Welcome to Finvare</h1>
-    <p>Your Smart Financial Partner</p>
-  </section>
+    <section id="home" class="hero">
+        <h1>Welcome to Finvare!</h1>
+        <p>Your Smart Financial Partner</p>
+    </section>
 
-  <section class="contact-section" id="contact">
-    <a href="https://wa.me/919509000080" target="_blank">
-      <i class="fab fa-whatsapp"></i> +91 9509000080
-    </a>
-    <a href="mailto:care@finvare.com">
-      <i class="fas fa-envelope"></i> care@finvare.com
-    </a>
-    <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank" class="youtube">
-      <i class="fab fa-youtube"></i>
-    </a>
-  </section>
+    <section id="contact" class="contact">
+        <a href="https://wa.me/919509000080" target="_blank">📱 +91 9509000080</a>
+        <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
+        <div class="icons">
+            <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">▶️</a>
+        </div>
+    </section>
 
-  <section class="partners">
-    <h2>Our Partners</h2>
-    <p>We collaborate with diverse banks and NBFCs to offer you the best solutions, ensuring your success and satisfaction.</p>
-    <div class="partner-logos">
-      <img src="partners/indusind.png" alt="IndusInd Bank">
-      <img src="partners/hdfc.png" alt="HDFC Bank">
-      <img src="partners/kreditbee.png" alt="KreditBee">
-      <img src="partners/axis.png" alt="Axis Bank">
-      <img src="partners/mpokket.png" alt="mPokket">
-      <img src="partners/fibe.png" alt="Fibe">
-      <img src="partners/creditsea.png" alt="CreditSea">
-      <img src="partners/flot.png" alt="Flot">
-      <img src="partners/lendingplate.png" alt="Lendingplate">
-      <img src="partners/poonawalla.png" alt="Poonawalla Fincorp">
-    </div>
-  </section>
+    <section class="partners" id="services">
+        <h2>Our Partners</h2>
+        <p>We collaborate with diverse banks and NBFCs to offer you the best solutions, ensuring your success and satisfaction.</p>
+        <div class="partner-names">
+            <span>IndusInd Bank</span>
+            <span>HDFC Bank</span>
+            <span>KreditBee</span>
+            <span>Ram Fincorp</span>
+            <span>L&T Finance</span>
+            <span>KamakshiMoney</span>
+            <span>Moneyview</span>
+            <span>Axis Bank</span>
+            <span>mPokket</span>
+            <span>TrustPaisa</span>
+            <span>CreditSea</span>
+            <span>Flot</span>
+            <span>PrefR</span>
+            <span>Fibe</span>
+            <span>Aditya Birla Capital</span>
+            <span>Unity Bank</span>
+            <span>Fataak Pay</span>
+            <span>Mirae Asset</span>
+            <span>Lendingplate</span>
+            <span>Poonawalla Fincorp</span>
+        </div>
 
-  <footer>
-    Created by Sandeep Yadav
-  </footer>
+        <a href="apply.html" style="text-decoration:none;">
+            <button class="apply-now-btn">Apply Now</button>
+        </a>
+    </section>
+
+    <footer>
+        Created by Sandeep Yadav
+    </footer>
 
 </body>
 </html>

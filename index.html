@@ -8,8 +8,8 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background-color: white;
-            color: #003366;
+            background: linear-gradient(to right, #1e3c72, #2a5298); /* Gradient background */
+            color: white; /* Ensures text is visible on the blue background */
         }
 
         header {
@@ -24,6 +24,7 @@
         header img {
             height: 50px;
             border-radius: 50%;
+            cursor: pointer; /* Makes logo clickable */
         }
 
         nav a {
@@ -171,8 +172,10 @@
 <body>
 
     <header>
-        <!-- Updated Finvare Logo -->
-        <img src="finvare-logo.png" alt="Finvare Logo"> 
+        <!-- Finvare Logo (Clickable to go to Home Page) -->
+        <a href="https://finvare.com">
+            <img src="finvare-logo.png" alt="Finvare Logo"> <!-- Replace with correct logo -->
+        </a>
         <nav>
             <a href="#home">Home</a>
             <a href="#services">Services</a>

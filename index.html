@@ -21,7 +21,8 @@
         }
 
         header img {
-            height: 40px;
+            height: 50px;
+            border-radius: 50%;
         }
 
         nav a {
@@ -123,12 +124,32 @@
         .apply-now-btn:hover {
             background-color: #003366;
         }
+
+        .services-list {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .services-list span {
+            padding: 10px 20px;
+            background-color: #f0f4f8;
+            border-radius: 6px;
+            border: 1px solid #002147;
+            cursor: pointer;
+        }
+
+        .services-list span:hover {
+            background-color: #003366;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="logo.png" alt="Finvare Logo">
+        <img src="finvare-logo.png" alt="Finvare Logo"> <!-- Updated logo -->
         <nav>
             <a href="#home">Home</a>
             <a href="#services">Services</a>
@@ -142,10 +163,14 @@
     </section>
 
     <section id="contact" class="contact">
+        <h2>Contact Us</h2>
         <a href="https://wa.me/919509000080" target="_blank">📱 +91 9509000080</a>
         <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
         <div class="icons">
-            <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">▶️</a>
+            <!-- Updated YouTube Icon -->
+            <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/YouTube_icon_%282013-2017%29.png" alt="YouTube">
+            </a>
         </div>
     </section>
 
@@ -173,6 +198,12 @@
             <span>Mirae Asset</span>
             <span>Lendingplate</span>
             <span>Poonawalla Fincorp</span>
+        </div>
+
+        <!-- Services List (Personal & Home Loan) -->
+        <div class="services-list">
+            <span>Personal Loan</span>
+            <span>Home Loan</span>
         </div>
 
         <a href="apply.html" style="text-decoration:none;">

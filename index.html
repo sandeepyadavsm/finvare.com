@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Finvare - Smart Financial Partner</title>
-  <link rel="icon" href="logo.png" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,6 +10,7 @@
       background: linear-gradient(to right, #1e3c72, #2a5298);
       color: white;
     }
+
     header {
       background-color: #003366;
       padding: 20px;
@@ -18,117 +18,128 @@
       justify-content: space-between;
       align-items: center;
     }
-    .logo-text {
-      font-size: 24px;
-      font-weight: bold;
-      color: white;
-      text-decoration: none;
-    }
+
     nav a {
       color: white;
       margin-left: 20px;
       text-decoration: none;
       font-weight: bold;
     }
+
     nav a:hover {
       text-decoration: underline;
     }
+
     .hero {
       text-align: center;
-      padding: 80px 20px;
+      padding: 60px 20px 40px;
       background-color: #f4f4f4;
-    }
-    .hero h1 {
-      font-size: 3em;
       color: #003366;
     }
-    .hero p {
-      font-size: 1.5em;
-      color: #666;
+
+    .hero h1 {
+      font-size: 2.8em;
+      margin-bottom: 10px;
     }
+
     .services {
       text-align: center;
-      padding: 50px 20px;
+      padding: 40px 20px;
       background-color: white;
-    }
-    .services h2 {
-      font-size: 2em;
       color: #003366;
     }
-    .service-options {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-top: 30px;
+
+    .services h2 {
+      font-size: 2em;
+      margin-bottom: 30px;
     }
-    .service-options span {
+
+    .services .service-options span {
+      display: inline-block;
       padding: 15px 30px;
       background-color: #003366;
       color: white;
       font-size: 1.2em;
       border-radius: 6px;
+      margin: 10px;
       cursor: pointer;
     }
-    .service-details {
+
+    .services .service-details {
       display: none;
       margin-top: 20px;
-      color: #003366;
-      background-color: #e7f0f7;
-      padding: 20px;
-      border-radius: 8px;
+      color: #444;
+      font-size: 1em;
     }
+
     .partners {
-      background-color: #e6f2ff;
-      padding: 50px 20px;
-      text-align: center;
-    }
-    .partners h2 {
+      background-color: #e0f0ff;
       color: #003366;
-      font-size: 2em;
+      padding: 50px 20px;
     }
+
+    .partners h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
     .partner-names {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 15px;
-      margin-top: 30px;
     }
+
     .partner-names span {
-      font-weight: bold;
       background-color: white;
       color: #003366;
-      padding: 10px 18px;
-      border-radius: 8px;
+      font-weight: bold;
+      padding: 10px 16px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+
     .emi-calculator {
       background-color: white;
+      color: #003366;
       padding: 40px 20px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
     }
-    .emi-box {
-      background-color: #f4f4f4;
-      padding: 20px;
-      border-radius: 8px;
-      width: 300px;
+
+    .emi-form {
+      flex: 1;
+      min-width: 250px;
+      max-width: 600px;
     }
-    .emi-box label,
-    .emi-box input {
+
+    .emi-form label {
       display: block;
-      margin: 10px 0;
-      color: #003366;
+      margin: 10px 0 5px;
+    }
+
+    .emi-form input {
       width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
     }
-    .emi-box input {
-      padding: 8px;
-    }
-    .contact a {
-      display: block;
-      margin: 10px 0;
+
+    .emi-result {
+      flex: 1;
+      min-width: 250px;
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #f2f2f2;
+      border-radius: 8px;
       color: #003366;
-      font-size: 1.2em;
+      font-size: 1.5em;
+      font-weight: bold;
     }
-    footer {
+
+    .footer {
       background-color: #003366;
       color: white;
       display: flex;
@@ -136,44 +147,64 @@
       justify-content: space-around;
       padding: 40px 20px;
     }
-    footer .column {
+
+    .footer .column {
       width: 200px;
-      margin-bottom: 20px;
+      margin: 10px;
     }
-    footer .column h3 {
-      color: #ff6600;
+
+    .footer .column h3 {
+      color: #ff9900;
     }
-    footer .column a,
-    footer .column p {
+
+    .footer .column a {
       color: white;
       text-decoration: none;
-      margin: 8px 0;
       display: block;
+      margin-top: 10px;
     }
-    .youtube-icon {
-      font-size: 18px;
-      color: red;
-      font-weight: bold;
+
+    .footer .column a:hover {
+      color: #ff9900;
     }
-    .apply-now-btn {
-      background-color: #003366;
+
+    .footer-bottom {
+      background-color: #001f3f;
       color: white;
-      padding: 12px 24px;
-      font-size: 16px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .apply-btn {
+      background-color: #ff9900;
+      color: #003366;
+      padding: 10px 20px;
+      font-weight: bold;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      margin-left: 20px;
+    }
+
+    .apply-btn:hover {
+      background-color: #e68a00;
+    }
+
+    .youtube-icon {
+      font-size: 18px;
+      color: red;
     }
   </style>
 </head>
 <body>
+
   <header>
-    <a href="https://finvare.com" class="logo-text">Finvare.com</a>
+    <div style="font-size: 24px; font-weight: bold; cursor: pointer;">
+      <a href="https://finvare.com" style="color: white; text-decoration: none;">Finvare.com</a>
+    </div>
     <nav>
       <a href="#home">Home</a>
       <a href="#services">Services</a>
-      <a href="emi_calculator.html" class="apply-now-btn">Apply Now</a>
+      <a href="#apply">Apply Now</a>
     </nav>
   </header>
 
@@ -189,24 +220,28 @@
       <span onclick="toggleDetails('home')">Home Loan</span>
     </div>
     <div id="personal" class="service-details">
-      <p>Get personal loans at competitive interest rates and fast approval.</p>
+      <p>We provide instant personal loans with minimum documentation and fast approvals.</p>
     </div>
     <div id="home" class="service-details">
-      <p>Make your dream home a reality with our easy home loan services.</p>
+      <p>Get the best home loan offers with attractive interest rates and easy EMI plans.</p>
     </div>
   </section>
 
-  <section class="emi-calculator">
-    <div class="emi-box">
-      <h3 style="color: #003366;">Loan EMI Calculator</h3>
-      <label>Loan Amount</label>
-      <input type="number" id="amount" />
-      <label>Interest Rate (Annual %)</label>
-      <input type="number" id="rate" />
-      <label>Tenure (Years)</label>
-      <input type="number" id="tenure" />
-      <p><strong>Monthly EMI: ₹<span id="emi">0</span></strong></p>
+  <section id="emi" class="emi-calculator">
+    <div class="emi-form">
+      <h2>Loan EMI Calculator</h2>
+      <label for="amount">Loan Amount (₹):</label>
+      <input type="number" id="amount" placeholder="e.g. 100000">
+
+      <label for="rate">Interest Rate (%):</label>
+      <input type="number" id="rate" placeholder="e.g. 10">
+
+      <label for="tenure">Loan Tenure (Years):</label>
+      <input type="number" id="tenure" placeholder="e.g. 2">
+
+      <button class="apply-btn" onclick="calculateEMI()">Calculate EMI</button>
     </div>
+    <div class="emi-result" id="emi-result">Your Monthly EMI: ₹0</div>
   </section>
 
   <section class="partners">
@@ -228,24 +263,21 @@
     </div>
   </section>
 
-  <footer>
+  <footer class="footer">
     <div class="column">
-      <h3><a href="https://finvare.com" style="color: #ff6600;">Finvare.com</a></h3>
-      <p>Your trusted financial partner.</p>
+      <h3>Finvare.com</h3>
+      <a href="https://finvare.com">Visit Homepage</a>
     </div>
     <div class="column">
       <h3>Quick Links</h3>
       <a href="#home">Home</a>
       <a href="#services">Services</a>
-      <a href="emi_calculator.html">Apply Now</a>
     </div>
     <div class="column">
       <h3>Contact Us</h3>
-      <a href="tel:+919509000080">📱 +91 9509000080</a>
       <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
-      <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">
-        <span class="youtube-icon">▶️ YouTube</span>
-      </a>
+      <a href="https://wa.me/919509000080">📱 +91 9509000080</a>
+      <a href="https://youtube.com/@finvare" class="youtube-icon">▶️ YouTube</a>
     </div>
     <div class="column">
       <h3>Address</h3>
@@ -253,35 +285,32 @@
     </div>
   </footer>
 
-  <footer style="background-color: #002244; text-align: center; padding: 10px;">
-    © 2025 Finvare Capital Private Limited All Rights Reserved.<br />
-    Created by Sandeep Yadav
-  </footer>
+  <div class="footer-bottom">
+    © 2025 Finvare Capital Private Limited. All Rights Reserved. | Created by Sandeep Yadav
+  </div>
 
   <script>
-    function toggleDetails(id) {
-      document.querySelectorAll(".service-details").forEach((el) => (el.style.display = "none"));
-      document.getElementById(id).style.display = "block";
-    }
-
-    function calculateEMI() {
-      const amount = parseFloat(document.getElementById("amount").value);
-      const rate = parseFloat(document.getElementById("rate").value) / 12 / 100;
-      const tenure = parseFloat(document.getElementById("tenure").value) * 12;
-
-      if (amount && rate && tenure) {
-        const emi =
-          (amount * rate * Math.pow(1 + rate, tenure)) /
-          (Math.pow(1 + rate, tenure) - 1);
-        document.getElementById("emi").innerText = emi.toFixed(2);
-      } else {
-        document.getElementById("emi").innerText = "0";
+    function toggleDetails(serviceId) {
+      const services = document.querySelectorAll('.service-details');
+      services.forEach(service => {
+        service.style.display = 'none';
+      });
+      const selected = document.getElementById(serviceId);
+      if (selected) {
+        selected.style.display = 'block';
       }
     }
 
-    document.getElementById("amount").addEventListener("input", calculateEMI);
-    document.getElementById("rate").addEventListener("input", calculateEMI);
-    document.getElementById("tenure").addEventListener("input", calculateEMI);
+    function calculateEMI() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const rate = parseFloat(document.getElementById('rate').value);
+      const tenure = parseFloat(document.getElementById('tenure').value);
+      const monthlyRate = rate / 12 / 100;
+      const months = tenure * 12;
+      const emi = (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+      const result = document.getElementById('emi-result');
+      result.textContent = isFinite(emi) ? `Your Monthly EMI: ₹${emi.toFixed(2)}` : 'Please enter valid inputs.';
+    }
   </script>
 </body>
 </html>

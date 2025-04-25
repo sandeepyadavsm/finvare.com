@@ -1,298 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Finvare - Smart Financial Partner</title>
-  <link rel="icon" href="logo.png">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: linear-gradient(to right, #1e3c72, #2a5298);
-      color: white;
-    }
-    header {
-      background-color: #003366;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-    }
-    .logo-text {
-      font-size: 24px;
-      font-weight: bold;
-      color: white;
-      text-decoration: none;
-    }
-    nav a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
-      background-color: #f4f4f4;
-      color: #003366;
-    }
-    .hero h1 {
-      font-size: 3em;
-    }
-    .hero p {
-      font-size: 1.5em;
-      color: #666;
-    }
-    .services {
-      text-align: center;
-      padding: 50px 20px;
-      background-color: white;
-    }
-    .services h2 {
-      font-size: 2em;
-      color: #003366;
-    }
-    .services .service-options {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin-top: 30px;
-    }
-    .services .service-options span {
-      padding: 15px 30px;
-      background-color: #003366;
-      color: white;
-      font-size: 1.2em;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .services .service-options span:hover {
-      background-color: #004080;
-    }
-    .apply-now-btn {
-      background-color: #003366;
-      color: white;
-      padding: 12px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .apply-now-btn:hover {
-      background-color: #004080;
-    }
-    .partners {
-      padding: 50px 20px;
-      background-color: #f7f7f7;
-      text-align: center;
-    }
-    .partners h2 {
-      color: #003366;
-    }
-    .partners p {
-      color: #666;
-      margin-bottom: 30px;
-    }
-    .partner-names {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-    }
-    .partner-names span {
-      color: #003366;
-      font-weight: bold;
-      font-size: 1.1em;
-      border: 1px solid #003366;
-      padding: 8px 14px;
-      border-radius: 8px;
-      background-color: #e7f0f7;
-    }
-    .contact {
-      padding: 50px 20px;
-      text-align: center;
-      background-color: white;
-    }
-    .contact h2 {
-      font-size: 2em;
-      color: #003366;
-    }
-    .contact a {
-      display: block;
-      margin: 10px 0;
-      color: #003366;
-      font-size: 1.2em;
-    }
-    .contact a:hover {
-      color: #004080;
-    }
-    .youtube-icon {
-      font-size: 24px;
-      color: #ff0000;
-    }
-    footer {
-      background-color: #003366;
-      color: white;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      padding: 40px 20px;
-      font-size: 1.1em;
-    }
-    footer .column {
-      width: 22%;
-      margin-bottom: 20px;
-    }
-    footer .column h3 {
-      color: #ff6600;
-    }
-    footer .column a {
-      color: white;
-      text-decoration: none;
-      display: block;
-      margin: 8px 0;
-    }
-    footer .column a:hover {
-      color: #ff6600;
-    }
-    .copyright {
-      background-color: #002244;
-      text-align: center;
-      padding: 15px;
-      font-size: 0.9em;
-      color: #ccc;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Finvare - Smart Financial Partner</title>
+    <link rel="icon" href="logo.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+        }
+        header {
+            background-color: #003366;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav a {
+            color: white;
+            margin-left: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background-color: #f4f4f4;
+        }
+        .hero h1 {
+            font-size: 3em;
+            color: #003366;
+        }
+        .hero p {
+            font-size: 1.5em;
+            color: #666;
+        }
+        .services {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: white;
+        }
+        .services h2 {
+            font-size: 2em;
+            color: #003366;
+        }
+        .services .service-options {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .services .service-options span {
+            padding: 15px 30px;
+            background-color: #003366;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .service-detail {
+            display: none;
+            margin-top: 20px;
+            color: #003366;
+            font-weight: bold;
+        }
+        .partners, .contact {
+            padding: 50px 20px;
+            text-align: center;
+            background-color: #f7f7f7;
+        }
+        .partners h2, .contact h2 {
+            color: #003366;
+        }
+        .partner-names {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .partner-names span {
+            color: #003366;
+            font-weight: bold;
+            font-size: 1.1em;
+            border: 1px solid #003366;
+            padding: 8px 14px;
+            border-radius: 8px;
+            background-color: #e7f0f7;
+        }
+        .calculator {
+            display: flex;
+            justify-content: flex-end;
+            background-color: white;
+            padding: 40px 20px;
+        }
+        .calculator-box {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            color: #003366;
+        }
+        .calculator-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .apply-now-btn {
+            background-color: #003366;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .apply-now-btn:hover {
+            background-color: #004080;
+        }
+        footer {
+            background-color: #003366;
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 40px 20px;
+            flex-wrap: wrap;
+        }
+        footer .column {
+            width: 22%;
+        }
+        footer .column h3 {
+            color: #ff6600;
+        }
+        footer .column a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+        }
+        footer .column a:hover {
+            color: #ff6600;
+        }
+        .youtube-icon {
+            font-size: 18px;
+            color: red;
+        }
+    </style>
+    <script>
+        function toggleService(id) {
+            const elem = document.getElementById(id);
+            elem.style.display = (elem.style.display === "none") ? "block" : "none";
+        }
+
+        function calculateEMI() {
+            const principal = parseFloat(document.getElementById("loanAmount").value);
+            const rate = parseFloat(document.getElementById("interestRate").value) / 12 / 100;
+            const years = parseFloat(document.getElementById("tenure").value);
+            const n = years * 12;
+            const emi = (principal * rate * Math.pow(1 + rate, n)) / (Math.pow(1 + rate, n) - 1);
+            document.getElementById("emiResult").innerText = "EMI: ₹" + (emi ? emi.toFixed(2) : "0.00");
+        }
+    </script>
 </head>
 <body>
 
-<header>
-  <a href="https://finvare.com" class="logo-text">Finvare.com</a>
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact Us</a>
-  </nav>
-</header>
+    <header>
+        <h1>Finvare.com</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="emi_calculator.html" class="apply-now-btn">Apply Now</a>
+        </nav>
+    </header>
 
-<section id="home" class="hero">
-  <h1>Welcome to Finvare</h1>
-  <p>Your Smart Financial Partner</p>
-</section>
+    <section id="home" class="hero">
+        <h1>Welcome to Finvare</h1>
+        <p>Your Smart Financial Partner</p>
+    </section>
 
-<section id="services" class="services">
-  <h2>Our Services</h2>
-  <div class="service-options">
-    <span>Personal Loan</span>
-    <span>Home Loan</span>
-  </div>
-  <a href="#emi-calculator" style="text-decoration:none;">
-    <button class="apply-now-btn">Apply Now</button>
-  </a>
-</section>
+    <section id="services" class="services">
+        <h2>Our Services</h2>
+        <div class="service-options">
+            <span onclick="toggleService('personalDetail')">Personal Loan</span>
+            <span onclick="toggleService('homeDetail')">Home Loan</span>
+        </div>
+        <div id="personalDetail" class="service-detail">Details about Personal Loan</div>
+        <div id="homeDetail" class="service-detail">Details about Home Loan</div>
+    </section>
 
-<section id="emi-calculator" style="background-color: white; color: #003366; padding: 50px 20px; text-align: center;">
-  <h2 style="font-size: 2em; margin-bottom: 30px;">Loan EMI Calculator</h2>
-  <div style="max-width: 400px; margin: 0 auto; text-align: left;">
-    <label>Loan Amount (₹):</label><br>
-    <input type="number" id="loanAmount" placeholder="Enter loan amount" style="width:100%; padding:10px; margin:10px 0;"><br>
-    <label>Annual Interest Rate (%):</label><br>
-    <input type="number" id="interestRate" placeholder="Enter interest rate" step="0.01" style="width:100%; padding:10px; margin:10px 0;"><br>
-    <label>Loan Tenure (in Years):</label><br>
-    <input type="number" id="loanTenure" placeholder="Enter tenure in years" style="width:100%; padding:10px; margin:10px 0;"><br>
-    <h3 style="margin-top: 20px;">Estimated EMI: ₹ <span id="emiResult">0</span></h3>
-  </div>
-</section>
+    <section class="calculator">
+        <div class="calculator-box">
+            <h2>Loan EMI Calculator</h2>
+            <input type="number" id="loanAmount" placeholder="Loan Amount" oninput="calculateEMI()">
+            <input type="number" id="interestRate" placeholder="Rate of Interest" oninput="calculateEMI()">
+            <input type="number" id="tenure" placeholder="Tenure in Years" oninput="calculateEMI()">
+            <div id="emiResult">EMI: ₹0.00</div>
+        </div>
+    </section>
 
-<script>
-  const loanAmount = document.getElementById('loanAmount');
-  const interestRate = document.getElementById('interestRate');
-  const loanTenure = document.getElementById('loanTenure');
-  const emiResult = document.getElementById('emiResult');
+    <section class="partners">
+        <h2>Our Partners</h2>
+        <div class="partner-names">
+            <span>IndusInd Bank</span>
+            <span>HDFC Bank</span>
+            <span>Axis Finance</span>
+            <span>Bajaj Finserv</span>
+            <span>ICICI Bank</span>
+            <span>IDFC Bank</span>
+            <span>Tata Capital</span>
+        </div>
+    </section>
 
-  function calculateEMI() {
-    const principal = parseFloat(loanAmount.value);
-    const annualInterest = parseFloat(interestRate.value);
-    const years = parseFloat(loanTenure.value);
-
-    if (!principal || !annualInterest || !years) {
-      emiResult.textContent = "0";
-      return;
-    }
-
-    const monthlyInterest = annualInterest / 12 / 100;
-    const totalMonths = years * 12;
-
-    const emi = (principal * monthlyInterest * Math.pow(1 + monthlyInterest, totalMonths)) /
-                (Math.pow(1 + monthlyInterest, totalMonths) - 1);
-
-    emiResult.textContent = emi ? emi.toFixed(2) : "0";
-  }
-
-  loanAmount.addEventListener('input', calculateEMI);
-  interestRate.addEventListener('input', calculateEMI);
-  loanTenure.addEventListener('input', calculateEMI);
-</script>
-
-<section id="partners" class="partners">
-  <h2>Our Partners</h2>
-  <p>We collaborate with diverse banks and NBFCs to offer you the best solutions.</p>
-  <div class="partner-names">
-    <span>IndusInd Bank</span>
-    <span>HDFC Bank</span>
-    <span>Axis Bank</span>
-    <span>Axis Finance</span>
-    <span>Bajaj Finserv</span>
-    <span>ICICI Bank</span>
-    <span>IDFC Bank</span>
-    <span>Tata Capital</span>
-    <span>Aditya Birla Capital</span>
-    <span>Poonawalla Fincorp</span>
-  </div>
-</section>
-
-<section id="contact" class="contact">
-  <h2>Contact Us</h2>
-  <a href="https://wa.me/919509000080" target="_blank">📱 +91 9509000080</a>
-  <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
-  <div class="icons">
-    <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">
-      <span class="youtube-icon">▶️ YouTube</span>
-    </a>
-  </div>
-</section>
-
-<footer>
-  <div class="column">
-    <h3>About Company</h3>
-    <p>Our company is a leading loan provider dedicated to offering tailored financial solutions.</p>
-  </div>
-  <div class="column">
-    <h3>Quick Links</h3>
-    <a href="#home">Home</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact Us</a>
-  </div>
-  <div class="column">
-    <h3>Contact Us</h3>
-    <p>📞 +91 9509000080</p>
-    <p>📧 care@finvare.com</p>
-  </div>
-  <div class="column">
-    <h3>Address</h3>
-    <p>Ward No 1, Patan</p>
-  </div>
-</footer>
-
-<div class="copyright">
-  © 2025 Finvare Capital Private Limited. All Rights Reserved.<br>
-  Created by Sandeep Yadav
-</div>
+    <footer>
+        <div class="column">
+            <h3><a href="https://finvare.com" style="color: white;">Finvare.com</a></h3>
+            <p>We are a leading loan provider offering tailored financial solutions with transparency and customer focus.</p>
+        </div>
+        <div class="column">
+            <h3>Quick Links</h3>
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+        </div>
+        <div class="column">
+            <h3>Contact Us</h3>
+            <p>📱 <a href="https://wa.me/919509000080" target="_blank">+91 9509000080</a></p>
+            <p>📧 <a href="mailto:care@finvare.com">care@finvare.com</a></p>
+            <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">
+                <span class="youtube-icon">▶️ YouTube</span>
+            </a>
+        </div>
+        <div class="column">
+            <h3>Address</h3>
+            <p>Ward No 1, Patan</p>
+        </div>
+    </footer>
 
 </body>
 </html>

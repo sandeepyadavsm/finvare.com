@@ -1,289 +1,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Finvare - Smart Financial Partner</title>
-    <link rel="icon" href="logo.png">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: linear-gradient(to right, #1e3c72, #2a5298);
-            color: white;
-        }
+  <meta charset="UTF-8" />
+  <title>Finvare - Smart Financial Partner</title>
+  <link rel="icon" href="logo.png" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      color: white;
+    }
 
-        header {
-            background-color: #003366;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-        }
+    header {
+      background-color: #003366;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
 
-        header img {
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
+    .logo-text {
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        nav a {
-            color: white;
-            margin-left: 20px;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-        nav a:hover {
-            text-decoration: underline;
-        }
+    nav a:hover {
+      text-decoration: underline;
+    }
 
-        .hero {
-            text-align: center;
-            padding: 80px 20px;
-            background-color: #f4f4f4;
-            color: #003366;
-        }
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background-color: #f4f4f4;
+    }
 
-        .hero h1 {
-            font-size: 3em;
-        }
+    .hero h1 {
+      font-size: 3em;
+      color: #003366;
+    }
 
-        .hero p {
-            font-size: 1.5em;
-            color: #666;
-        }
+    .hero p {
+      font-size: 1.5em;
+      color: #666;
+    }
 
-        .services {
-            text-align: center;
-            padding: 50px 20px;
-            background-color: white;
-            color: #003366;
-        }
+    .services {
+      text-align: center;
+      padding: 50px 20px;
+      background-color: white;
+    }
 
-        .services h2 {
-            font-size: 2em;
-        }
+    .services h2 {
+      font-size: 2em;
+      color: #003366;
+    }
 
-        .service-options {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 30px;
-        }
+    .service-options {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+    }
 
-        .service-options span {
-            padding: 15px 30px;
-            background-color: #003366;
-            color: white;
-            font-size: 1.2em;
-            border-radius: 6px;
-            cursor: pointer;
-        }
+    .service-options span {
+      padding: 15px 30px;
+      background-color: #003366;
+      color: white;
+      font-size: 1.2em;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-        .service-options span:hover {
-            background-color: #004080;
-        }
+    .service-options span:hover {
+      background-color: #004080;
+    }
 
-        .apply-now-btn {
-            background-color: #003366;
-            color: white;
-            padding: 12px 24px;
-            font-size: 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
+    .partners {
+      padding: 50px 20px;
+      background-color: #f7f7f7;
+      text-align: center;
+    }
 
-        .apply-now-btn:hover {
-            background-color: #004080;
-        }
+    .partners h2 {
+      color: #003366;
+    }
 
-        .partners {
-            padding: 50px 20px;
-            background-color: #f7f7f7;
-            color: #003366;
-            text-align: center;
-        }
+    .partners p {
+      color: #666;
+      margin-bottom: 30px;
+    }
 
-        .partners h2 {
-            margin-bottom: 10px;
-        }
+    .partner-names {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
 
-        .partner-names {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
+    .partner-names span {
+      color: #003366;
+      font-weight: bold;
+      font-size: 1.1em;
+      border: 1px solid #003366;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background-color: #e7f0f7;
+    }
 
-        .partner-names span {
-            font-weight: bold;
-            font-size: 1.1em;
-            border: 1px solid #003366;
-            padding: 8px 14px;
-            border-radius: 8px;
-            background-color: #e7f0f7;
-            color: #003366;
-        }
+    .contact {
+      padding: 50px 20px;
+      text-align: center;
+      background-color: white;
+    }
 
-        .emi-section {
-            padding: 50px 20px;
-            background-color: white;
-            color: #003366;
-            text-align: center;
-        }
+    .contact h2 {
+      font-size: 2em;
+      color: #003366;
+    }
 
-        .emi-section h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
-        }
+    .contact a {
+      display: block;
+      margin: 10px 0;
+      color: #003366;
+      font-size: 1.2em;
+    }
 
-        .emi-section p {
-            font-size: 1.1em;
-        }
+    .contact a:hover {
+      color: #004080;
+    }
 
-        .contact {
-            padding: 50px 20px;
-            text-align: center;
-            background-color: white;
-            color: #003366;
-        }
+    .icons .youtube-icon {
+      font-size: 24px;
+      color: #ff0000;
+    }
 
-        .contact a {
-            display: block;
-            margin: 10px 0;
-            color: #003366;
-            font-size: 1.2em;
-        }
+    .emi-calculator {
+      padding: 40px 20px;
+      background-color: white;
+      color: #003366;
+      text-align: center;
+    }
 
-        .contact a:hover {
-            color: #004080;
-        }
+    .emi-calculator input {
+      padding: 10px;
+      margin: 10px;
+      width: 200px;
+    }
 
-        .youtube-icon {
-            font-size: 24px;
-            color: #ff0000;
-        }
+    .emi-calculator button {
+      padding: 10px 20px;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-        footer {
-            background-color: #003366;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            padding: 40px 20px;
-            font-size: 1.1em;
-            flex-wrap: wrap;
-        }
+    .emi-calculator button:hover {
+      background-color: #004080;
+    }
 
-        footer .column {
-            width: 30%;
-            margin: 10px 0;
-        }
+    .emi-result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 1.4em;
+    }
 
-        footer .column h3 {
-            color: #ff6600;
-        }
+    footer {
+      background-color: #003366;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 20px;
+      font-size: 1.1em;
+      flex-wrap: wrap;
+    }
 
-        footer .column a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            margin: 8px 0;
-        }
+    footer .column {
+      width: 30%;
+      margin: 10px 0;
+    }
 
-        footer .column a:hover {
-            color: #ff6600;
-        }
+    footer .column h3 {
+      color: #ff6600;
+    }
 
-        .bottom-footer {
-            text-align: center;
-            background-color: #001f4d;
-            color: white;
-            padding: 15px;
-            font-size: 0.9em;
-        }
-    </style>
+    footer .column a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      margin: 8px 0;
+    }
+
+    footer .column a:hover {
+      color: #ff6600;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      background-color: #002244;
+      padding: 15px;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <a href="https://finvare.com">
-        <img src="finvare-logo.png" alt="Finvare Logo">
-    </a>
+  <header>
+    <div onclick="window.location.href='https://finvare.com'" class="logo-text">Finvare.com</div>
     <nav>
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact Us</a>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact Us</a>
     </nav>
-</header>
+  </header>
 
-<section id="home" class="hero">
+  <section id="home" class="hero">
     <h1>Welcome to Finvare</h1>
     <p>Your Smart Financial Partner</p>
-</section>
+  </section>
 
-<section id="services" class="services">
+  <section id="services" class="services">
     <h2>Our Services</h2>
     <div class="service-options">
-        <span>Personal Loan</span>
-        <span>Home Loan</span>
+      <span>Personal Loan</span>
+      <span>Home Loan</span>
     </div>
-    <button class="apply-now-btn">Apply Now</button>
-</section>
+    <a href="#emi" style="text-decoration: none;">
+      <button class="apply-now-btn">Apply Now</button>
+    </a>
+  </section>
 
-<section class="emi-section">
+  <section id="emi" class="emi-calculator">
     <h2>Loan EMI Calculator</h2>
-    <p>Coming Soon: Calculate your monthly installments with ease.</p>
-</section>
+    <input type="number" id="amount" placeholder="Loan Amount (₹)" />
+    <input type="number" id="rate" placeholder="Annual Interest Rate (%)" />
+    <input type="number" id="years" placeholder="Loan Tenure (Years)" />
+    <br />
+    <button onclick="calculateEMI()">Calculate EMI</button>
+    <div id="emi-output" class="emi-result"></div>
+  </section>
 
-<section id="partners" class="partners">
+  <section id="partners" class="partners">
     <h2>Our Partners</h2>
-    <p>We collaborate with trusted banks and NBFCs to offer the best solutions.</p>
+    <p>We collaborate with top financial institutions to bring you the best solutions.</p>
     <div class="partner-names">
-        <span>IndusInd Bank</span>
-        <span>HDFC Bank</span>
-        <span>Axis Bank</span>
-        <span>L&T Finance</span>
-        <span>Aditya Birla Capital</span>
-        <span>Poonawalla Fincorp</span>
-        <span>Axis Finance</span>
-        <span>Bajaj Finserv</span>
-        <span>ICICI Bank</span>
-        <span>IDFC Bank</span>
-        <span>Tata Capital</span>
+      <span>IndusInd Bank</span>
+      <span>HDFC Bank</span>
+      <span>Axis Bank</span>
+      <span>Axis Finance</span>
+      <span>Bajaj Finserv</span>
+      <span>ICICI Bank</span>
+      <span>IDFC Bank</span>
+      <span>Tata Capital</span>
+      <span>Poonawalla Fincorp</span>
+      <span>Aditya Birla Capital</span>
+      <span>L&T Finance</span>
     </div>
-</section>
+  </section>
 
-<section id="contact" class="contact">
+  <section id="contact" class="contact">
     <h2>Contact Us</h2>
     <a href="https://wa.me/919509000080" target="_blank">📱 +91 9509000080</a>
     <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
-    <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank" class="youtube-icon">▶️ YouTube</a>
-</section>
+    <div class="icons">
+      <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">
+        <span class="youtube-icon">▶️ YouTube</span>
+      </a>
+    </div>
+  </section>
 
-<footer>
+  <footer>
     <div class="column">
-        <h3>About Company</h3>
-        <p>Our company is a leading loan provider dedicated to offering tailored financial solutions. With a focus on transparency, flexibility, and customer satisfaction.</p>
+      <h3>About Company</h3>
+      <p>Our company is a leading loan provider dedicated to offering tailored financial solutions. With a focus on transparency, flexibility, and customer satisfaction.</p>
     </div>
     <div class="column">
-        <h3>Quick Links</h3>
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact Us</a>
+      <h3>Quick Links</h3>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact Us</a>
     </div>
     <div class="column">
-        <h3>Address</h3>
-        <p>Ward No 1, Patan</p>
+      <h3>Address</h3>
+      <p>Ward No 1, Patan</p>
     </div>
-</footer>
+  </footer>
 
-<div class="bottom-footer">
-    © 2025 Finvare Capital Private Limited. All Rights Reserved. | Created by Sandeep Yadav
-</div>
+  <div class="footer-bottom">
+    © 2025 Finvare Capital Private Limited. All Rights Reserved. <br />
+    Created by Sandeep Yadav
+  </div>
+
+  <script>
+    function calculateEMI() {
+      const P = parseFloat(document.getElementById('amount').value);
+      const R = parseFloat(document.getElementById('rate').value) / 12 / 100;
+      const N = parseFloat(document.getElementById('years').value) * 12;
+
+      if (P && R && N) {
+        const emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+        document.getElementById('emi-output').innerText = `Your EMI is ₹${emi.toFixed(2)} per month`;
+      } else {
+        document.getElementById('emi-output').innerText = 'Please enter all values correctly.';
+      }
+    }
+  </script>
 
 </body>
 </html>

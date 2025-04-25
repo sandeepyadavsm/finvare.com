@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Finvare - Smart Financial Partner</title>
   <style>
     body {
@@ -17,6 +18,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .logo-text {
@@ -68,6 +70,7 @@
       justify-content: center;
       gap: 20px;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
 
     .service-options span {
@@ -85,85 +88,36 @@
       color: #444;
     }
 
-    .apply-now-form {
-      display: none;
-      background-color: #ffffff;
-      color: #003366;
-      padding: 30px;
-      margin: 20px auto;
-      max-width: 500px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-
-    .apply-now-form h3 {
-      margin-bottom: 20px;
-      border-bottom: 2px solid #e91e63;
-      padding-bottom: 10px;
-    }
-
-    .apply-now-form label {
-      font-weight: bold;
-      display: block;
-      margin-top: 15px;
-    }
-
-    .apply-now-form input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .apply-now-form button {
-      margin-top: 20px;
-      background-color: #003366;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .emi-section {
+    .form-section {
       background-color: #f4f8ff;
       color: #222;
       padding: 40px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
+      display: none;
     }
 
-    .emi-form,
-    .emi-output {
+    .form-container {
+      max-width: 500px;
+      margin: auto;
       background: white;
-      padding: 25px;
+      padding: 30px;
       border-radius: 10px;
-      flex: 1 1 300px;
-      max-width: 400px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    .emi-form h3,
-    .emi-output h3 {
+    .form-container h3 {
       color: #1e3c72;
-      margin-bottom: 15px;
-      border-bottom: 2px solid #e91e63;
-      display: inline-block;
-      padding-bottom: 5px;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
-    .emi-form label {
+    .form-container label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
       color: #444;
     }
 
-    .emi-form input {
+    .form-container input {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -171,15 +125,35 @@
       border-radius: 4px;
     }
 
-    .emi-output div {
-      margin-top: 15px;
-      font-size: 16px;
+    .form-container button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #1e3c72;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
     }
 
-    .emi-output strong {
-      color: #1e3c72;
-      font-size: 22px;
-      display: block;
+    .form-container button:hover {
+      background-color: #003366;
+    }
+
+    .send-options {
+      display: none;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .send-options a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background: #28a745;
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
     }
 
     .partners {
@@ -246,6 +220,25 @@
       padding: 10px 20px;
       font-size: 14px;
     }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .service-options {
+        flex-direction: column;
+      }
+
+      .form-container {
+        padding: 20px;
+      }
+
+      .form-container button, .send-options a {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -278,44 +271,31 @@
     </div>
   </section>
 
-  <div id="apply-form" class="apply-now-form">
-    <h3>Get In Touch</h3>
-    <form onsubmit="sendForm(event)">
-      <label>Name</label>
-      <input type="text" id="name" required />
-      <label>Phone</label>
-      <input type="tel" id="phone" required />
-      <label>Company Name</label>
-      <input type="text" id="company" />
-      <label>Net Salary</label>
-      <input type="text" id="salary" />
-      <label>Email</label>
-      <input type="email" id="email" />
-      <label>Loan Amount</label>
-      <input type="number" id="loan" />
-      <label>Location</label>
-      <input type="text" id="location" />
-      <button type="submit">Submit</button>
-    </form>
-  </div>
+  <section id="apply" class="form-section">
+    <div class="form-container">
+      <h3>Get In Touch</h3>
+      <form id="applyForm">
+        <label>Name</label>
+        <input type="text" id="name" required />
+        <label>Phone</label>
+        <input type="tel" id="phone" required />
+        <label>Company Name</label>
+        <input type="text" id="company" />
+        <label>Net Salary</label>
+        <input type="text" id="salary" />
+        <label>Email</label>
+        <input type="email" id="email" />
+        <label>Loan Amount</label>
+        <input type="number" id="amount" />
+        <label>Location</label>
+        <input type="text" id="location" />
+        <button type="submit">Submit</button>
+      </form>
 
-  <section id="apply" class="emi-section">
-    <div class="emi-form">
-      <h3>Personal Loan EMI Calculator</h3>
-      <label>Amount</label>
-      <input type="number" id="amount" placeholder="e.g. 500000" />
-      <label>Interest Rate (%)</label>
-      <input type="number" id="rate" placeholder="e.g. 10.5" />
-      <label>Tenure (Years)</label>
-      <input type="number" id="tenure" placeholder="e.g. 5" />
-    </div>
-
-    <div class="emi-output">
-      <h3>Personal Loan EMI Calculator</h3>
-      <div>Monthly EMI: <strong id="monthly">₹ 0</strong></div>
-      <div>Principal Amount: <strong id="principal">₹ 0</strong></div>
-      <div>Total Interest Payable: <strong id="interest">₹ 0</strong></div>
-      <div>Total Amount Payable: <strong id="total">₹ 0</strong></div>
+      <div id="successBox" class="send-options">
+        <a id="emailLink" target="_blank">📧 Send to Email</a>
+        <a id="whatsappLink" target="_blank">📱 Send via WhatsApp</a>
+      </div>
     </div>
   </section>
 
@@ -369,54 +349,35 @@
   <script>
     function toggleDetail(id) {
       document.querySelectorAll('.service-detail').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.apply-now-form').forEach(el => el.style.display = 'none');
       document.getElementById(id).style.display = 'block';
-
-      if (id === 'personal') {
-        document.getElementById('apply-form').style.display = 'block';
-        document.getElementById('apply-form').scrollIntoView({ behavior: 'smooth' });
-      }
+      document.getElementById("apply").style.display = id === "personal" ? "block" : "none";
+      document.getElementById("successBox").style.display = "none";
     }
 
-    function calculateEMI() {
-      const amount = parseFloat(document.getElementById("amount").value) || 0;
-      const rate = parseFloat(document.getElementById("rate").value) || 0;
-      const tenure = parseFloat(document.getElementById("tenure").value) || 0;
-
-      const monthlyRate = rate / 12 / 100;
-      const months = tenure * 12;
-      const emi = (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
-                  (Math.pow(1 + monthlyRate, months) - 1);
-      const totalPayment = emi * months;
-      const interest = totalPayment - amount;
-
-      document.getElementById("monthly").innerText = `₹ ${emi ? emi.toFixed(2) : 0}`;
-      document.getElementById("principal").innerText = `₹ ${amount.toLocaleString()}`;
-      document.getElementById("interest").innerText = `₹ ${interest ? interest.toFixed(2) : 0}`;
-      document.getElementById("total").innerText = `₹ ${totalPayment ? totalPayment.toFixed(2) : 0}`;
-    }
-
-    document.querySelectorAll("#amount, #rate, #tenure").forEach(input =>
-      input.addEventListener("input", calculateEMI)
-    );
-
-    function sendForm(e) {
+    document.getElementById("applyForm").addEventListener("submit", function (e) {
       e.preventDefault();
+
       const name = document.getElementById("name").value;
       const phone = document.getElementById("phone").value;
       const company = document.getElementById("company").value;
       const salary = document.getElementById("salary").value;
       const email = document.getElementById("email").value;
-      const loan = document.getElementById("loan").value;
+      const amount = document.getElementById("amount").value;
       const location = document.getElementById("location").value;
 
-      const body = `Name: ${name}%0APhone: ${phone}%0ACompany: ${company}%0ASalary: ${salary}%0AEmail: ${email}%0ALoan Amount: ${loan}%0ALocation: ${location}`;
-      window.open(`https://wa.me/919509000080?text=${body}`, '_blank');
+      const message = `Name: ${name}%0APhone: ${phone}%0ACompany: ${company}%0ASalary: ${salary}%0AEmail: ${email}%0ALoan Amount: ${amount}%0ALocation: ${location}`;
+      const mailSubject = "New Loan Application";
+      const mailtoLink = `mailto:care@finvare.com?subject=${mailSubject}&body=${message}`;
+      const whatsappLink = `https://wa.me/919509000080?text=${message}`;
 
-      const mailto = `mailto:care@finvare.com?subject=New Loan Enquiry&body=${body}`;
-      window.location.href = mailto;
-    }
+      document.getElementById("emailLink").href = mailtoLink;
+      document.getElementById("whatsappLink").href = whatsappLink;
+      document.getElementById("successBox").style.display = "block";
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("apply").style.display = "none";
+    });
   </script>
-
 </body>
 </html>

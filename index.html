@@ -1,28 +1,93 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finvare</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Finvare</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 50px; }
-    h1 { color: #2c3e50; }
-    p { color: #555; }
-    a.button {
-      padding: 10px 20px;
-      background: #1abc9c;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      display: inline-block;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #ffffff;
+      color: #2c3e50;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 3em;
+      margin: 20px;
+      padding: 20px;
+      color: #1abc9c;
+      background-color: #ecf0f1;
+      border-radius: 10px;
+    }
+    p {
+      font-size: 1.2em;
+      margin: 20px 0;
+      color: #34495e;
+    }
+    .logo {
+      width: 150px;
       margin-top: 20px;
+    }
+    .button {
+      padding: 15px 30px;
+      background-color: #1abc9c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1em;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: #16a085;
+    }
+    .socials {
+      margin-top: 30px;
+      font-size: 1.2em;
+    }
+    .socials a {
+      margin: 10px;
+      color: #1abc9c;
+      text-decoration: none;
+    }
+    .socials a:hover {
+      color: #16a085;
+    }
+    .whatsapp-icon {
+      width: 40px;
+      vertical-align: middle;
+      margin-right: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Finvare</h1>
+  <!-- Logo Section -->
+  <img src="https://via.placeholder.com/150?text=Finvare+Logo" alt="Finvare Logo" class="logo">
+  
+  <h1>Welcome to Finvare!</h1>
   <p>Your smart financial partner.</p>
-  <a class="button" href="mailto:info@finvare.com">Contact Us</a>
+  
+  <!-- Contact Button -->
+  <a href="mailto:care@finvare.com" class="button">Contact Us</a>
+  
+  <!-- WhatsApp and Contact Info -->
+  <div class="socials">
+    <a href="https://wa.me/919509000080" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
+      +91 9509000080
+    </a>
+  </div>
+
+  <!-- Footer with Name -->
+  <footer style="margin-top: 50px;">
+    <p>Created by Sandeep Yadav</p>
+  </footer>
 </body>
 </html>

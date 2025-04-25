@@ -9,15 +9,16 @@
             font-family: Arial, sans-serif;
             margin: 0;
             background-color: white;
-            color: #002147;
+            color: #003366;
         }
 
         header {
-            background-color: #002147;
-            padding: 10px 20px;
+            background-color: #003366;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: white;
         }
 
         header img {
@@ -38,51 +39,63 @@
 
         .hero {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px;
+            background-color: #f4f4f4;
         }
 
         .hero h1 {
-            font-size: 2.5em;
-            color: #002147;
+            font-size: 3em;
+            color: #003366;
         }
 
         .hero p {
-            font-size: 1.2em;
+            font-size: 1.5em;
+            color: #666;
         }
 
-        .contact {
+        .services {
             text-align: center;
-            padding: 30px;
+            padding: 50px 20px;
+            background-color: white;
         }
 
-        .contact a {
-            display: block;
-            margin: 10px 0;
-            text-decoration: none;
-            color: #002147;
+        .services h2 {
+            font-size: 2em;
+            color: #003366;
         }
 
-        .contact i {
-            margin-right: 8px;
+        .services .service-options {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
         }
 
-        .icons a {
-            margin: 10px;
-            font-size: 24px;
+        .services .service-options span {
+            padding: 15px 30px;
+            background-color: #003366;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .services .service-options span:hover {
+            background-color: #004080;
         }
 
         .partners {
             padding: 50px 20px;
-            background-color: white;
+            background-color: #f7f7f7;
             text-align: center;
         }
 
         .partners h2 {
-            color: #002147;
+            color: #003366;
         }
 
         .partners p {
-            color: #333;
+            color: #666;
             margin-bottom: 30px;
         }
 
@@ -94,25 +107,43 @@
         }
 
         .partner-names span {
-            color: #002147;
+            color: #003366;
             font-weight: bold;
-            font-size: 1em;
-            border: 1px solid #00214730;
+            font-size: 1.1em;
+            border: 1px solid #003366;
             padding: 8px 14px;
             border-radius: 8px;
-            background-color: #f7f9fb;
+            background-color: #e7f0f7;
+        }
+
+        .contact {
+            padding: 50px 20px;
+            text-align: center;
+            background-color: white;
+        }
+
+        .contact h2 {
+            font-size: 2em;
+            color: #003366;
+        }
+
+        .contact a {
+            display: block;
+            margin: 10px 0;
+            color: #003366;
+            font-size: 1.2em;
         }
 
         footer {
-            background-color: #f0f0f0;
-            color: #002147;
+            background-color: #003366;
+            color: white;
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             font-weight: bold;
         }
 
         .apply-now-btn {
-            background-color: #002147;
+            background-color: #003366;
             color: white;
             padding: 12px 24px;
             font-size: 16px;
@@ -121,28 +152,9 @@
             cursor: pointer;
             margin-top: 20px;
         }
+
         .apply-now-btn:hover {
-            background-color: #003366;
-        }
-
-        .services-list {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .services-list span {
-            padding: 10px 20px;
-            background-color: #f0f4f8;
-            border-radius: 6px;
-            border: 1px solid #002147;
-            cursor: pointer;
-        }
-
-        .services-list span:hover {
-            background-color: #003366;
-            color: white;
+            background-color: #004080;
         }
     </style>
 </head>
@@ -162,19 +174,18 @@
         <p>Your Smart Financial Partner</p>
     </section>
 
-    <section id="contact" class="contact">
-        <h2>Contact Us</h2>
-        <a href="https://wa.me/919509000080" target="_blank">📱 +91 9509000080</a>
-        <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
-        <div class="icons">
-            <!-- Updated YouTube Icon -->
-            <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/YouTube_icon_%282013-2017%29.png" alt="YouTube">
-            </a>
+    <section id="services" class="services">
+        <h2>Our Services</h2>
+        <div class="service-options">
+            <span>Personal Loan</span>
+            <span>Home Loan</span>
         </div>
+        <a href="apply.html" style="text-decoration:none;">
+            <button class="apply-now-btn">Apply Now</button>
+        </a>
     </section>
 
-    <section class="partners" id="services">
+    <section id="partners" class="partners">
         <h2>Our Partners</h2>
         <p>We collaborate with diverse banks and NBFCs to offer you the best solutions, ensuring your success and satisfaction.</p>
         <div class="partner-names">
@@ -199,16 +210,17 @@
             <span>Lendingplate</span>
             <span>Poonawalla Fincorp</span>
         </div>
+    </section>
 
-        <!-- Services List (Personal & Home Loan) -->
-        <div class="services-list">
-            <span>Personal Loan</span>
-            <span>Home Loan</span>
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <a href="https://wa.me/919509000080" target="_blank">📱 +91 9509000080</a>
+        <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
+        <div class="icons">
+            <a href="https://youtube.com/@finvare?si=2b-MCbEmNJEXdvDr" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/YouTube_icon_%282013-2017%29.png" alt="YouTube" style="width: 30px;">
+            </a>
         </div>
-
-        <a href="apply.html" style="text-decoration:none;">
-            <button class="apply-now-btn">Apply Now</button>
-        </a>
     </section>
 
     <footer>

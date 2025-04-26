@@ -746,7 +746,7 @@
     </div>
     <div class="form-group">
       <label for="pan">PAN Number*</label>
-      <input type="text" name="pan" id="pan" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" required>
+      <input type="text" name="pan" id="pan" maxlength="10" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" required>
     </div>
   </div>
 
@@ -764,7 +764,39 @@
   <div class="form-row">
     <div class="form-group">
       <label for="city">City*</label>
-      <input type="text" name="city" id="city" required>
+      <input type="text" name="city" id="city" list="city-list" required>
+      <datalist id="city-list">
+        <option value="Mumbai">
+        <option value="Delhi">
+        <option value="Bangalore">
+        <option value="Hyderabad">
+        <option value="Chennai">
+        <option value="Kolkata">
+        <option value="Pune">
+        <option value="Jaipur">
+        <option value="Ahmedabad">
+        <option value="Lucknow">
+        <option value="Surat">
+        <option value="Indore">
+        <option value="Bhopal">
+        <option value="Patna">
+        <option value="Chandigarh">
+        <option value="Nagpur">
+        <option value="Thane">
+        <option value="Kanpur">
+        <option value="Ludhiana">
+        <option value="Agra">
+        <option value="Nashik">
+        <option value="Vadodara">
+        <option value="Faridabad">
+        <option value="Meerut">
+        <option value="Rajkot">
+        <option value="Varanasi">
+        <option value="Amritsar">
+        <option value="Ranchi">
+        <option value="Visakhapatnam">
+        <option value="Noida">
+      </datalist>
     </div>
     <div class="form-group">
       <label for="pincode">Pincode*</label>
@@ -787,7 +819,7 @@
     <input type="number" name="loan_amount" id="loan_amount" required>
   </div>
 
-  <div class="declaration">
+  <div class="declaration" style="background-color:#e6ffe6; padding:10px; border-radius:5px;">
     <input type="checkbox" name="declaration" id="declaration" required>
     <label for="declaration">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
   </div>

@@ -105,6 +105,63 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
+    .process {
+      background-color: #f8f9fa;
+      padding: 50px 20px;
+      text-align: center;
+      color: #003366;
+    }
+
+    .process h2 {
+      margin-bottom: 40px;
+    }
+
+    .timeline {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 50px;
+      right: 50px;
+      height: 3px;
+      background: #ffcc00;
+      z-index: 1;
+    }
+
+    .step {
+      flex: 1 1 200px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-icon {
+      width: 50px;
+      height: 50px;
+      background: #003366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 24px;
+      font-weight: bold;
+      border: 3px solid #ffcc00;
+    }
+
+    .step h3 {
+      margin-bottom: 10px;
+    }
+
     .get-in-touch {
       display: none;
       margin: 40px auto;
@@ -231,6 +288,52 @@
       display: block;
     }
 
+    .testimonials {
+      background-color: #003366;
+      padding: 50px 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .testimonials h2 {
+      margin-bottom: 40px;
+    }
+
+    .testimonial-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .testimonial {
+      background-color: white;
+      color: #003366;
+      padding: 25px;
+      border-radius: 8px;
+      flex: 1 1 300px;
+      max-width: 350px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .quote {
+      font-style: italic;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    .author {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .rating {
+      color: #ffcc00;
+      font-size: 18px;
+    }
+
     .partners {
       background-color: #e6f2ff;
       padding: 40px 20px;
@@ -334,6 +437,88 @@
       background-color: #218838;
     }
 
+    .chat-widget {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 250px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      display: none;
+    }
+
+    .chat-header {
+      background: #003366;
+      color: white;
+      padding: 10px 15px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-chat {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .chat-body {
+      padding: 15px;
+      min-height: 100px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .chat-options {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    .chat-options button {
+      margin: 5px 0;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .chat-options button:first-child {
+      background: #25D366;
+      color: white;
+    }
+
+    .chat-options button:last-child {
+      background: #003366;
+      color: white;
+    }
+
+    .chat-toggle {
+      position: fixed;
+      bottom: 140px;
+      right: 20px;
+      background: #003366;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
     .error {
       border-color: #ff4444 !important;
     }
@@ -399,6 +584,15 @@
         align-items: center;
       }
       
+      .timeline::before {
+        display: none;
+      }
+      
+      .step {
+        flex: 1 1 100%;
+        margin-bottom: 30px;
+      }
+      
       .get-in-touch {
         margin: 20px;
         padding: 20px;
@@ -406,6 +600,10 @@
       
       .emi-form, .emi-output {
         max-width: 100%;
+      }
+      
+      .testimonial {
+        flex: 1 1 100%;
       }
       
       footer .column {
@@ -484,6 +682,32 @@
         <li>Working capital and term loans available</li>
       </ul>
       <button onclick="showForm()">Apply Now</button>
+    </div>
+  </section>
+
+  <section class="process">
+    <h2>Our Simple Loan Process</h2>
+    <div class="timeline">
+      <div class="step">
+        <div class="step-icon">1</div>
+        <h3>Application</h3>
+        <p>Fill our simple online form in just 2 minutes</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">2</div>
+        <h3>Verification</h3>
+        <p>Our executive will verify your documents</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">3</div>
+        <h3>Approval</h3>
+        <p>Get instant in-principle approval</p>
+      </div>
+      <div class="step">
+        <div class="step-icon">4</div>
+        <h3>Disbursal</h3>
+        <p>Receive funds in your account within 24-48 hours</p>
+      </div>
     </div>
   </section>
 
@@ -616,6 +840,27 @@
       <div>Principal Amount: <strong id="principal-amount">₹ 500,000</strong></div>
       <div>Total Interest Payable: <strong id="total-interest">₹ 144,820</strong></div>
       <div>Total Amount Payable: <strong id="total-payment">₹ 644,820</strong></div>
+    </div>
+  </section>
+
+  <section class="testimonials">
+    <h2>What Our Customers Say</h2>
+    <div class="testimonial-container">
+      <div class="testimonial">
+        <div class="quote">"Finvare helped me get my personal loan approved within 24 hours when I needed urgent funds for my daughter's education."</div>
+        <div class="author">- Ramesh Patel, Mumbai</div>
+        <div class="rating">★★★★★</div>
+      </div>
+      <div class="testimonial">
+        <div class="quote">"The home loan process was completely transparent with no hidden charges. Highly recommended!"</div>
+        <div class="author">- Priya Sharma, Delhi</div>
+        <div class="rating">★★★★☆</div>
+      </div>
+      <div class="testimonial">
+        <div class="quote">"As a small business owner, Finvare's business loan helped me expand my operations at competitive rates."</div>
+        <div class="author">- Amit Joshi, Bangalore</div>
+        <div class="rating">★★★★★</div>
+      </div>
     </div>
   </section>
 
@@ -752,6 +997,24 @@
   </div>
 
   <a href="tel:+919509000080" class="call-button">📞</a>
+
+  <div class="chat-widget">
+    <div class="chat-header">
+      <span>Need Help?</span>
+      <button class="close-chat">×</button>
+    </div>
+    <div class="chat-body">
+      <div class="chat-message">Hi there! How can I help you today?</div>
+    </div>
+    <div class="chat-options">
+      <button onclick="window.open('https://wa.me/919509000080', '_blank')">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </button>
+      <button onclick="location.href='tel:+919509000080'">
+        <i class="fas fa-phone"></i> Call Now
+      </button>
+    </div>
+  </div>
 
   <script>
     // Service tabs functionality

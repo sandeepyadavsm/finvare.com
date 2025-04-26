@@ -239,6 +239,7 @@
 
     .partners h2 {
       color: #003366;
+      margin-bottom: 30px;
     }
 
     .partner-names {
@@ -252,7 +253,6 @@
     .partner-card {
       width: 120px;
       height: 80px;
-      background: white;
       border-radius: 8px;
       display: flex;
       flex-direction: column;
@@ -262,21 +262,19 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: transform 0.3s ease;
     }
-    
+
     .partner-card:hover {
       transform: translateY(-5px);
     }
-    
+
     .partner-icon {
       font-size: 30px;
-      color: #003366;
       margin-bottom: 5px;
     }
-    
+
     .partner-name {
       font-size: 12px;
       font-weight: bold;
-      color: #003366;
       text-align: center;
     }
 
@@ -424,6 +422,10 @@
       .partner-card {
         width: 100px;
         height: 70px;
+      }
+      
+      .partner-icon {
+        font-size: 25px;
       }
     }
   </style>
@@ -620,62 +622,91 @@
   <section class="partners">
     <h2>Our Banking Partners</h2>
     <div class="partner-names">
+      <!-- Partner 1 - Bajaj Finance -->
       <div class="partner-card" style="background-color: #003366; color: white;">
-        <div class="partner-icon"><i class="fas fa-university"></i></div>
+        <div class="partner-icon" style="color: #ffcc00;"><i class="fas fa-university"></i></div>
         <div class="partner-name">Bajaj Finance</div>
       </div>
-      <div class="partner-card" style="background-color: #004a9b; color: #f7941d;">
-        <div class="partner-icon"><i class="fas fa-landmark"></i></div>
+      
+      <!-- Partner 2 - HDFC Bank -->
+      <div class="partner-card" style="background-color: #004a9b; color: white;">
+        <div class="partner-icon" style="color: #f7941d;"><i class="fas fa-landmark"></i></div>
         <div class="partner-name">HDFC Bank</div>
       </div>
+      
+      <!-- Partner 3 - ICICI Bank -->
       <div class="partner-card" style="background-color: #f7941d; color: #003366;">
         <div class="partner-icon"><i class="fas fa-piggy-bank"></i></div>
         <div class="partner-name">ICICI Bank</div>
       </div>
-      <div class="partner-card" style="background-color: #00337f; color: #ff0000;">
-        <div class="partner-icon"><i class="fas fa-building"></i></div>
+      
+      <!-- Partner 4 - Axis Bank -->
+      <div class="partner-card" style="background-color: #00337f; color: white;">
+        <div class="partner-icon" style="color: #ff0000;"><i class="fas fa-building"></i></div>
         <div class="partner-name">Axis Bank</div>
       </div>
-      <div class="partner-card" style="background-color: #1a3e72; color: #d81f26;">
-        <div class="partner-icon"><i class="fas fa-credit-card"></i></div>
+      
+      <!-- Partner 5 - Kotak Mahindra -->
+      <div class="partner-card" style="background-color: #1a3e72; color: white;">
+        <div class="partner-icon" style="color: #d81f26;"><i class="fas fa-credit-card"></i></div>
         <div class="partner-name">Kotak Mahindra</div>
       </div>
-      <div class="partner-card" style="background-color: #004a9b; color: #ffd700;">
-        <div class="partner-icon"><i class="fas fa-bank"></i></div>
+      
+      <!-- Partner 6 - Yes Bank -->
+      <div class="partner-card" style="background-color: #004a9b; color: white;">
+        <div class="partner-icon" style="color: #ffd700;"><i class="fas fa-bank"></i></div>
         <div class="partner-name">Yes Bank</div>
       </div>
+      
+      <!-- Partner 7 - IDFC FIRST -->
       <div class="partner-card" style="background-color: #e41e26; color: white;">
         <div class="partner-icon"><i class="fas fa-money-bill-wave"></i></div>
         <div class="partner-name">IDFC FIRST</div>
       </div>
-      <div class="partner-card" style="background-color: #003366; color: #ffcc00;">
-        <div class="partner-icon"><i class="fas fa-chart-line"></i></div>
+      
+      <!-- Partner 8 - IndusInd -->
+      <div class="partner-card" style="background-color: #003366; color: white;">
+        <div class="partner-icon" style="color: #ffcc00;"><i class="fas fa-chart-line"></i></div>
         <div class="partner-name">IndusInd</div>
       </div>
-      <div class="partner-card" style="background-color: #00337f; color: #ff0000;">
-        <div class="partner-icon"><i class="fas fa-building"></i></div>
+      
+      <!-- Partner 9 - Axis Finance -->
+      <div class="partner-card" style="background-color: #00337f; color: white;">
+        <div class="partner-icon" style="color: #ff0000;"><i class="fas fa-building"></i></div>
         <div class="partner-name">Axis Finance</div>
       </div>
-      <div class="partner-card" style="background-color: #003366; color: #ffcc00;">
-        <div class="partner-icon"><i class="fas fa-university"></i></div>
+      
+      <!-- Partner 10 - Shriram Finance -->
+      <div class="partner-card" style="background-color: #003366; color: white;">
+        <div class="partner-icon" style="color: #ffcc00;"><i class="fas fa-university"></i></div>
         <div class="partner-name">Shriram Finance</div>
       </div>
+      
+      <!-- Partner 11 - Aditya Birla -->
       <div class="partner-card" style="background-color: #0046aa; color: white;">
         <div class="partner-icon"><i class="fas fa-landmark"></i></div>
         <div class="partner-name">Aditya Birla</div>
       </div>
+      
+      <!-- Partner 12 - Tata Capital -->
       <div class="partner-card" style="background-color: #003366; color: white;">
         <div class="partner-icon"><i class="fas fa-building"></i></div>
         <div class="partner-name">Tata Capital</div>
       </div>
-      <div class="partner-card" style="background-color: #c60c30; color: #ffd700;">
-        <div class="partner-icon"><i class="fas fa-university"></i></div>
+      
+      <!-- Partner 13 - Muthoot -->
+      <div class="partner-card" style="background-color: #c60c30; color: white;">
+        <div class="partner-icon" style="color: #ffd700;"><i class="fas fa-university"></i></div>
         <div class="partner-name">Muthoot</div>
       </div>
+      
+      <!-- Partner 14 - Piramal -->
       <div class="partner-card" style="background-color: #0056b3; color: white;">
         <div class="partner-icon"><i class="fas fa-landmark"></i></div>
         <div class="partner-name">Piramal</div>
       </div>
+      
+      <!-- Partner 15 - Poonawala -->
       <div class="partner-card" style="background-color: #003366; color: white;">
         <div class="partner-icon"><i class="fas fa-building"></i></div>
         <div class="partner-name">Poonawala</div>

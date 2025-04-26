@@ -714,7 +714,7 @@
   <div class="get-in-touch" id="get-in-touch">
     <h3>Loan Application Form</h3>
     
-<form action="https://api.web3forms.com/submit" method="POST" id="loan-form">
+<form id="loan-form">
   <input type="hidden" name="access_key" value="5fedfbd0-6bbb-4ea6-9349-42ab4d968c86">
 
   <div class="form-row">
@@ -734,8 +734,8 @@
       <input type="tel" name="phone" id="phone" maxlength="10" required>
     </div>
     <div class="form-group">
-      <label for="alt-phone">Alternate Phone</label>
-      <input type="tel" name="alt_phone" id="alt-phone" maxlength="10">
+      <label for="alt_phone">Alternate Phone</label>
+      <input type="tel" name="alt_phone" id="alt_phone" maxlength="10">
     </div>
   </div>
 
@@ -752,12 +752,12 @@
 
   <div class="form-row">
     <div class="form-group">
-      <label for="company">Company Name*</label>
-      <input type="text" name="company_name" id="company" required>
+      <label for="company_name">Company Name*</label>
+      <input type="text" name="company_name" id="company_name" required>
     </div>
     <div class="form-group">
-      <label for="income">Monthly Income (₹)*</label>
-      <input type="number" name="monthly_income" id="income" required>
+      <label for="monthly_income">Monthly Income (₹)*</label>
+      <input type="number" name="monthly_income" id="monthly_income" required>
     </div>
   </div>
 
@@ -773,8 +773,8 @@
   </div>
 
   <div class="form-group">
-    <label for="loan-type">Loan Type*</label>
-    <select name="loan_type" id="loan-type" required>
+    <label for="loan_type">Loan Type*</label>
+    <select name="loan_type" id="loan_type" required>
       <option value="">Select Loan Type</option>
       <option value="personal">Personal Loan</option>
       <option value="home">Home Loan</option>
@@ -783,8 +783,8 @@
   </div>
 
   <div class="form-group">
-    <label for="amount">Loan Amount (₹)*</label>
-    <input type="number" name="loan_amount" id="amount" required>
+    <label for="loan_amount">Loan Amount (₹)*</label>
+    <input type="number" name="loan_amount" id="loan_amount" required>
   </div>
 
   <div class="declaration">
@@ -796,6 +796,40 @@
     <button type="submit">Submit Application</button>
   </div>
 </form>
+
+<script>
+document.getElementById('loan-form').addEventListener('submit', async function(event) {
+  event.preventDefault();
+  
+  const form = event.target;
+  const formData = new FormData(form);
+
+  const object = {};
+  formData.forEach((value, key) => object[key] = value);
+  const json = JSON.stringify(object);
+
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      alert('Thank you for your application! Our representative will call you shortly.');
+      form.reset();
+    } else {
+      alert('Sorry, something went wrong. Please try again.');
+    }
+  } catch (error) {
+    alert('Error submitting form. Please try later.');
+  }
+});
+</script>
 
   </div>
 

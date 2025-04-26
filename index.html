@@ -713,112 +713,90 @@
 
   <div class="get-in-touch" id="get-in-touch">
     <h3>Loan Application Form</h3>
-    <form id="loan-form">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="name">Full Name*</label>
-          <input type="text" id="name" required />
-          <div class="error-message" id="name-error">Please enter your full name</div>
-        </div>
-        <div class="form-group">
-          <label for="dob">Date of Birth*</label>
-          <input type="date" id="dob" required />
-          <div class="error-message" id="dob-error">Please enter your date of birth</div>
-        </div>
-      </div>
+    
+<form action="https://api.web3forms.com/submit" method="POST" id="loan-form">
+  <input type="hidden" name="access_key" value="5fedfbd0-6bbb-4ea6-9349-42ab4d968c86">
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="phone">Phone Number*</label>
-          <input type="tel" id="phone" maxlength="10" required />
-          <div class="error-message" id="phone-error">Please enter a valid 10-digit number</div>
-        </div>
-        <div class="form-group">
-          <label for="alt-phone">Alternate Phone</label>
-          <input type="tel" id="alt-phone" maxlength="10" />
-        </div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="name">Full Name*</label>
+      <input type="text" name="name" id="name" required>
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth*</label>
+      <input type="date" name="dob" id="dob" required>
+    </div>
+  </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="email">Email*</label>
-          <input type="email" id="email" required />
-          <div class="error-message" id="email-error">Please enter a valid email</div>
-        </div>
-        <div class="form-group">
-          <label for="pan">PAN Number*</label>
-          <input type="text" id="pan" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" required />
-          <div class="error-message" id="pan-error">Please enter valid PAN (e.g. ABCDE1234F)</div>
-        </div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="phone">Phone Number*</label>
+      <input type="tel" name="phone" id="phone" maxlength="10" required>
+    </div>
+    <div class="form-group">
+      <label for="alt-phone">Alternate Phone</label>
+      <input type="tel" name="alt_phone" id="alt-phone" maxlength="10">
+    </div>
+  </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="company">Company Name*</label>
-          <input type="text" id="company" required />
-          <div class="error-message" id="company-error">Please enter your company name</div>
-        </div>
-        <div class="form-group">
-          <label for="income">Monthly Income (₹)*</label>
-          <input type="number" id="income" required />
-          <div class="error-message" id="income-error">Please enter valid income</div>
-        </div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="email">Email*</label>
+      <input type="email" name="email" id="email" required>
+    </div>
+    <div class="form-group">
+      <label for="pan">PAN Number*</label>
+      <input type="text" name="pan" id="pan" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" required>
+    </div>
+  </div>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label for="city">City*</label>
-          <input type="text" id="city" required />
-          <div class="error-message" id="city-error">Please enter your city</div>
-        </div>
-        <div class="form-group">
-          <label for="pincode">Pincode*</label>
-          <input type="text" id="pincode" pattern="[0-9]{6}" required />
-          <div class="error-message" id="pincode-error">Please enter 6-digit pincode</div>
-        </div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="company">Company Name*</label>
+      <input type="text" name="company_name" id="company" required>
+    </div>
+    <div class="form-group">
+      <label for="income">Monthly Income (₹)*</label>
+      <input type="number" name="monthly_income" id="income" required>
+    </div>
+  </div>
 
-      <div class="form-group">
-        <label for="loan-type">Loan Type*</label>
-        <select id="loan-type" required>
-          <option value="">Select Loan Type</option>
-          <option value="personal">Personal Loan</option>
-          <option value="home">Home Loan</option>
-          <option value="business">Business Loan</option>
-        </select>
-        <div class="error-message" id="loan-type-error">Please select a loan type</div>
-      </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="city">City*</label>
+      <input type="text" name="city" id="city" required>
+    </div>
+    <div class="form-group">
+      <label for="pincode">Pincode*</label>
+      <input type="text" name="pincode" id="pincode" pattern="[0-9]{6}" required>
+    </div>
+  </div>
 
-      <div class="form-group">
-        <label for="amount">Loan Amount (₹)*</label>
-        <input type="number" id="amount" required />
-        <div class="error-message" id="amount-error">Please enter a valid amount</div>
-      </div>
+  <div class="form-group">
+    <label for="loan-type">Loan Type*</label>
+    <select name="loan_type" id="loan-type" required>
+      <option value="">Select Loan Type</option>
+      <option value="personal">Personal Loan</option>
+      <option value="home">Home Loan</option>
+      <option value="business">Business Loan</option>
+    </select>
+  </div>
 
-      <div class="documents-section">
-        <h4>Documents Required:</h4>
-        <ul class="documents-list">
-          <li>PAN Card</li>
-          <li>Aadhaar Card</li>
-          <li>Address Proof</li>
-          <li>Income Proof (Salary slips/ITR)</li>
-          <li>Bank Statements (6 months)</li>
-        </ul>
-      </div>
+  <div class="form-group">
+    <label for="amount">Loan Amount (₹)*</label>
+    <input type="number" name="loan_amount" id="amount" required>
+  </div>
 
-      <div class="declaration">
-        <input type="checkbox" id="declaration" required />
-        <label for="declaration">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
-        <div class="error-message" id="declaration-error">You must accept the declaration</div>
-      </div>
+  <div class="declaration">
+    <input type="checkbox" name="declaration" id="declaration" required>
+    <label for="declaration">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
+  </div>
 
-      <div class="button-group">
-        <button type="button" onclick="submitForm()">Submit Application</button>
-        <button type="button" class="secondary" onclick="sendWhatsApp()">WhatsApp Us</button>
-      </div>
-      
-      <div class="spinner" id="spinner"></div>
-    </form>
+  <div class="button-group">
+    <button type="submit">Submit Application</button>
+  </div>
+</form>
+
   </div>
 
   <section class="emi-section">

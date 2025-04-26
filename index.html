@@ -1171,19 +1171,51 @@
     }
     
     // Form submission
-    function submitForm() {
-      if(!validateForm()) return;
-      
-      const spinner = document.getElementById('spinner');
-      spinner.style.display = 'block';
-      
-      // Simulate form submission
-      setTimeout(() => {
-        spinner.style.display = 'none';
-        alert('Thank you for your application! Our representative will contact you shortly.');
-        document.getElementById('loan-form').reset();
-        document.getElementById('get-in-touch').style.display = 'none';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+function submitForm() {
+  if (!validateForm()) return;
+
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = 'block';
+
+  const formData = {
+    name: document.getElementById('name').value,
+    dob: document.getElementById('dob').value,
+    phone: document.getElementById('phone').value,
+    altPhone: document.getElementById('alt-phone').value,
+    email: document.getElementById('email').value,
+    pan: document.getElementById('pan').value,
+    company: document.getElementById('company').value,
+    income: document.getElementById('income').value,
+    city: document.getElementById('city').value,
+    pincode: document.getElementById('pincode').value,
+    loanType: document.getElementById('loan-type').value,
+    amount: document.getElementById('amount').value
+  };
+
+  fetch('https://script.google.com/macros/s/AKfycbxqCnF9UnBIpJmFwDs2QOfzs4OxC8QThewUWQldgsC-AwnkSKY7LNjr4QrAx5oHN1wHjA/exec', {
+    method: 'POST',
+    body: JSON.stringify(formData),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(response => {
+    if (response.ok) {
+      alert('Thank you for your application! Our representative will contact you shortly.');
+      document.getElementById('loan-form').reset();
+      document.getElementById('get-in-touch').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      alert('Something went wrong. Please try again.');
+    }
+    spinner.style.display = 'none';
+  })
+  .catch(error => {
+    console.error('Error!', error.message);
+    alert('Submission Failed! Try again.');
+    spinner.style.display = 'none';
+  });
+}
+);
       }, 1500);
     }
     

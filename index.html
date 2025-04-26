@@ -1040,18 +1040,10 @@
     }
     
     // Show loan application form
-    
-function showForm() {
-  const form = document.getElementById('get-in-touch');
-  form.style.display = 'block';
-  form.scrollIntoView({ behavior: 'smooth' });
-
-  const activeService = document.querySelector('.service-options span.active');
-  if (activeService) {
-    document.getElementById('loan-type').value = activeService.innerText;
-  }
-}
-);
+    function showForm() {
+      const form = document.getElementById('get-in-touch');
+      form.style.display = 'block';
+      form.scrollIntoView({ behavior: 'smooth' });
       
       // Set loan type based on active service
       const activeService = document.querySelector('.service-options span.active');
@@ -1179,51 +1171,19 @@ function showForm() {
     }
     
     // Form submission
-    
-function submitForm() {
-  if (!validateForm()) return;
-
-  const spinner = document.getElementById('spinner');
-  spinner.style.display = 'block';
-
-  const formData = {
-    name: document.getElementById('name').value,
-    dob: document.getElementById('dob').value,
-    phone: document.getElementById('phone').value,
-    altPhone: document.getElementById('alt-phone').value,
-    email: document.getElementById('email').value,
-    pan: document.getElementById('pan').value,
-    company: document.getElementById('company').value,
-    income: document.getElementById('income').value,
-    city: document.getElementById('city').value,
-    pincode: document.getElementById('pincode').value,
-    loanType: document.getElementById('loan-type').value,
-    amount: document.getElementById('amount').value
-  };
-
-  fetch('https://script.google.com/macros/s/AKfycbxqCnF9UnBIpJmFwDs2QOfzs4OxC8QThewUWQldgsC-AwnkSKY7LNjr4QrAx5oHN1wHjA/exec', {
-    method: 'POST',
-    body: JSON.stringify(formData),
-    headers: { 'Content-Type': 'application/json' }
-  })
-  .then(response => {
-    if (response.ok) {
-      alert('Thank you for your application! Our representative will contact you shortly.');
-      document.getElementById('loan-form').reset();
-      document.getElementById('get-in-touch').style.display = 'none';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      alert('Something went wrong. Please try again.');
-    }
-    spinner.style.display = 'none';
-  })
-  .catch(error => {
-    console.error('Error!', error.message);
-    alert('Submission Failed! Try again.');
-    spinner.style.display = 'none';
-  });
-}
-);
+    function submitForm() {
+      if(!validateForm()) return;
+      
+      const spinner = document.getElementById('spinner');
+      spinner.style.display = 'block';
+      
+      // Simulate form submission
+      setTimeout(() => {
+        spinner.style.display = 'none';
+        alert('Thank you for your application! Our representative will contact you shortly.');
+        document.getElementById('loan-form').reset();
+        document.getElementById('get-in-touch').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 1500);
     }
     
@@ -1248,34 +1208,21 @@ function submitForm() {
     }
     
     // EMI Calculator
-    
-function calculateEMI() {
-  const loanAmount = parseFloat(document.getElementById('loanAmount').value);
-  const interestRate = parseFloat(document.getElementById('interestRate').value);
-  const tenureYears = parseFloat(document.getElementById('tenure').value);
-
-  if (isNaN(loanAmount) || loanAmount <= 0 || isNaN(interestRate) || interestRate <= 0 || isNaN(tenureYears) || tenureYears <= 0) {
-    document.getElementById('emiResult').innerHTML = `
-      <p style="color:red;"><strong>Please enter valid Loan Amount, Interest Rate, and Tenure.</strong></p>
-    `;
-    return;
-  }
-
-  const tenureMonths = tenureYears * 12;
-  const monthlyInterestRate = interestRate / 12 / 100;
-
-  const emi = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenureMonths)) / (Math.pow(1 + monthlyInterestRate, tenureMonths) - 1);
-  const totalAmount = emi * tenureMonths;
-  const totalInterest = totalAmount - loanAmount;
-
-  document.getElementById('emiResult').innerHTML = `
-    <p><strong>Monthly EMI:</strong> ₹${emi.toFixed(0)}</p>
-    <p><strong>Principal Amount:</strong> ₹${loanAmount.toLocaleString()}</p>
-    <p><strong>Total Interest Payable:</strong> ₹${totalInterest.toLocaleString()}</p>
-    <p><strong>Total Amount Payable:</strong> ₹${totalAmount.toLocaleString()}</p>
-  `;
-}
-const monthlyRate = rate / 12 / 100;
+    function calculateEMI() {
+      const amount = parseFloat(document.getElementById('loan-amount').value);
+      const rate = parseFloat(document.getElementById('interest-rate').value);
+      const tenure = parseFloat(document.getElementById('loan-tenure').value);
+      
+      // Don't calculate if any value is zero or invalid
+      if (!amount || !rate || !tenure || amount <= 0 || rate <= 0 || tenure <= 0) {
+        document.getElementById('monthly-emi').textContent = '₹ 0';
+        document.getElementById('principal-amount').textContent = '₹ 0';
+        document.getElementById('total-interest').textContent = '₹ 0';
+        document.getElementById('total-payment').textContent = '₹ 0';
+        return;
+      }
+      
+      const monthlyRate = rate / 12 / 100;
       const months = tenure * 12;
       const emi = (amount * monthlyRate * Math.pow(1 + monthlyRate, months)) / 
                   (Math.pow(1 + monthlyRate, months) - 1);

@@ -659,7 +659,7 @@
         <li>Flexible tenure from 1 to 8 years</li>
         <li>Instant approval for eligible customers</li>
       </ul>
-      <button onclick="showForm()">Apply Now</button>
+      <button onclick="showForm('Personal Loan')">Apply Now</button>
     </div>
     <div id="home" class="service-detail">
       <h3>Home Loan Features</h3>
@@ -670,7 +670,7 @@
         <li>Repayment tenure up to 30 years</li>
         <li>90% of property value financing</li>
       </ul>
-      <button onclick="showForm()">Apply Now</button>
+      <button onclick="showForm('Home Loan')">Apply Now</button>
     </div>
     <div id="business" class="service-detail">
       <h3>Business Loan Features</h3>
@@ -681,7 +681,7 @@
         <li>Quick disbursal within 72 hours</li>
         <li>Working capital and term loans available</li>
       </ul>
-      <button onclick="showForm()">Apply Now</button>
+      <button onclick="showForm('Business Loan')">Apply Now</button>
     </div>
   </section>
 
@@ -1041,16 +1041,14 @@
     
     // Show loan application form
     
-function showForm() {
-  const form = document.getElementById('get-in-touch');
-  form.style.display = 'block';
-  form.scrollIntoView({ behavior: 'smooth' });
+function showForm(service) {
+    const form = document.getElementById('get-in-touch');
+    form.style.display = 'block';
+    form.scrollIntoView({ behavior: 'smooth' });
 
-  const activeService = document.querySelector('.service-options span.active');
-  if (activeService) {
-    const serviceId = activeService.getAttribute('onclick').match(/'([^']+)'/)[1];
-    document.getElementById('loan-type').value = serviceId;
-  }
+    if (service) {
+        document.getElementById('loan-type').value = service;
+    }
 }
 );
       

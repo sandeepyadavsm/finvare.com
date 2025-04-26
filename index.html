@@ -1040,10 +1040,19 @@
     }
     
     // Show loan application form
-    function showForm() {
-      const form = document.getElementById('get-in-touch');
-      form.style.display = 'block';
-      form.scrollIntoView({ behavior: 'smooth' });
+    
+function showForm() {
+  const form = document.getElementById('get-in-touch');
+  form.style.display = 'block';
+  form.scrollIntoView({ behavior: 'smooth' });
+
+  const activeService = document.querySelector('.service-options span.active');
+  if (activeService) {
+    const serviceId = activeService.getAttribute('onclick').match(/'([^']+)'/)[1];
+    document.getElementById('loan-type').value = serviceId;
+  }
+}
+);
       
       // Set loan type based on active service
       const activeService = document.querySelector('.service-options span.active');

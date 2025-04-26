@@ -580,11 +580,11 @@
         </ul>
       </div>
 
-      <div style="margin-top: 20px; display: flex; align-items: center;">
-  <input type="checkbox" id="declaration" required style="margin-right:10px;" />
-  <label for="declaration" style="color: #555;">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
-</div>
-
+      <div class="declaration">
+        <input type="checkbox" id="declaration" required />
+        <label for="declaration">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
+        <div class="error-message" id="declaration-error">You must accept the declaration</div>
+      </div>
 
       <div class="button-group">
         <button type="button" onclick="submitForm()">Submit Application</button>
@@ -620,37 +620,65 @@
   <section class="partners">
     <h2>Our Banking Partners</h2>
     <div class="partner-names">
-      <div class="partner-card">
+      <div class="partner-card" style="background-color: #003366; color: white;">
         <div class="partner-icon"><i class="fas fa-university"></i></div>
-        <div class="partner-name">Bajaj Finserv</div>
+        <div class="partner-name">Bajaj Finance</div>
       </div>
-      <div class="partner-card">
+      <div class="partner-card" style="background-color: #004a9b; color: #f7941d;">
         <div class="partner-icon"><i class="fas fa-landmark"></i></div>
         <div class="partner-name">HDFC Bank</div>
       </div>
-      <div class="partner-card">
+      <div class="partner-card" style="background-color: #f7941d; color: #003366;">
         <div class="partner-icon"><i class="fas fa-piggy-bank"></i></div>
         <div class="partner-name">ICICI Bank</div>
       </div>
-      <div class="partner-card">
+      <div class="partner-card" style="background-color: #00337f; color: #ff0000;">
+        <div class="partner-icon"><i class="fas fa-building"></i></div>
+        <div class="partner-name">Axis Bank</div>
+      </div>
+      <div class="partner-card" style="background-color: #1a3e72; color: #d81f26;">
+        <div class="partner-icon"><i class="fas fa-credit-card"></i></div>
+        <div class="partner-name">Kotak Mahindra</div>
+      </div>
+      <div class="partner-card" style="background-color: #004a9b; color: #ffd700;">
+        <div class="partner-icon"><i class="fas fa-bank"></i></div>
+        <div class="partner-name">Yes Bank</div>
+      </div>
+      <div class="partner-card" style="background-color: #e41e26; color: white;">
+        <div class="partner-icon"><i class="fas fa-money-bill-wave"></i></div>
+        <div class="partner-name">IDFC FIRST</div>
+      </div>
+      <div class="partner-card" style="background-color: #003366; color: #ffcc00;">
+        <div class="partner-icon"><i class="fas fa-chart-line"></i></div>
+        <div class="partner-name">IndusInd</div>
+      </div>
+      <div class="partner-card" style="background-color: #00337f; color: #ff0000;">
+        <div class="partner-icon"><i class="fas fa-building"></i></div>
+        <div class="partner-name">Axis Finance</div>
+      </div>
+      <div class="partner-card" style="background-color: #003366; color: #ffcc00;">
+        <div class="partner-icon"><i class="fas fa-university"></i></div>
+        <div class="partner-name">Shriram Finance</div>
+      </div>
+      <div class="partner-card" style="background-color: #0046aa; color: white;">
+        <div class="partner-icon"><i class="fas fa-landmark"></i></div>
+        <div class="partner-name">Aditya Birla</div>
+      </div>
+      <div class="partner-card" style="background-color: #003366; color: white;">
         <div class="partner-icon"><i class="fas fa-building"></i></div>
         <div class="partner-name">Tata Capital</div>
       </div>
-      <div class="partner-card">
-        <div class="partner-icon"><i class="fas fa-credit-card"></i></div>
-        <div class="partner-name">IDFC FIRST</div>
+      <div class="partner-card" style="background-color: #c60c30; color: #ffd700;">
+        <div class="partner-icon"><i class="fas fa-university"></i></div>
+        <div class="partner-name">Muthoot</div>
       </div>
-      <div class="partner-card">
-        <div class="partner-icon"><i class="fas fa-bank"></i></div>
-        <div class="partner-name">Indusind</div>
+      <div class="partner-card" style="background-color: #0056b3; color: white;">
+        <div class="partner-icon"><i class="fas fa-landmark"></i></div>
+        <div class="partner-name">Piramal</div>
       </div>
-      <div class="partner-card">
-        <div class="partner-icon"><i class="fas fa-money-bill-wave"></i></div>
-        <div class="partner-name">Kotak</div>
-      </div>
-      <div class="partner-card">
-        <div class="partner-icon"><i class="fas fa-chart-line"></i></div>
-        <div class="partner-name">Axis Bank</div>
+      <div class="partner-card" style="background-color: #003366; color: white;">
+        <div class="partner-icon"><i class="fas fa-building"></i></div>
+        <div class="partner-name">Poonawala</div>
       </div>
     </div>
   </section>
@@ -887,9 +915,18 @@
     
     // EMI Calculator
     function calculateEMI() {
-      const amount = parseFloat(document.getElementById('loan-amount').value) || 500000;
-      const rate = parseFloat(document.getElementById('interest-rate').value) || 10.5;
-      const tenure = parseFloat(document.getElementById('loan-tenure').value) || 5;
+      const amount = parseFloat(document.getElementById('loan-amount').value);
+      const rate = parseFloat(document.getElementById('interest-rate').value);
+      const tenure = parseFloat(document.getElementById('loan-tenure').value);
+      
+      // Don't calculate if any value is zero or invalid
+      if (!amount || !rate || !tenure || amount <= 0 || rate <= 0 || tenure <= 0) {
+        document.getElementById('monthly-emi').textContent = '₹ 0';
+        document.getElementById('principal-amount').textContent = '₹ 0';
+        document.getElementById('total-interest').textContent = '₹ 0';
+        document.getElementById('total-payment').textContent = '₹ 0';
+        return;
+      }
       
       const monthlyRate = rate / 12 / 100;
       const months = tenure * 12;

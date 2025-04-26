@@ -154,6 +154,14 @@
       background-color: #002244;
     }
 
+    .get-in-touch .secondary {
+      background-color: #28a745;
+    }
+    
+    .get-in-touch .secondary:hover {
+      background-color: #218838;
+    }
+
     .get-in-touch .button-group {
       display: flex;
       justify-content: space-around;
@@ -391,9 +399,9 @@
       <h3>Personal Loan Features</h3>
       <p>Get instant personal loans with <strong>minimum documentation</strong> and quick approval.</p>
       <ul>
-        <li>Loan amounts from ₹50,000 to ₹20 lakhs</li>
+        <li>Loan amounts from ₹50,000 to ₹50 lakhs</li>
         <li>Interest rates starting at 10.5% p.a.</li>
-        <li>Flexible tenure from 1 to 5 years</li>
+        <li>Flexible tenure from 1 to 8 years</li>
         <li>Instant approval for eligible customers</li>
       </ul>
       <button onclick="showForm()">Apply Now</button>
@@ -423,7 +431,7 @@
   </section>
 
   <div class="get-in-touch" id="get-in-touch">
-    <h3>Get In Touch</h3>
+    <h3>Loan Application Form</h3>
     <form id="loan-form">
       <label for="name">Full Name*</label>
       <input type="text" id="name" required />
@@ -482,7 +490,7 @@
   </section>
 
   <section class="partners">
-    <h2>Our Partners</h2>
+    <h2>Our Banking Partners</h2>
     <div class="partner-names">
       <span>Bajaj Finserv</span>
       <span>HDFC Bank</span>
@@ -587,8 +595,8 @@
       
       // Validate phone
       const phone = document.getElementById('phone');
-      if(!/^\d{10}$/.test(phone.value)) {
-        showError('phone', 'Please enter a valid 10-digit number');
+      if(!/^[6789]\d{9}$/.test(phone.value)) {
+        showError('phone', 'Please enter a valid 10-digit Indian number');
         isValid = false;
       }
       
@@ -637,6 +645,7 @@
         alert('Thank you for your application! Our representative will contact you shortly.');
         document.getElementById('loan-form').reset();
         document.getElementById('get-in-touch').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 1500);
     }
     
@@ -656,9 +665,9 @@
     
     // EMI Calculator
     function calculateEMI() {
-      const amount = parseFloat(document.getElementById('loan-amount').value) || 0;
-      const rate = parseFloat(document.getElementById('interest-rate').value) || 0;
-      const tenure = parseFloat(document.getElementById('loan-tenure').value) || 0;
+      const amount = parseFloat(document.getElementById('loan-amount').value) || 500000;
+      const rate = parseFloat(document.getElementById('interest-rate').value) || 10.5;
+      const tenure = parseFloat(document.getElementById('loan-tenure').value) || 5;
       
       const monthlyRate = rate / 12 / 100;
       const months = tenure * 12;
@@ -668,10 +677,13 @@
       const totalPayment = emi * months;
       const totalInterest = totalPayment - amount;
       
-      document.getElementById('monthly-emi').textContent = `₹ ${emi.toFixed(2)}`;
-      document.getElementById('principal-amount').textContent = `₹ ${amount.toLocaleString()}`;
-      document.getElementById('total-interest').textContent = `₹ ${totalInterest.toFixed(2)}`;
-      document.getElementById('total-payment').textContent = `₹ ${totalPayment.toFixed(2)}`;
+      // Format numbers with Indian comma separators
+      const formatNumber = num => num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      
+      document.getElementById('monthly-emi').textContent = `₹ ${formatNumber(emi)}`;
+      document.getElementById('principal-amount').textContent = `₹ ${formatNumber(amount)}`;
+      document.getElementById('total-interest').textContent = `₹ ${formatNumber(totalInterest)}`;
+      document.getElementById('total-payment').textContent = `₹ ${formatNumber(totalPayment)}`;
     }
     
     // Initialize EMI calculator

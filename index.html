@@ -43,11 +43,6 @@
   <meta charset="UTF-8" />
   <title>Finvare.com: Compare & Apply for Loans, Instant Loan, Low Interest Rate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Finvare.com offers personal, home, and business loans with low interest rates and quick approval. Apply now!" />
-  <meta name="keywords" content="loans, personal loan, home loan, business loan, EMI calculator, Finvare" />
-  <meta property="og:title" content="Finvare.com: Compare & Apply for Loans" />
-  <meta property="og:description" content="Your smart financial partner for instant loans with low interest rates." />
-  <meta property="og:image" content="https://finvare.com/assets/og-image.jpg" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body {
@@ -96,6 +91,29 @@
     .hero p {
       font-size: 1.5em;
       color: #ddd;
+    }
+
+    .live-headline {
+      background-color: #ffcc00;
+      color: #003366;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker {
+      display: inline-block;
+      padding-left: 100%;
+      animation: ticker 15s linear infinite;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
 
     .services {
@@ -274,6 +292,14 @@
     .get-in-touch .button-group button {
       flex: 1;
       min-width: 150px;
+    }
+
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
     }
 
     .emi-section {
@@ -536,13 +562,18 @@
       gap: 8px;
     }
 
-    .chat-options button:first-child {
+    .chat-options button:nth-child(1) {
       background: #25D366;
       color: white;
     }
 
-    .chat-options button:last-child {
+    .chat-options button:nth-child(2) {
       background: #003366;
+      color: white;
+    }
+
+    .chat-options button:nth-child(3) {
+      background: #ff4500;
       color: white;
     }
 
@@ -613,29 +644,6 @@
       margin-bottom: 5px;
     }
 
-    /* New styles for sequential form */
-    .form-step {
-      display: none;
-    }
-
-    .form-step.active {
-      display: block;
-    }
-
-    .navigation-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      justify-content: center;
-    }
-
-    .careful-message {
-      text-align: center;
-      color: #555;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
     @media (max-width: 768px) {
       .hero h1 {
         font-size: 2em;
@@ -703,6 +711,13 @@
       <a href="#services">Apply Now</a>
     </nav>
   </header>
+
+  <!-- Fixed Live Headline with Scrolling Ticker -->
+  <div class="live-headline">
+    <div class="ticker">
+      Best Offer: Personal Loan Rate of Interest 10.49% with Zero Processing Fee (Cashback Offer)
+    </div>
+  </div>
 
   <section id="home" class="hero">
     <h1>Welcome to Finvare</h1>
@@ -780,417 +795,179 @@
   <div class="get-in-touch" id="get-in-touch">
     <h3>Loan Application Form</h3>
     
-<form action="https://formsubmit.co/sandeepyjaipur@gmail.com" method="POST" id="loan-form">
-  <input type="hidden" name="_captcha" value="false">
+    <form action="https://formsubmit.co/sandeepyjaipur@gmail.com" method="POST" id="loan-form">
+      <input type="hidden" name="_captcha" value="false">
 
-  <div class="form-step" id="step-1">
-    <div class="form-group">
-      <label for="name">Full Name*</label>
-      <input type="text" name="name" id="name" required>
-      <div id="name-error" class="error-message"></div>
+      <!-- Step 1: Full Name -->
+      <div class="form-step active" id="step-1">
+        <div class="form-group">
+          <label for="name">Full Name*</label>
+          <input type="text" name="name" id="name" required>
+        </div>
+        <div class="button-group">
+          <button type="button" onclick="nextStep(2)">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Date of Birth -->
+      <div class="form-step" id="step-2">
+        <div class="form-group">
+          <label for="dob">Date of Birth*</label>
+          <input type="date" name="dob" id="dob" required>
+        </div>
+        <div class="button-group">
+          <button type="button" onclick="prevStep(1)">Previous</button>
+          <button type="button" onclick="nextStep(3)">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Phone Numbers -->
+      <div class="form-step" id="step-3">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Phone Number*</label>
+            <input type="tel" name="phone" id="phone" maxlength="10" required>
+          </div>
+          <div class="form-group">
+            <label for="alt_phone">Alternate Phone</label>
+            <input type="tel" name="alt_phone" id="alt_phone" maxlength="10">
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="button" onclick="prevStep(2)">Previous</button>
+          <button type="button" onclick="nextStep(4)">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Email and PAN -->
+      <div class="form-step" id="step-4">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email*</label>
+            <input type="email" name="email" id="email" required>
+          </div>
+          <div class="form-group">
+            <label for="pan">PAN Number*</label>
+            <input type="text" name="pan" id="pan" maxlength="10" required>
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="button" onclick="prevStep(3)">Previous</button>
+          <button type="button" onclick="nextStep(5)">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Company and Income -->
+      <div class="form-step" id="step-5">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="company_name">Company Name*</label>
+            <input type="text" name="company_name" id="company_name" required>
+          </div>
+          <div class="form-group">
+            <label for="monthly_income">Monthly Income (₹)*</label>
+            <input type="number" name="monthly_income" id="monthly_income" required>
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="button" onclick="prevStep(4)">Previous</button>
+          <button type="button" onclick="nextStep(6)">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 6: City and Pincode -->
+      <div class="form-step" id="step-6">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City*</label>
+            <input type="text" name="city" id="city" list="city-list" required>
+            <datalist id="city-list">
+              <option value="Mumbai"><option value="Delhi"><option value="Bangalore">
+              <option value="Hyderabad"><option value="Chennai"><option value="Kolkata">
+              <option value="Pune"><option value="Jaipur"><option value="Lucknow">
+              <option value="Ahmedabad"><option value="Surat"><option value="Indore">
+              <option value="Bhopal"><option value="Patna"><option value="Chandigarh">
+              <option value="Nagpur"><option value="Kanpur"><option value="Ludhiana">
+              <option value="Agra"><option value="Nashik"><option value="Vadodara">
+              <option value="Faridabad"><option value="Meerut"><option value="Rajkot">
+              <option value="Varanasi"><option value="Amritsar"><option value="Ranchi">
+              <option value="Noida"><option value="Gurgaon"><option value="Howrah">
+              <option value="Jamshedpur"><option value="Srinagar"><option value="Coimbatore">
+              <option value="Vijayawada"><option value="Dhanbad"><option value="Gwalior">
+              <option value="Jabalpur"><option value="Kota"><option value="Madurai">
+              <option value="Raipur"><option value="Bhubaneswar"><option value="Aurangabad">
+              <option value="Solapur"><option value="Dehradun"><option value="Guwahati">
+              <option value="Trichy"><option value="Thiruvananthapuram"><option value="Mysore">
+              <option value="Jodhpur"><option value="Udaipur">
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="pincode">Pincode*</label>
+            <input type="text" name="pincode" id="pincode" pattern="[0-9]{6}" required>
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="button" onclick="prevStep(5)">Previous</button>
+          <button type="button" onclick="nextStep(7)">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 7: Loan Type -->
+      <div class="form-step" id="step-7">
+        <div class="form-group">
+          <label for="loan_type">Loan Type*</label>
+          <select name="loan_type" id="loan_type" required>
+            <option value="">Select Loan Type</option>
+            <option value="personal">Personal Loan</option>
+            <option value="home">Home Loan</option>
+            <option value="business">Business Loan</option>
+          </select>
+        </div>
+        <div class="button-group">
+          <button type="button" onclick="prevStep(6)">Previous</button>
+          <button type="button" onclick="nextStep(8)">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 8: Loan Amount -->
+      <div class="form-step" id="step-8">
+        <div class="form-group">
+          <label for="loan_amount">Loan Amount (₹)*</label>
+          <input type="number" name="loan_amount" id="loan_amount" required>
+        </div>
+        <div class="button-group">
+          <button type="button" onclick="prevStep(7)">Previous</button>
+          <button type="button" onclick="nextStep(9)">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 9: Declaration -->
+      <div class="form-step" id="step-9">
+        <div class="declaration" style="background-color:#e6ffe6; padding:10px; border-radius:5px;">
+          <input type="checkbox" name="declaration" id="declaration" required>
+          <label for="declaration">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
+        </div>
+        <div class="button-group">
+          <button type="button" onclick="prevStep(8)">Previous</button>
+          <button type="submit">Submit Application</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Documents Required Section (unchanged) -->
+    <div style="background-color:#e6ffe6; padding:15px; margin-top:20px; border-radius:5px;">
+      <h3>Documents Required</h3>
+      <ul>
+        <li>PAN Card</li>
+        <li>Aadhar Card</li>
+        <li>Address Proof</li>
+        <li>Photo</li>
+        <li>Income Proof (3 months)</li>
+        <li>Bank Account Statement (6 months)</li>
+        <li>Form 26AS</li>
+        <li>Service Certificate</li>
+      </ul>
     </div>
-  </div>
-
-  <div class="form-step" id="step-2">
-    <div class="form-group">
-      <label for="dob">Date of Birth*</label>
-      <input type="date" name="dob" id="dob" required>
-      <div id="dob-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-3">
-    <div class="form-group">
-      <label for="phone">Phone Number*</label>
-      <input type="tel" name="phone" id="phone" maxlength="10" required>
-      <div id="phone-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-4">
-    <div class="form-group">
-      <label for="alt_phone">Alternate Phone</label>
-      <input type="tel" name="alt_phone" id="alt_phone" maxlength="10">
-    </div>
-  </div>
-
-  <div class="form-step" id="step-5">
-    <div class="form-group">
-      <label for="email">Email*</label>
-      <input type="email" name="email" id="email" required>
-      <div id="email-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-6">
-    <div class="form-group">
-      <label for="pan">PAN Number*</label>
-      <input type="text" name="pan" id="pan" maxlength="10" required>
-      <div id="pan-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-7">
-    <div class="form-group">
-      <label for="company_name">Company Name*</label>
-      <input type="text" name="company_name" id="company_name" required>
-      <div id="company_name-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-8">
-    <div class="form-group">
-      <label for="monthly_income">Monthly Income (₹)*</label>
-      <input type="number" name="monthly_income" id="monthly_income" required>
-      <div id="monthly_income-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-9">
-    <div class="form-group">
-      <label for="pincode">Pincode*</label>
-      <input type="text" name="pincode" id="pincode" pattern="[0-9]{6}" required>
-      <div id="pincode-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-10">
-    <div class="form-group">
-      <label for="city">City*</label>
-      <input type="text" name="city" id="city" list="city-list" required>
-      <datalist id="city-list">
-        <option value="Mumbai"><option value="Delhi"><option value="Bangalore">
-        <option value="Hyderabad"><option value="Chennai"><option value="Kolkata">
-        <option value="Pune"><option value="Jaipur"><option value="Lucknow">
-        <option value="Ahmedabad"><option value="Surat"><option value="Indore">
-        <option value="Bhopal"><option value="Patna"><option value="Chandigarh">
-        <option value="Nagpur"><option value="Kanpur"><option value="Ludhiana">
-        <option value="Agra"><option value="Nashik"><option value="Vadodara">
-        <option value="Faridabad"><option value="Meerut"><option value="Rajkot">
-        <option value="Varanasi"><option value="Amritsar"><option value="Ranchi">
-        <option value="Noida"><option value="Gurgaon"><option value="Howrah">
-        <option value="Jamshedpur"><option value="Srinagar"><option value="Coimbatore">
-        <option value="Vijayawada"><option value="Dhanbad"><option value="Gwalior">
-        <option value="Jabalpur"><option value="Kota"><option value="Madurai">
-        <option value="Raipur"><option value="Bhubaneswar"><option value="Aurangabad">
-        <option value="Solapur"><option value="Dehradun"><option value="Guwahati">
-        <option value="Trichy"><option value="Thiruvananthapuram"><option value="Mysore">
-        <option value="Jodhpur"><option value="Udaipur">
-      </datalist>
-      <div id="city-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-11">
-    <div class="form-group">
-      <label for="loan_type">Loan Type*</label>
-      <select name="loan_type" id="loan_type" required>
-        <option value="">Select Loan Type</option>
-        <option value="personal">Personal Loan</option>
-        <option value="home">Home Loan</option>
-        <option value="business">Business Loan</option>
-      </select>
-      <div id="loan_type-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-12">
-    <div class="form-group">
-      <label for="loan_amount">Loan Amount (₹)*</label>
-      <input type="number" name="loan_amount" id="loan_amount" required>
-      <div id="loan_amount-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-13">
-    <div class="declaration" style="background-color:#e6ffe6; padding:10px; border-radius:5px;">
-      <input type="checkbox" name="declaration" id="declaration" required>
-      <label for="declaration">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
-      <div id="declaration-error" class="error-message"></div>
-    </div>
-  </div>
-
-  <div class="form-step" id="step-14">
-    <div class="button-group">
-      <button type="submit">Submit Application</button>
-    </div>
-  </div>
-
-  <div class="navigation-buttons" id="navigation-buttons">
-    <button type="button" onclick="prevStep()" id="prev-button" style="display: none;">Previous</button>
-    <button type="button" onclick="nextStep()" id="next-button">Next</button>
-  </div>
-  <div class="careful-message" id="careful-message">Please fill your details carefully</div>
-  <div id="spinner" class="spinner"></div>
-</form>
-
-<div style="background-color:#e6ffe6; padding:15px; margin-top:20px; border-radius:5px;">
-  <h3>Documents Required</h3>
-  <ul>
-    <li>PAN Card</li>
-    <li>Aadhar Card</li>
-    <li>Address Proof</li>
-    <li>Photo</li>
-    <li>Income Proof (3 months)</li>
-    <li>Bank Account Statement (6 months)</li>
-    <li>Form 26AS</li>
-    <li>Service Certificate</li>
-  </ul>
-</div>
-
-<script>
-let currentStep = 1;
-const totalSteps = 14;
-
-function showStep(step) {
-  document.querySelectorAll('.form-step').forEach(el => {
-    el.classList.remove('active');
-  });
-  document.getElementById(`step-${step}`).classList.add('active');
-
-  const prevButton = document.getElementById('prev-button');
-  const nextButton = document.getElementById('next-button');
-  const carefulMessage = document.getElementById('careful-message');
-
-  prevButton.style.display = step === 1 ? 'none' : 'inline-block';
-  nextButton.style.display = step === totalSteps ? 'none' : 'inline-block';
-  carefulMessage.style.display = step === totalSteps ? 'none' : 'block';
-}
-
-function saveFormData() {
-  const formData = {
-    name: document.getElementById('name').value,
-    dob: document.getElementById('dob').value,
-    phone: document.getElementById('phone').value,
-    alt_phone: document.getElementById('alt_phone').value,
-    email: document.getElementById('email').value,
-    pan: document.getElementById('pan').value,
-    company_name: document.getElementById('company_name').value,
-    monthly_income: document.getElementById('monthly_income').value,
-    pincode: document.getElementById('pincode').value,
-    city: document.getElementById('city').value,
-    loan_type: document.getElementById('loan_type').value,
-    loan_amount: document.getElementById('loan_amount').value,
-    declaration: document.getElementById('declaration').checked
-  };
-  localStorage.setItem('loanFormData', JSON.stringify(formData));
-}
-
-function loadFormData() {
-  const savedData = localStorage.getItem('loanFormData');
-  if (savedData) {
-    const formData = JSON.parse(savedData);
-    document.getElementById('name').value = formData.name || '';
-    document.getElementById('dob').value = formData.dob || '';
-    document.getElementById('phone').value = formData.phone || '';
-    document.getElementById('alt_phone').value = formData.alt_phone || '';
-    document.getElementById('email').value = formData.email || '';
-    document.getElementById('pan').value = formData.pan || '';
-    document.getElementById('company_name').value = formData.company_name || '';
-    document.getElementById('monthly_income').value = formData.monthly_income || '';
-    document.getElementById('pincode').value = formData.pincode || '';
-    document.getElementById('city').value = formData.city || '';
-    document.getElementById('loan_type').value = formData.loan_type || '';
-    document.getElementById('loan_amount').value = formData.loan_amount || '';
-    document.getElementById('declaration').checked = formData.declaration || false;
-  }
-}
-
-async function fetchCityFromPincode(pincode) {
-  // Mock city mapping (replace with real API like https://api.postalpincode.in/pincode/{pincode})
-  const cityMapping = {
-    '400001': 'Mumbai',
-    '110001': 'Delhi',
-    '560001': 'Bangalore',
-    '500001': 'Hyderabad',
-    '600001': 'Chennai',
-    '700001': 'Kolkata',
-    '411001': 'Pune',
-    '302001': 'Jaipur'
-    // Add more mappings or use an API
-  };
-  return cityMapping[pincode] || '';
-}
-
-function nextStep() {
-  if (currentStep < totalSteps) {
-    // Basic validation for required fields
-    const currentField = document.getElementById(['name', 'dob', 'phone', 'alt_phone', 'email', 'pan', 'company_name', 'monthly_income', 'pincode', 'city', 'loan_type', 'loan_amount', 'declaration'][currentStep - 1]);
-    if (currentField && currentField.hasAttribute('required') && !currentField.value.trim() && currentField.type !== 'checkbox') {
-      showError(currentField.id, 'This field is required');
-      return;
-    }
-    if (currentField && currentField.type === 'checkbox' && !currentField.checked) {
-      showError(currentField.id, 'You must accept the declaration');
-      return;
-    }
-
-    // Auto-fetch city after pincode
-    if (currentStep === 9) {
-      const pincode = document.getElementById('pincode').value;
-      if (/^[0-9]{6}$/.test(pincode)) {
-        fetchCityFromPincode(pincode).then(city => {
-          document.getElementById('city').value = city;
-        });
-      } else {
-        showError('pincode', 'Please enter a valid 6-digit pincode');
-        return;
-      }
-    }
-
-    saveFormData();
-    currentStep++;
-    showStep(currentStep);
-  }
-}
-
-function prevStep() {
-  if (currentStep > 1) {
-    currentStep--;
-    showStep(currentStep);
-  }
-}
-
-document.getElementById('loan-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  if (!validateForm()) return;
-
-  const form = event.target;
-  const formData = new FormData(form);
-  const spinner = document.getElementById('spinner');
-  spinner.style.display = 'block';
-
-  fetch(form.action, {
-    method: form.method,
-    body: formData,
-  })
-  .then(response => {
-    spinner.style.display = 'none';
-    if (response.ok) {
-      alert('Application submitted successfully! Our representative will call you shortly.');
-      localStorage.removeItem('loanFormData');
-      form.reset();
-      document.getElementById('get-in-touch').style.display = 'none';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      currentStep = 1;
-      showStep(currentStep);
-    } else {
-      throw new Error('Server error: ' + response.status);
-    }
-  })
-  .catch(error => {
-    spinner.style.display = 'none';
-    alert(`Submission failed: ${error.message}. Please try again or contact support.`);
-  });
-});
-
-function validateForm() {
-  let isValid = true;
-  document.querySelectorAll('.error-message').forEach(el => {
-    el.style.display = 'none';
-  });
-  document.querySelectorAll('input, select').forEach(el => {
-    el.classList.remove('error');
-  });
-
-  const name = document.getElementById('name');
-  if (!name.value.trim()) {
-    showError('name', 'Please enter your full name');
-    isValid = false;
-  }
-
-  const phone = document.getElementById('phone');
-  if (!/^[6789]\d{9}$/.test(phone.value)) {
-    showError('phone', 'Please enter a valid 10-digit Indian number');
-    isValid = false;
-  }
-
-  const email = document.getElementById('email');
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-    showError('email', 'Please enter a valid email address');
-    isValid = false;
-  }
-
-  const dob = document.getElementById('dob');
-  if (!dob.value) {
-    showError('dob', 'Please enter your date of birth');
-    isValid = false;
-  } else {
-    const dobDate = new Date(dob.value);
-    const ageDiff = Date.now() - dobDate.getTime();
-    const ageDate = new Date(ageDiff);
-    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-    if (age < 18) {
-      showError('dob', 'You must be at least 18 years old');
-      isValid = false;
-    }
-  }
-
-  const pan = document.getElementById('pan');
-  if (!pan.value || !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan.value)) {
-    showError('pan', 'Please enter valid PAN (e.g. ABCDE1234F)');
-    isValid = false;
-  }
-
-  const company = document.getElementById('company_name');
-  if (!company.value.trim()) {
-    showError('company_name', 'Please enter your company name');
-    isValid = false;
-  }
-
-  const income = document.getElementById('monthly_income');
-  if (!income.value || isNaN(income.value) || income.value < 10000) {
-    showError('monthly_income', 'Please enter valid income amount (minimum ₹10,000)');
-    isValid = false;
-  }
-
-  const city = document.getElementById('city');
-  if (!city.value.trim()) {
-    showError('city', 'Please enter your city');
-    isValid = false;
-  }
-
-  const pincode = document.getElementById('pincode');
-  if (!pincode.value || !/^[0-9]{6}$/.test(pincode.value)) {
-    showError('pincode', 'Please enter 6-digit pincode');
-    isValid = false;
-  }
-
-  const loanType = document.getElementById('loan_type');
-  if (!loanType.value) {
-    showError('loan_type', 'Please select a loan type');
-    isValid = false;
-  }
-
-  const amount = document.getElementById('loan_amount');
-  if (!amount.value || isNaN(amount.value) || amount.value < 10000) {
-    showError('loan_amount', 'Minimum loan amount is ₹10,000');
-    isValid = false;
-  }
-
-  const declaration = document.getElementById('declaration');
-  if (!declaration.checked) {
-    showError('declaration', 'You must accept the declaration');
-    isValid = false;
-  }
-
-  return isValid;
-}
-
-function showError(fieldId, message) {
-  const field = document.getElementById(fieldId);
-  field.classList.add('error');
-  const errorElement = document.getElementById(`${fieldId}-error`);
-  errorElement.textContent = message;
-  errorElement.style.display = 'block';
-}
-
-window.addEventListener('load', () => {
-  loadFormData();
-  showStep(currentStep);
-});
-</script>
-
   </div>
 
   <section class="emi-section">
@@ -1321,7 +1098,7 @@ window.addEventListener('load', () => {
     </div>
     <div class="column">
       <h3>Contact Us</h3>
-      <a href="mailto:care@finvare.com">📧 care@finvare.com</a>
+      <a href="/cdn-cgi/l/email-protection#1c7f7d6e795c7a75726a7d6e79327f7371">📧 <span class="__cf_email__" data-cfemail="3d5e5c4f587d5b54534b5c4f58135e5250">[email protected]</span></a>
       <a href="https://wa.me/919509000080" target="_blank">📱 +91 9509000080</a>
       <a class="youtube-icon" href="https://youtube.com/@finvare" target="_blank">▶️ YouTube</a>
     </div>
@@ -1341,7 +1118,7 @@ window.addEventListener('load', () => {
 
   <a href="tel:+919509000080" class="call-button">📞</a>
 
-  <div class="chat-widget" id="chat-widget">
+  <div class="chat-widget">
     <div class="chat-header">
       <span>Need Help?</span>
       <button class="close-chat">×</button>
@@ -1356,23 +1133,18 @@ window.addEventListener('load', () => {
       <button onclick="location.href='tel:+919509000080'">
         <i class="fas fa-phone"></i> Call Now
       </button>
+      <button onclick="location.href='sms:+919509000080'">
+        <i class="fas fa-sms"></i> Send SMS
+      </button>
     </div>
   </div>
 
-  <div class="chat-toggle" id="chat-toggle">
+  <div class="chat-toggle" onclick="toggleChat()">
     <i class="fas fa-comment"></i>
   </div>
 
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
-    // Chat widget toggle
-    document.getElementById('chat-toggle').addEventListener('click', () => {
-      const widget = document.getElementById('chat-widget');
-      widget.style.display = widget.style.display === 'block' ? 'none' : 'block';
-    });
-    document.querySelector('.close-chat').addEventListener('click', () => {
-      document.getElementById('chat-widget').style.display = 'none';
-    });
-
     // Service tabs functionality
     function showService(serviceId) {
       document.querySelectorAll('.service-detail').forEach(el => {
@@ -1398,9 +1170,86 @@ window.addEventListener('load', () => {
         const serviceId = activeService.getAttribute('onclick').match(/'([^']+)'/)[1];
         document.getElementById('loan_type').value = serviceId;
       }
-      showStep(currentStep);
+      showStep(1);
     }
     
+    // Multi-step form navigation
+    function showStep(step) {
+      document.querySelectorAll('.form-step').forEach(el => {
+        el.classList.remove('active');
+      });
+      document.getElementById(`step-${step}`).classList.add('active');
+    }
+
+    function nextStep(step) {
+      const currentStep = document.querySelector('.form-step.active');
+      const inputs = currentStep.querySelectorAll('input[required], select[required]');
+      let isValid = true;
+
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          input.classList.add('error');
+          isValid = false;
+        } else {
+          input.classList.remove('error');
+        }
+      });
+
+      if (isValid) {
+        showStep(step);
+      } else {
+        alert('Please fill all required fields.');
+      }
+    }
+
+    function prevStep(step) {
+      showStep(step);
+    }
+
+    // Form submission
+    document.getElementById('loan-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const form = event.target;
+
+      const pan = document.getElementById('pan').value.toUpperCase();
+      const panPattern = /^[A-Z]{3}P[A-Z]{1}[0-9]{4}[A-Z]{1}$/;
+
+      if (!panPattern.test(pan)) {
+        alert('Please enter valid PAN');
+        showStep(4);
+        return;
+      }
+
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('Thank you for your application! Our representative will call you shortly.');
+          form.reset();
+          document.getElementById('get-in-touch').style.display = 'none';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          alert('There was an error submitting the form. Please try again.');
+        }
+      })
+      .catch(error => {
+        alert('There was an error submitting the form. Please try again.');
+      });
+    });
+
+    // Chat widget toggle
+    function toggleChat() {
+      const chatWidget = document.querySelector('.chat-widget');
+      chatWidget.style.display = chatWidget.style.display === 'block' ? 'none' : 'block';
+    }
+
+    document.querySelector('.close-chat').addEventListener('click', () => {
+      document.querySelector('.chat-widget').style.display = 'none';
+    });
+
     // EMI Calculator
     function calculateEMI() {
       const amount = parseFloat(document.getElementById('loan-amount').value);
@@ -1431,12 +1280,10 @@ window.addEventListener('load', () => {
       document.getElementById('total-payment').textContent = `₹ ${formatNumber(totalPayment)}`;
     }
     
-    // Initialize EMI calculator
     document.getElementById('loan-amount').addEventListener('input', calculateEMI);
     document.getElementById('interest-rate').addEventListener('input', calculateEMI);
     document.getElementById('loan-tenure').addEventListener('input', calculateEMI);
     
-    // Calculate EMI on page load
     window.addEventListener('load', calculateEMI);
   </script>
 </body>

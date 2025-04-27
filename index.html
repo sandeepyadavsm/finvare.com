@@ -1,9 +1,53 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Finvare.com: Compare & Apply for Loans, Instant Loan, Low Interest Rate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Finvare.com offers personal, home, and business loans with low interest rates and quick approval. Apply now!" />
+  <meta name="keywords" content="loans, personal loan, home loan, business loan, EMI calculator, Finvare" />
+  <meta property="og:title" content="Finvare.com: Compare & Apply for Loans" />
+  <meta property="og:description" content="Your smart financial partner for instant loans with low interest rates." />
+  <meta property="og:image" content="https://finvare.com/assets/og-image.jpg" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body {
@@ -545,7 +589,6 @@
       to { transform: rotate(360deg); }
     }
 
-    /* New styles for enhanced form */
     .form-row {
       display: flex;
       gap: 15px;
@@ -568,6 +611,29 @@
     
     .documents-list li {
       margin-bottom: 5px;
+    }
+
+    /* New styles for sequential form */
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    .navigation-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .careful-message {
+      text-align: center;
+      color: #555;
+      font-size: 14px;
+      margin-top: 10px;
     }
 
     @media (max-width: 768px) {
@@ -717,51 +783,78 @@
 <form action="https://formsubmit.co/sandeepyjaipur@gmail.com" method="POST" id="loan-form">
   <input type="hidden" name="_captcha" value="false">
 
-  <div class="form-row">
+  <div class="form-step" id="step-1">
     <div class="form-group">
       <label for="name">Full Name*</label>
       <input type="text" name="name" id="name" required>
-    </div>
-    <div class="form-group">
-      <label for="dob">Date of Birth*</label>
-      <input type="date" name="dob" id="dob" required>
+      <div id="name-error" class="error-message"></div>
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="form-step" id="step-2">
+    <div class="form-group">
+      <label for="dob">Date of Birth*</label>
+      <input type="date" name="dob" id="dob" required>
+      <div id="dob-error" class="error-message"></div>
+    </div>
+  </div>
+
+  <div class="form-step" id="step-3">
     <div class="form-group">
       <label for="phone">Phone Number*</label>
       <input type="tel" name="phone" id="phone" maxlength="10" required>
+      <div id="phone-error" class="error-message"></div>
     </div>
+  </div>
+
+  <div class="form-step" id="step-4">
     <div class="form-group">
       <label for="alt_phone">Alternate Phone</label>
       <input type="tel" name="alt_phone" id="alt_phone" maxlength="10">
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="form-step" id="step-5">
     <div class="form-group">
       <label for="email">Email*</label>
       <input type="email" name="email" id="email" required>
+      <div id="email-error" class="error-message"></div>
     </div>
+  </div>
+
+  <div class="form-step" id="step-6">
     <div class="form-group">
       <label for="pan">PAN Number*</label>
       <input type="text" name="pan" id="pan" maxlength="10" required>
+      <div id="pan-error" class="error-message"></div>
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="form-step" id="step-7">
     <div class="form-group">
       <label for="company_name">Company Name*</label>
       <input type="text" name="company_name" id="company_name" required>
-    </div>
-    <div class="form-group">
-      <label for="monthly_income">Monthly Income (₹)*</label>
-      <input type="number" name="monthly_income" id="monthly_income" required>
+      <div id="company_name-error" class="error-message"></div>
     </div>
   </div>
 
-  <div class="form-row">
+  <div class="form-step" id="step-8">
+    <div class="form-group">
+      <label for="monthly_income">Monthly Income (₹)*</label>
+      <input type="number" name="monthly_income" id="monthly_income" required>
+      <div id="monthly_income-error" class="error-message"></div>
+    </div>
+  </div>
+
+  <div class="form-step" id="step-9">
+    <div class="form-group">
+      <label for="pincode">Pincode*</label>
+      <input type="text" name="pincode" id="pincode" pattern="[0-9]{6}" required>
+      <div id="pincode-error" class="error-message"></div>
+    </div>
+  </div>
+
+  <div class="form-step" id="step-10">
     <div class="form-group">
       <label for="city">City*</label>
       <input type="text" name="city" id="city" list="city-list" required>
@@ -784,39 +877,53 @@
         <option value="Trichy"><option value="Thiruvananthapuram"><option value="Mysore">
         <option value="Jodhpur"><option value="Udaipur">
       </datalist>
+      <div id="city-error" class="error-message"></div>
     </div>
+  </div>
+
+  <div class="form-step" id="step-11">
     <div class="form-group">
-      <label for="pincode">Pincode*</label>
-      <input type="text" name="pincode" id="pincode" pattern="[0-9]{6}" required>
+      <label for="loan_type">Loan Type*</label>
+      <select name="loan_type" id="loan_type" required>
+        <option value="">Select Loan Type</option>
+        <option value="personal">Personal Loan</option>
+        <option value="home">Home Loan</option>
+        <option value="business">Business Loan</option>
+      </select>
+      <div id="loan_type-error" class="error-message"></div>
     </div>
   </div>
 
-  <div class="form-group">
-    <label for="loan_type">Loan Type*</label>
-    <select name="loan_type" id="loan_type" required>
-      <option value="">Select Loan Type</option>
-      <option value="personal">Personal Loan</option>
-      <option value="home">Home Loan</option>
-      <option value="business">Business Loan</option>
-    </select>
+  <div class="form-step" id="step-12">
+    <div class="form-group">
+      <label for="loan_amount">Loan Amount (₹)*</label>
+      <input type="number" name="loan_amount" id="loan_amount" required>
+      <div id="loan_amount-error" class="error-message"></div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="loan_amount">Loan Amount (₹)*</label>
-    <input type="number" name="loan_amount" id="loan_amount" required>
+  <div class="form-step" id="step-13">
+    <div class="declaration" style="background-color:#e6ffe6; padding:10px; border-radius:5px;">
+      <input type="checkbox" name="declaration" id="declaration" required>
+      <label for="declaration">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
+      <div id="declaration-error" class="error-message"></div>
+    </div>
   </div>
 
-  <div class="declaration" style="background-color:#e6ffe6; padding:10px; border-radius:5px;">
-    <input type="checkbox" name="declaration" id="declaration" required>
-    <label for="declaration">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
+  <div class="form-step" id="step-14">
+    <div class="button-group">
+      <button type="submit">Submit Application</button>
+    </div>
   </div>
 
-  <div class="button-group">
-    <button type="submit">Submit Application</button>
+  <div class="navigation-buttons" id="navigation-buttons">
+    <button type="button" onclick="prevStep()" id="prev-button" style="display: none;">Previous</button>
+    <button type="button" onclick="nextStep()" id="next-button">Next</button>
   </div>
+  <div class="careful-message" id="careful-message">Please fill your details carefully</div>
+  <div id="spinner" class="spinner"></div>
 </form>
 
-<!-- Documents Required Section -->
 <div style="background-color:#e6ffe6; padding:15px; margin-top:20px; border-radius:5px;">
   <h3>Documents Required</h3>
   <ul>
@@ -832,34 +939,255 @@
 </div>
 
 <script>
+let currentStep = 1;
+const totalSteps = 14;
+
+function showStep(step) {
+  document.querySelectorAll('.form-step').forEach(el => {
+    el.classList.remove('active');
+  });
+  document.getElementById(`step-${step}`).classList.add('active');
+
+  const prevButton = document.getElementById('prev-button');
+  const nextButton = document.getElementById('next-button');
+  const carefulMessage = document.getElementById('careful-message');
+
+  prevButton.style.display = step === 1 ? 'none' : 'inline-block';
+  nextButton.style.display = step === totalSteps ? 'none' : 'inline-block';
+  carefulMessage.style.display = step === totalSteps ? 'none' : 'block';
+}
+
+function saveFormData() {
+  const formData = {
+    name: document.getElementById('name').value,
+    dob: document.getElementById('dob').value,
+    phone: document.getElementById('phone').value,
+    alt_phone: document.getElementById('alt_phone').value,
+    email: document.getElementById('email').value,
+    pan: document.getElementById('pan').value,
+    company_name: document.getElementById('company_name').value,
+    monthly_income: document.getElementById('monthly_income').value,
+    pincode: document.getElementById('pincode').value,
+    city: document.getElementById('city').value,
+    loan_type: document.getElementById('loan_type').value,
+    loan_amount: document.getElementById('loan_amount').value,
+    declaration: document.getElementById('declaration').checked
+  };
+  localStorage.setItem('loanFormData', JSON.stringify(formData));
+}
+
+function loadFormData() {
+  const savedData = localStorage.getItem('loanFormData');
+  if (savedData) {
+    const formData = JSON.parse(savedData);
+    document.getElementById('name').value = formData.name || '';
+    document.getElementById('dob').value = formData.dob || '';
+    document.getElementById('phone').value = formData.phone || '';
+    document.getElementById('alt_phone').value = formData.alt_phone || '';
+    document.getElementById('email').value = formData.email || '';
+    document.getElementById('pan').value = formData.pan || '';
+    document.getElementById('company_name').value = formData.company_name || '';
+    document.getElementById('monthly_income').value = formData.monthly_income || '';
+    document.getElementById('pincode').value = formData.pincode || '';
+    document.getElementById('city').value = formData.city || '';
+    document.getElementById('loan_type').value = formData.loan_type || '';
+    document.getElementById('loan_amount').value = formData.loan_amount || '';
+    document.getElementById('declaration').checked = formData.declaration || false;
+  }
+}
+
+async function fetchCityFromPincode(pincode) {
+  // Mock city mapping (replace with real API like https://api.postalpincode.in/pincode/{pincode})
+  const cityMapping = {
+    '400001': 'Mumbai',
+    '110001': 'Delhi',
+    '560001': 'Bangalore',
+    '500001': 'Hyderabad',
+    '600001': 'Chennai',
+    '700001': 'Kolkata',
+    '411001': 'Pune',
+    '302001': 'Jaipur'
+    // Add more mappings or use an API
+  };
+  return cityMapping[pincode] || '';
+}
+
+function nextStep() {
+  if (currentStep < totalSteps) {
+    // Basic validation for required fields
+    const currentField = document.getElementById(['name', 'dob', 'phone', 'alt_phone', 'email', 'pan', 'company_name', 'monthly_income', 'pincode', 'city', 'loan_type', 'loan_amount', 'declaration'][currentStep - 1]);
+    if (currentField && currentField.hasAttribute('required') && !currentField.value.trim() && currentField.type !== 'checkbox') {
+      showError(currentField.id, 'This field is required');
+      return;
+    }
+    if (currentField && currentField.type === 'checkbox' && !currentField.checked) {
+      showError(currentField.id, 'You must accept the declaration');
+      return;
+    }
+
+    // Auto-fetch city after pincode
+    if (currentStep === 9) {
+      const pincode = document.getElementById('pincode').value;
+      if (/^[0-9]{6}$/.test(pincode)) {
+        fetchCityFromPincode(pincode).then(city => {
+          document.getElementById('city').value = city;
+        });
+      } else {
+        showError('pincode', 'Please enter a valid 6-digit pincode');
+        return;
+      }
+    }
+
+    saveFormData();
+    currentStep++;
+    showStep(currentStep);
+  }
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
+}
+
 document.getElementById('loan-form').addEventListener('submit', function(event) {
   event.preventDefault();
+  if (!validateForm()) return;
+
   const form = event.target;
-
-  const pan = document.getElementById('pan').value.toUpperCase();
-  const panPattern = /^[A-Z]{3}P[A-Z]{1}[0-9]{4}[A-Z]{1}$/;
-
-  if (!panPattern.test(pan)) {
-    alert('Please enter valid PAN');
-    return;
-  }
-
   const formData = new FormData(form);
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = 'block';
+
   fetch(form.action, {
     method: form.method,
     body: formData,
   })
   .then(response => {
+    spinner.style.display = 'none';
     if (response.ok) {
-      alert('Thank you for your application! Our representative will call you shortly.');
+      alert('Application submitted successfully! Our representative will call you shortly.');
+      localStorage.removeItem('loanFormData');
       form.reset();
+      document.getElementById('get-in-touch').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      currentStep = 1;
+      showStep(currentStep);
     } else {
-      alert('There was an error submitting the form. Please try again.');
+      throw new Error('Server error: ' + response.status);
     }
   })
   .catch(error => {
-    alert('There was an error submitting the form. Please try again.');
+    spinner.style.display = 'none';
+    alert(`Submission failed: ${error.message}. Please try again or contact support.`);
   });
+});
+
+function validateForm() {
+  let isValid = true;
+  document.querySelectorAll('.error-message').forEach(el => {
+    el.style.display = 'none';
+  });
+  document.querySelectorAll('input, select').forEach(el => {
+    el.classList.remove('error');
+  });
+
+  const name = document.getElementById('name');
+  if (!name.value.trim()) {
+    showError('name', 'Please enter your full name');
+    isValid = false;
+  }
+
+  const phone = document.getElementById('phone');
+  if (!/^[6789]\d{9}$/.test(phone.value)) {
+    showError('phone', 'Please enter a valid 10-digit Indian number');
+    isValid = false;
+  }
+
+  const email = document.getElementById('email');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+    showError('email', 'Please enter a valid email address');
+    isValid = false;
+  }
+
+  const dob = document.getElementById('dob');
+  if (!dob.value) {
+    showError('dob', 'Please enter your date of birth');
+    isValid = false;
+  } else {
+    const dobDate = new Date(dob.value);
+    const ageDiff = Date.now() - dobDate.getTime();
+    const ageDate = new Date(ageDiff);
+    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    if (age < 18) {
+      showError('dob', 'You must be at least 18 years old');
+      isValid = false;
+    }
+  }
+
+  const pan = document.getElementById('pan');
+  if (!pan.value || !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan.value)) {
+    showError('pan', 'Please enter valid PAN (e.g. ABCDE1234F)');
+    isValid = false;
+  }
+
+  const company = document.getElementById('company_name');
+  if (!company.value.trim()) {
+    showError('company_name', 'Please enter your company name');
+    isValid = false;
+  }
+
+  const income = document.getElementById('monthly_income');
+  if (!income.value || isNaN(income.value) || income.value < 10000) {
+    showError('monthly_income', 'Please enter valid income amount (minimum ₹10,000)');
+    isValid = false;
+  }
+
+  const city = document.getElementById('city');
+  if (!city.value.trim()) {
+    showError('city', 'Please enter your city');
+    isValid = false;
+  }
+
+  const pincode = document.getElementById('pincode');
+  if (!pincode.value || !/^[0-9]{6}$/.test(pincode.value)) {
+    showError('pincode', 'Please enter 6-digit pincode');
+    isValid = false;
+  }
+
+  const loanType = document.getElementById('loan_type');
+  if (!loanType.value) {
+    showError('loan_type', 'Please select a loan type');
+    isValid = false;
+  }
+
+  const amount = document.getElementById('loan_amount');
+  if (!amount.value || isNaN(amount.value) || amount.value < 10000) {
+    showError('loan_amount', 'Minimum loan amount is ₹10,000');
+    isValid = false;
+  }
+
+  const declaration = document.getElementById('declaration');
+  if (!declaration.checked) {
+    showError('declaration', 'You must accept the declaration');
+    isValid = false;
+  }
+
+  return isValid;
+}
+
+function showError(fieldId, message) {
+  const field = document.getElementById(fieldId);
+  field.classList.add('error');
+  const errorElement = document.getElementById(`${fieldId}-error`);
+  errorElement.textContent = message;
+  errorElement.style.display = 'block';
+}
+
+window.addEventListener('load', () => {
+  loadFormData();
+  showStep(currentStep);
 });
 </script>
 
@@ -911,91 +1239,62 @@ document.getElementById('loan-form').addEventListener('submit', function(event) 
   <section class="partners">
     <h2>Our Financial Banking Partners</h2>
     <div class="partner-names">
-      <!-- Partner 1 - Bajaj Finance -->
       <div class="partner-card" style="background-color: #003366; color: white;">
         <div class="partner-icon" style="color: #ffcc00;"><i class="fas fa-university"></i></div>
         <div class="partner-name">Bajaj Finance</div>
       </div>
-      
-      <!-- Partner 2 - HDFC Bank -->
       <div class="partner-card" style="background-color: #004a9b; color: white;">
         <div class="partner-icon" style="color: #f7941d;"><i class="fas fa-landmark"></i></div>
         <div class="partner-name">HDFC Bank</div>
       </div>
-      
-      <!-- Partner 3 - ICICI Bank -->
       <div class="partner-card" style="background-color: #f7941d; color: #003366;">
         <div class="partner-icon"><i class="fas fa-piggy-bank"></i></div>
         <div class="partner-name">ICICI Bank</div>
       </div>
-      
-      <!-- Partner 4 - Axis Bank -->
       <div class="partner-card" style="background-color: #00337f; color: white;">
         <div class="partner-icon" style="color: #ff0000;"><i class="fas fa-building"></i></div>
         <div class="partner-name">Axis Bank</div>
       </div>
-      
-      <!-- Partner 5 - Kotak Mahindra -->
       <div class="partner-card" style="background-color: #1a3e72; color: white;">
         <div class="partner-icon" style="color: #d81f26;"><i class="fas fa-credit-card"></i></div>
         <div class="partner-name">Kotak Mahindra</div>
       </div>
-      
-      <!-- Partner 6 - Yes Bank -->
       <div class="partner-card" style="background-color: #004a9b; color: white;">
         <div class="partner-icon" style="color: #ffd700;"><i class="fas fa-bank"></i></div>
         <div class="partner-name">Yes Bank</div>
       </div>
-      
-      <!-- Partner 7 - IDFC FIRST -->
       <div class="partner-card" style="background-color: #e41e26; color: white;">
         <div class="partner-icon"><i class="fas fa-money-bill-wave"></i></div>
         <div class="partner-name">IDFC FIRST</div>
       </div>
-      
-      <!-- Partner 8 - IndusInd -->
       <div class="partner-card" style="background-color: #003366; color: white;">
         <div class="partner-icon" style="color: #ffcc00;"><i class="fas fa-chart-line"></i></div>
         <div class="partner-name">IndusInd</div>
       </div>
-      
-      <!-- Partner 9 - Axis Finance -->
       <div class="partner-card" style="background-color: #00337f; color: white;">
         <div class="partner-icon" style="color: #ff0000;"><i class="fas fa-building"></i></div>
         <div class="partner-name">Axis Finance</div>
       </div>
-      
-      <!-- Partner 10 - Shriram Finance -->
       <div class="partner-card" style="background-color: #003366; color: white;">
         <div class="partner-icon" style="color: #ffcc00;"><i class="fas fa-university"></i></div>
         <div class="partner-name">Shriram Finance</div>
       </div>
-      
-      <!-- Partner 11 - Aditya Birla -->
       <div class="partner-card" style="background-color: #0046aa; color: white;">
         <div class="partner-icon"><i class="fas fa-landmark"></i></div>
         <div class="partner-name">Aditya Birla</div>
       </div>
-      
-      <!-- Partner 12 - Tata Capital -->
       <div class="partner-card" style="background-color: #003366; color: white;">
         <div class="partner-icon"><i class="fas fa-building"></i></div>
         <div class="partner-name">Tata Capital</div>
       </div>
-      
-      <!-- Partner 13 - Muthoot -->
       <div class="partner-card" style="background-color: #c60c30; color: white;">
         <div class="partner-icon" style="color: #ffd700;"><i class="fas fa-university"></i></div>
         <div class="partner-name">Muthoot</div>
       </div>
-      
-      <!-- Partner 14 - Piramal -->
       <div class="partner-card" style="background-color: #0056b3; color: white;">
         <div class="partner-icon"><i class="fas fa-landmark"></i></div>
         <div class="partner-name">Piramal</div>
       </div>
-      
-      <!-- Partner 15 - Poonawala -->
       <div class="partner-card" style="background-color: #003366; color: white;">
         <div class="partner-icon"><i class="fas fa-building"></i></div>
         <div class="partner-name">Poonawala</div>
@@ -1042,7 +1341,7 @@ document.getElementById('loan-form').addEventListener('submit', function(event) 
 
   <a href="tel:+919509000080" class="call-button">📞</a>
 
-  <div class="chat-widget">
+  <div class="chat-widget" id="chat-widget">
     <div class="chat-header">
       <span>Need Help?</span>
       <button class="close-chat">×</button>
@@ -1060,26 +1359,32 @@ document.getElementById('loan-form').addEventListener('submit', function(event) 
     </div>
   </div>
 
+  <div class="chat-toggle" id="chat-toggle">
+    <i class="fas fa-comment"></i>
+  </div>
+
   <script>
+    // Chat widget toggle
+    document.getElementById('chat-toggle').addEventListener('click', () => {
+      const widget = document.getElementById('chat-widget');
+      widget.style.display = widget.style.display === 'block' ? 'none' : 'block';
+    });
+    document.querySelector('.close-chat').addEventListener('click', () => {
+      document.getElementById('chat-widget').style.display = 'none';
+    });
+
     // Service tabs functionality
     function showService(serviceId) {
-      // Hide all service details
       document.querySelectorAll('.service-detail').forEach(el => {
         el.style.display = 'none';
       });
-      
-      // Remove active class from all tabs
       document.querySelectorAll('.service-options span').forEach(el => {
         el.classList.remove('active');
       });
-      
-      // Show selected service and mark tab as active
       document.getElementById(serviceId).style.display = 'block';
       event.currentTarget.classList.add('active');
-      
-      // Set loan type in form if visible
       if(document.getElementById('get-in-touch').style.display === 'block') {
-        document.getElementById('loan-type').value = serviceId;
+        document.getElementById('loan_type').value = serviceId;
       }
     }
     
@@ -1088,167 +1393,12 @@ document.getElementById('loan-form').addEventListener('submit', function(event) 
       const form = document.getElementById('get-in-touch');
       form.style.display = 'block';
       form.scrollIntoView({ behavior: 'smooth' });
-      
-      // Set loan type based on active service
       const activeService = document.querySelector('.service-options span.active');
       if(activeService) {
         const serviceId = activeService.getAttribute('onclick').match(/'([^']+)'/)[1];
-        document.getElementById('loan-type').value = serviceId;
+        document.getElementById('loan_type').value = serviceId;
       }
-    }
-    
-    // Form validation
-    function validateForm() {
-      let isValid = true;
-      
-      // Reset errors
-      document.querySelectorAll('.error-message').forEach(el => {
-        el.style.display = 'none';
-      });
-      document.querySelectorAll('input, select').forEach(el => {
-        el.classList.remove('error');
-      });
-      
-      // Validate name
-      const name = document.getElementById('name');
-      if(!name.value.trim()) {
-        showError('name', 'Please enter your full name');
-        isValid = false;
-      }
-      
-      // Validate phone
-      const phone = document.getElementById('phone');
-      if(!/^[6789]\d{9}$/.test(phone.value)) {
-        showError('phone', 'Please enter a valid 10-digit Indian number');
-        isValid = false;
-      }
-      
-      // Validate email
-      const email = document.getElementById('email');
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-        showError('email', 'Please enter a valid email address');
-        isValid = false;
-      }
-      
-      // Validate Date of Birth
-      const dob = document.getElementById('dob');
-      if(!dob.value) {
-        showError('dob', 'Please enter your date of birth');
-        isValid = false;
-      } else {
-        const dobDate = new Date(dob.value);
-        const ageDiff = Date.now() - dobDate.getTime();
-        const ageDate = new Date(ageDiff);
-        const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-        
-        if(age < 18) {
-          showError('dob', 'You must be at least 18 years old');
-          isValid = false;
-        }
-      }
-      
-      // Validate PAN
-      const pan = document.getElementById('pan');
-      if(!pan.value || !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan.value)) {
-        showError('pan', 'Please enter valid PAN (e.g. ABCDE1234F)');
-        isValid = false;
-      }
-      
-      // Validate Company
-      const company = document.getElementById('company');
-      if(!company.value.trim()) {
-        showError('company', 'Please enter your company name');
-        isValid = false;
-      }
-      
-      // Validate Income
-      const income = document.getElementById('income');
-      if(!income.value || isNaN(income.value) || income.value < 10000) {
-        showError('income', 'Please enter valid income amount (minimum ₹10,000)');
-        isValid = false;
-      }
-      
-      // Validate City
-      const city = document.getElementById('city');
-      if(!city.value.trim()) {
-        showError('city', 'Please enter your city');
-        isValid = false;
-      }
-      
-      // Validate Pincode
-      const pincode = document.getElementById('pincode');
-      if(!pincode.value || !/^[0-9]{6}$/.test(pincode.value)) {
-        showError('pincode', 'Please enter 6-digit pincode');
-        isValid = false;
-      }
-      
-      // Validate loan type
-      const loanType = document.getElementById('loan-type');
-      if(!loanType.value) {
-        showError('loan-type', 'Please select a loan type');
-        isValid = false;
-      }
-      
-      // Validate amount
-      const amount = document.getElementById('amount');
-      if(!amount.value || isNaN(amount.value) || amount.value < 10000) {
-        showError('amount', 'Minimum loan amount is ₹10,000');
-        isValid = false;
-      }
-      
-      // Validate Declaration
-      const declaration = document.getElementById('declaration');
-      if(!declaration.checked) {
-        showError('declaration', 'You must accept the declaration');
-        isValid = false;
-      }
-      
-      return isValid;
-    }
-    
-    function showError(fieldId, message) {
-      const field = document.getElementById(fieldId);
-      field.classList.add('error');
-      const errorElement = document.getElementById(`${fieldId}-error`);
-      errorElement.textContent = message;
-      errorElement.style.display = 'block';
-    }
-    
-    // Form submission
-    function submitForm() {
-      if(!validateForm()) return;
-      
-      const spinner = document.getElementById('spinner');
-      spinner.style.display = 'block';
-      
-      // Simulate form submission
-      setTimeout(() => {
-        spinner.style.display = 'none';
-        alert('Thank you for your application! Our representative will contact you shortly.');
-        document.getElementById('loan-form').reset();
-        document.getElementById('get-in-touch').style.display = 'none';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 1500);
-    }
-    
-    // WhatsApp integration
-    function sendWhatsApp() {
-      if(!validateForm()) return;
-      
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-      const email = document.getElementById('email').value;
-      const dob = document.getElementById('dob').value;
-      const pan = document.getElementById('pan').value;
-      const company = document.getElementById('company').value;
-      const income = document.getElementById('income').value;
-      const city = document.getElementById('city').value;
-      const pincode = document.getElementById('pincode').value;
-      const loanType = document.getElementById('loan-type').value;
-      const amount = document.getElementById('amount').value;
-      
-      const message = `New Loan Application:%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Email:* ${email}%0A*DOB:* ${dob}%0A*PAN:* ${pan}%0A*Company:* ${company}%0A*Income:* ₹${income}%0A*City:* ${city}%0A*Pincode:* ${pincode}%0A*Loan Type:* ${loanType}%0A*Amount:* ₹${amount}`;
-      window.open(`https://wa.me/919509000080?text=${message}`, '_blank');
+      showStep(currentStep);
     }
     
     // EMI Calculator
@@ -1257,7 +1407,6 @@ document.getElementById('loan-form').addEventListener('submit', function(event) 
       const rate = parseFloat(document.getElementById('interest-rate').value);
       const tenure = parseFloat(document.getElementById('loan-tenure').value);
       
-      // Don't calculate if any value is zero or invalid
       if (!amount || !rate || !tenure || amount <= 0 || rate <= 0 || tenure <= 0) {
         document.getElementById('monthly-emi').textContent = '₹ 0';
         document.getElementById('principal-amount').textContent = '₹ 0';
@@ -1274,7 +1423,6 @@ document.getElementById('loan-form').addEventListener('submit', function(event) 
       const totalPayment = emi * months;
       const totalInterest = totalPayment - amount;
       
-      // Format numbers with Indian comma separators
       const formatNumber = num => num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       
       document.getElementById('monthly-emi').textContent = `₹ ${formatNumber(emi)}`;

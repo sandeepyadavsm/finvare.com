@@ -746,7 +746,7 @@
     </div>
     <div class="form-group">
       <label for="pan">PAN Number*</label>
-      <input type="text" name="pan" id="pan" maxlength="10" pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" required>
+      <input type="text" name="pan" id="pan" maxlength="10" required>
     </div>
   </div>
 
@@ -766,36 +766,23 @@
       <label for="city">City*</label>
       <input type="text" name="city" id="city" list="city-list" required>
       <datalist id="city-list">
-        <option value="Mumbai">
-        <option value="Delhi">
-        <option value="Bangalore">
-        <option value="Hyderabad">
-        <option value="Chennai">
-        <option value="Kolkata">
-        <option value="Pune">
-        <option value="Jaipur">
-        <option value="Ahmedabad">
-        <option value="Lucknow">
-        <option value="Surat">
-        <option value="Indore">
-        <option value="Bhopal">
-        <option value="Patna">
-        <option value="Chandigarh">
-        <option value="Nagpur">
-        <option value="Thane">
-        <option value="Kanpur">
-        <option value="Ludhiana">
-        <option value="Agra">
-        <option value="Nashik">
-        <option value="Vadodara">
-        <option value="Faridabad">
-        <option value="Meerut">
-        <option value="Rajkot">
-        <option value="Varanasi">
-        <option value="Amritsar">
-        <option value="Ranchi">
-        <option value="Visakhapatnam">
-        <option value="Noida">
+        <option value="Mumbai"><option value="Delhi"><option value="Bangalore">
+        <option value="Hyderabad"><option value="Chennai"><option value="Kolkata">
+        <option value="Pune"><option value="Jaipur"><option value="Lucknow">
+        <option value="Ahmedabad"><option value="Surat"><option value="Indore">
+        <option value="Bhopal"><option value="Patna"><option value="Chandigarh">
+        <option value="Nagpur"><option value="Kanpur"><option value="Ludhiana">
+        <option value="Agra"><option value="Nashik"><option value="Vadodara">
+        <option value="Faridabad"><option value="Meerut"><option value="Rajkot">
+        <option value="Varanasi"><option value="Amritsar"><option value="Ranchi">
+        <option value="Noida"><option value="Gurgaon"><option value="Howrah">
+        <option value="Jamshedpur"><option value="Srinagar"><option value="Coimbatore">
+        <option value="Vijayawada"><option value="Dhanbad"><option value="Gwalior">
+        <option value="Jabalpur"><option value="Kota"><option value="Madurai">
+        <option value="Raipur"><option value="Bhubaneswar"><option value="Aurangabad">
+        <option value="Solapur"><option value="Dehradun"><option value="Guwahati">
+        <option value="Trichy"><option value="Thiruvananthapuram"><option value="Mysore">
+        <option value="Jodhpur"><option value="Udaipur">
       </datalist>
     </div>
     <div class="form-group">
@@ -829,13 +816,35 @@
   </div>
 </form>
 
+<!-- Documents Required Section -->
+<div style="background-color:#e6ffe6; padding:15px; margin-top:20px; border-radius:5px;">
+  <h3>Documents Required</h3>
+  <ul>
+    <li>PAN Card</li>
+    <li>Aadhar Card</li>
+    <li>Address Proof</li>
+    <li>Photo</li>
+    <li>Income Proof (3 months)</li>
+    <li>Bank Account Statement (6 months)</li>
+    <li>Form 26AS</li>
+    <li>Service Certificate</li>
+  </ul>
+</div>
+
 <script>
 document.getElementById('loan-form').addEventListener('submit', function(event) {
   event.preventDefault();
-
   const form = event.target;
-  const formData = new FormData(form);
 
+  const pan = document.getElementById('pan').value.toUpperCase();
+  const panPattern = /^[A-Z]{3}P[A-Z]{1}[0-9]{4}[A-Z]{1}$/;
+
+  if (!panPattern.test(pan)) {
+    alert('Please enter valid PAN');
+    return;
+  }
+
+  const formData = new FormData(form);
   fetch(form.action, {
     method: form.method,
     body: formData,

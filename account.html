@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Account - Finvare</title>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <style>
     body {
       margin: 0;
@@ -15,18 +13,22 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
     }
     header {
+      width: 100%;
       background: #4b0082;
       padding: 15px 20px;
       display: flex;
       justify-content: center;
       align-items: center;
+      box-sizing: border-box;
       position: relative;
     }
     header h1 {
       margin: 0;
-      font-size: 24px;
+      font-size: 28px;
     }
     .logout-btn {
       position: absolute;
@@ -44,24 +46,68 @@
       background: #ddd;
       color: #4b0082;
     }
-    main {
-      flex: 1;
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    .form-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .form-field {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    }
+    .form-field label {
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-field input {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      font-size: 14px;
+    }
+    button.save-btn, button.visit-btn {
+      background: white;
+      color: #6a0dad;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+      margin: 10px 5px;
+    }
+    button.save-btn:hover, button.visit-btn:hover {
+      background: #ddd;
+      color: #4b0082;
+    }
+    .greeting {
+      font-size: 26px;
+      font-weight: bold;
+      margin: 30px 0 10px 0;
       text-align: center;
-      padding: 20px;
+    }
+    .visit-section {
+      text-align: center;
+      margin-bottom: 30px;
     }
     footer {
+      margin-top: auto;
+      padding: 10px;
       background: #4b0082;
-      padding: 15px;
       text-align: center;
       font-size: 14px;
     }
   </style>
 </head>
-
 <body>
 
 <header>
@@ -69,49 +115,65 @@
   <button class="logout-btn" onclick="logout()">Logout</button>
 </header>
 
-<main>
-  <h2>Hello, <span id="user-name">User</span>!</h2>
-  <p>Welcome to your Finvare.com account dashboard.</p>
-</main>
+<div class="container">
+  <h2>Customer Details</h2>
+  <div class="form-group">
+    <div class="form-field">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" placeholder="Enter your name">
+    </div>
+    <div class="form-field">
+      <label for="mobile">Mobile Number</label>
+      <input type="text" id="mobile" placeholder="Enter your mobile number">
+    </div>
+    <div class="form-field">
+      <label for="pan">PAN Number</label>
+      <input type="text" id="pan" placeholder="Enter your PAN number">
+    </div>
+    <div class="form-field">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob">
+    </div>
+    <div class="form-field">
+      <label for="email">Email ID</label>
+      <input type="email" id="email" placeholder="Enter your email">
+    </div>
+    <div class="form-field">
+      <label for="location">Location</label>
+      <input type="text" id="location" placeholder="Enter your location">
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="save-btn" onclick="saveDetails()">Save Details</button>
+  </div>
+
+  <div class="greeting" id="greeting">Hello, User!</div>
+
+  <div class="visit-section">
+    <button class="visit-btn" onclick="visitHome()">Visit Finvare.com</button>
+  </div>
+</div>
 
 <footer>
   &copy; 2025 Finvare.com. All rights reserved.
 </footer>
 
 <script>
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
-    authDomain: "finvare-login.firebaseapp.com",
-    projectId: "finvare-login",
-    storageBucket: "finvare-login.appspot.com",
-    messagingSenderId: "695522895152",
-    appId: "1:695522895152:web:cfbef6b0daca1d7bd094f5",
-    measurementId: "G-MCTMW1099Z"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  // Check if user is logged in
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      document.getElementById('user-name').innerText = user.displayName || "User";
-    } else {
-      window.location.href = "login.html"; // redirect to login if not logged in
-    }
-  });
-
   function logout() {
-    auth.signOut()
-      .then(() => {
-        alert('Logged out successfully!');
-        window.location.href = "index.html";
-      })
-      .catch(error => {
-        alert(error.message);
-      });
+    window.location.href = "index.html";
   }
+
+  function visitHome() {
+    window.location.href = "index.html";
+  }
+
+  function saveDetails() {
+    alert("Details Updated Successfully!");
+  }
+
+  // Simulate fetching full name after login
+  document.getElementById('greeting').innerText = "Hello, Himanshu!";
 </script>
 
 </body>

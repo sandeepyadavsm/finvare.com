@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Account - Finvare</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <style>
     body {
       margin: 0;
@@ -160,20 +162,59 @@
 </footer>
 
 <script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
+    authDomain: "finvare-login.firebaseapp.com",
+    projectId: "finvare-login",
+    storageBucket: "finvare-login.appspot.com",
+    messagingSenderId: "695522895152",
+    appId: "1:695522895152:web:cfbef6b0daca1d7bd094f5",
+    measurementId: "G-MCTMW1099Z"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      document.getElementById('greeting').innerText = `Hello, ${user.displayName || user.email.split('@')[0]}!`;
+      // Load saved data
+      if (localStorage.getItem('customerData')) {
+        const data = JSON.parse(localStorage.getItem('customerData'));
+        document.getElementById('fullname').value = data.fullname || '';
+        document.getElementById('mobile').value = data.mobile || '';
+        document.getElementById('pan').value = data.pan || '';
+        document.getElementById('dob').value = data.dob || '';
+        document.getElementById('email').value = data.email || '';
+        document.getElementById('location').value = data.location || '';
+      }
+    } else {
+      window.location.href = 'login.html';
+    }
+  });
+
   function logout() {
-    window.location.href = "index.html";
+    auth.signOut().then(() => {
+      window.location.href = 'login.html';
+    });
   }
 
   function visitHome() {
-    window.location.href = "index.html";
+    window.location.href = 'index.html';
   }
 
   function saveDetails() {
+    const data = {
+      fullname: document.getElementById('fullname').value,
+      mobile: document.getElementById('mobile').value,
+      pan: document.getElementById('pan').value,
+      dob: document.getElementById('dob').value,
+      email: document.getElementById('email').value,
+      location: document.getElementById('location').value
+    };
+    localStorage.setItem('customerData', JSON.stringify(data));
     alert("Details Updated Successfully!");
   }
-
-  // Simulate fetching full name after login
-  document.getElementById('greeting').innerText = "Hello, Himanshu!";
 </script>
 
 </body>

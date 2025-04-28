@@ -20,14 +20,17 @@
       background: #4b0082;
       padding: 15px 20px;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      position: relative;
     }
     header h1 {
       margin: 0;
       font-size: 24px;
     }
     .logout-btn {
+      position: absolute;
+      right: 20px;
       background: white;
       color: #6a0dad;
       padding: 8px 16px;
@@ -62,7 +65,7 @@
 <body>
 
 <header>
-  <h1>Welcome to Your Account</h1>
+  <h1>Welcome to Finvare</h1>
   <button class="logout-btn" onclick="logout()">Logout</button>
 </header>
 

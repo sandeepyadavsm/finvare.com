@@ -2,30 +2,93 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signup - Finvare</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login / Signup - Finvare.com</title>
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
+      authDomain: "finvare-login.firebaseapp.com",
+      projectId: "finvare-login",
+      storageBucket: "finvare-login.appspot.com",
+      messagingSenderId: "695522895152",
+      appId: "1:695522895152:web:cfbef6b0daca1d7bd094f5",
+      measurementId: "G-MCTMW1099Z"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Signup function
+    window.signup = async function() {
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const passwordError = document.getElementById('passwordError');
+
+      const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+      if (!strongPasswordRegex.test(password)) {
+        passwordError.style.display = 'block';
+        return;
+      } else {
+        passwordError.style.display = 'none';
+      }
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await sendEmailVerification(userCredential.user);
+        alert('Signup successful! Verification email sent. Please verify before login.');
+        toggleForm();
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    // Login function
+    window.login = async function() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        alert('Login Successful!');
+        window.location.href = "account.html"; // After login, redirect to account page
+      } catch (error) {
+        alert(error.message);
+      }
+    };
+
+    // Forgot Password function
+    window.forgotPassword = async function() {
+      const email = prompt('Please enter your registered email:');
+      if (email) {
+        try {
+          await sendPasswordResetEmail(auth, email);
+          alert('Password reset email sent. Please check your inbox.');
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+    };
+  </script>
 
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #6a0dad;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 50px;
+      text-align: center;
+      padding-top: 30px;
     }
-    .form-container {
+    .container {
       background: white;
       color: #333;
+      width: 320px;
+      margin: auto;
       padding: 20px;
       border-radius: 10px;
-      width: 320px;
-      text-align: center;
     }
     input {
       width: 90%;
@@ -44,83 +107,66 @@
       margin-top: 10px;
       cursor: pointer;
     }
+    a {
+      color: #6a0dad;
+      font-weight: bold;
+      cursor: pointer;
+    }
     #passwordError {
       color: red;
       font-size: 12px;
       display: none;
     }
-    h2 {
-      color: #6a0dad;
+    h1 {
+      margin-bottom: 20px;
     }
   </style>
 </head>
 
 <body>
 
-<div class="form-container">
+<h1><a href="index.html" style="color:white; text-decoration:none;">Welcome to Finvare.com</a></h1>
+
+<div class="container" id="loginForm">
+  <h2>Login</h2>
+  <input type="email" id="loginEmail" placeholder="Email ID">
+  <input type="password" id="loginPassword" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <p><a onclick="forgotPassword()">Forgot Password?</a></p>
+  <p><a onclick="toggleForm()">New User? Sign Up</a></p>
+</div>
+
+<div class="container" id="signupForm" style="display:none;">
   <h2>Sign Up</h2>
-  <input type="text" id="fullName" placeholder="Full Name" required>
-  <input type="text" id="mobile" placeholder="Mobile Number" required>
-  <input type="email" id="signupEmail" placeholder="Email ID" required>
-  <input type="password" id="signupPassword" placeholder="Password (6+ characters)" oninput="validatePassword()" required>
-  <p id="passwordError">Password must be at least 6 characters, include 1 uppercase, 1 number, and 1 special character.</p>
+  <input type="email" id="signupEmail" placeholder="Email ID">
+  <input type="password" id="signupPassword" placeholder="Password" oninput="validatePassword()">
+  <p id="passwordError">Password must have 6+ characters, 1 uppercase, 1 lowercase, 1 number & 1 special character.</p>
   <button onclick="signup()">Sign Up</button>
+  <p><a onclick="toggleForm()">Already have an account? Login</a></p>
 </div>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
-    authDomain: "finvare-login.firebaseapp.com",
-    projectId: "finvare-login",
-    storageBucket: "finvare-login.appspot.com",
-    messagingSenderId: "695522895152",
-    appId: "1:695522895152:web:cfbef6b0daca1d7bd094f5",
-    measurementId: "G-MCTMW1099Z"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-
-  function validatePassword() {
-    const password = document.getElementById('signupPassword').value;
-    const strongPasswordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-    const errorMessage = document.getElementById('passwordError');
-
-    if (!strongPasswordRegex.test(password)) {
-      errorMessage.style.display = 'block';
+  function toggleForm() {
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    if (loginForm.style.display === 'none') {
+      loginForm.style.display = 'block';
+      signupForm.style.display = 'none';
     } else {
-      errorMessage.style.display = 'none';
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
     }
   }
 
-  async function signup() {
-    const email = document.getElementById('signupEmail').value;
+  function validatePassword() {
     const password = document.getElementById('signupPassword').value;
-    const fullName = document.getElementById('fullName').value;
-    const mobile = document.getElementById('mobile').value;
+    const passwordError = document.getElementById('passwordError');
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
-    const strongPasswordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
     if (!strongPasswordRegex.test(password)) {
-      alert('Weak Password! Please follow the password rules.');
-      return;
-    }
-
-    try {
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      await firebase.auth().currentUser.sendEmailVerification();
-      
-      // Save details to Firestore
-      await db.collection('users').doc(userCredential.user.uid).set({
-        fullName: fullName,
-        mobile: mobile,
-        email: email
-      });
-
-      alert('Signup successful! Verification email sent. Please verify.');
-      window.location.href = "login.html"; // Redirect to login
-    } catch (error) {
-      alert(error.message);
+      passwordError.style.display = 'block';
+    } else {
+      passwordError.style.display = 'none';
     }
   }
 </script>

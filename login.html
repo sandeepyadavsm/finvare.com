@@ -6,53 +6,66 @@
   <title>Login / Sign Up - Finvare</title>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #6a0dad;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
       margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #6a0dad, #8a4dff);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .container {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      width: 300px;
+      background: #fff;
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 380px;
       text-align: center;
-      color: #333;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     h1 {
-      margin-bottom: 10px;
-      font-size: 28px;
+      color: #6a0dad;
+      margin-bottom: 20px;
+      font-weight: 600;
     }
     input {
       width: 100%;
-      padding: 10px;
-      margin: 8px 0;
+      padding: 12px;
+      margin: 10px 0;
       border: 1px solid #ccc;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 14px;
     }
     button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background: #6a0dad;
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 16px;
       cursor: pointer;
-      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #5a0dad;
     }
     .link {
+      display: block;
+      margin-top: 12px;
       color: #6a0dad;
+      font-size: 14px;
       cursor: pointer;
-      margin-top: 10px;
-      display: inline-block;
     }
     #signup-form {
       display: none;
@@ -62,9 +75,8 @@
 
 <body>
 
-<h1>Welcome to Finvare</h1>
-
 <div class="container">
+  <h1>Welcome to Finvare</h1>
   <h2 id="form-title">Login</h2>
 
   <!-- Login Form -->
@@ -73,6 +85,7 @@
     <input type="password" id="login-password" placeholder="Enter your password" required>
     <button onclick="login()">Login</button>
     <div class="link" onclick="toggleForm()">New User? Sign Up</div>
+    <div class="link" onclick="forgotPassword()">Forgot Password?</div>
   </div>
 
   <!-- Sign Up Form -->
@@ -87,7 +100,7 @@
 </div>
 
 <script>
-  // Firebase Config - Corrected
+  // Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
     authDomain: "finvare-login.firebaseapp.com",
@@ -132,7 +145,7 @@
     auth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         alert('Login Successful!');
-        window.location.href = "account.html"; // ✅ Redirect to account.html
+        window.location.href = "account.html"; // Redirect to account page
       })
       .catch((error) => {
         if (error.code === 'auth/user-not-found') {
@@ -175,6 +188,22 @@
         } else {
           alert(error.message);
         }
+      });
+  }
+
+  function forgotPassword() {
+    const email = prompt('Please enter your registered email:');
+    if (!email) {
+      alert('Email is required!');
+      return;
+    }
+
+    auth.sendPasswordResetEmail(email)
+      .then(() => {
+        alert('Password reset email sent! Please check your inbox.');
+      })
+      .catch((error) => {
+        alert(error.message);
       });
   }
 </script>

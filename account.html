@@ -10,16 +10,34 @@
       font-family: Arial, sans-serif;
       background: #6a0dad;
       color: white;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
     }
     header {
       background: #4b0082;
-      padding: 20px;
-      text-align: center;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
       font-size: 24px;
-      font-weight: bold;
+    }
+    .logout-btn {
+      background: white;
+      color: #6a0dad;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .logout-btn:hover {
+      background: #ddd;
+      color: #4b0082;
     }
     main {
       flex: 1;
@@ -29,21 +47,6 @@
       justify-content: center;
       text-align: center;
       padding: 20px;
-    }
-    .button {
-      margin-top: 20px;
-      padding: 12px 25px;
-      background: white;
-      color: #6a0dad;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-    .button:hover {
-      background: #ddd;
-      color: #4b0082;
     }
     footer {
       background: #4b0082;
@@ -56,13 +59,13 @@
 <body>
 
 <header>
-  Welcome to Your Account
+  <h1>Welcome to Your Account</h1>
+  <button class="logout-btn" onclick="logout()">Logout</button>
 </header>
 
 <main>
-  <h1>Hello, User!</h1>
+  <h2>Hello, User!</h2>
   <p>Welcome to your Finvare.com account dashboard.</p>
-  <button class="button" onclick="logout()">Logout</button>
 </main>
 
 <footer>

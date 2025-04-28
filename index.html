@@ -1,49 +1,13 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Finvare.com: Compare & Apply for Loans, Instant Loan, Low Interest Rate</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Finvare.com offers personal, home, and business loans with low interest rates and quick approval. Apply now!">
+  <meta name="keywords" content="loans, personal loan, home loan, business loan, EMI calculator, Finvare">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -58,6 +22,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
 
     .logo-text {
@@ -67,15 +32,26 @@
       text-decoration: none;
     }
 
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
     nav a {
       color: white;
       margin-left: 20px;
       text-decoration: none;
       font-weight: bold;
+      padding: 8px 12px;
+      transition: all 0.3s ease;
     }
 
     nav a:hover {
       text-decoration: underline;
+      background-color: #ffcc00;
+      color: #003366;
+      border-radius: 5px;
     }
 
     .hero {
@@ -441,7 +417,7 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px;
+      gap: 20px;
       margin-top: 20px;
     }
 
@@ -667,6 +643,32 @@
     }
 
     @media (max-width: 768px) {
+      header {
+        padding: 10px 15px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .logo-text {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      nav a {
+        margin: 5px 0;
+        padding: 8px 10px;
+        font-size: 14px;
+        width: 100%;
+        text-align: center;
+        border-radius: 5px;
+      }
+
       .hero h1 {
         font-size: 2em;
       }
@@ -687,6 +689,9 @@
       .step {
         flex: 1 1 100%;
         margin-bottom: 30px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
       }
       
       .get-in-touch {
@@ -714,68 +719,62 @@
       }
       
       .partner-card {
-        width: 100px;
-        height: 70px;
+        width: 110px;
+        height: 75px;
       }
       
       .partner-icon {
         font-size: 25px;
       }
+      
+      .partner-names {
+        gap: 20px;
+      }
     }
   </style>
+  <script type="text/javascript">
+    var gk_isXlsx = false;
+    var gk_xlsxFileLookup = {};
+    var gk_fileData = {};
+    function filledCell(cell) {
+      return cell !== '' && cell != null;
+    }
+    function loadFileData(filename) {
+      if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+        try {
+          var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+          var firstSheetName = workbook.SheetNames[0];
+          var worksheet = workbook.Sheets[firstSheetName];
+          var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+          var filteredData = jsonData.filter(row => row.some(filledCell));
+          var headerRowIndex = filteredData.findIndex((row, index) =>
+            row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+          );
+          if (headerRowIndex === -1 || headerRowIndex > 25) {
+            headerRowIndex = 0;
+          }
+          var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+          csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+          return csv;
+        } catch (e) {
+          console.error(e);
+          return "";
+        }
+      }
+      return gk_fileData[filename] || "";
+    }
+  </script>
 </head>
 <body>
-  <script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utilsfinancial-partner.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-  </script>
-
   <header>
     <a class="logo-text" href="#">Finvare.com</a>
     <nav>
       <a href="#home">Home</a>
-      <a href="account.html" style="color: white; text-decoration: none;">My Account</a>
-      <a href="login.html" style="color: white; text-decoration: none;">Login</a>
+      <a href="account.html">My Account</a>
+      <a href="login.html">Login</a>
     </nav>
   </header>
 
-  <!-- Fixed Live Headline with Scrolling Ticker -->
   <div class="live-headline">
     <div class="ticker">
       Best Offer: Personal Loan Rate of Interest 10.49% with Zero Processing Fee (Cashback Offer)
@@ -866,9 +865,10 @@
         <div class="form-group">
           <label for="name">Full Name*</label>
           <input type="text" name="name" id="name" required>
+          <div class="error-message" id="name-error">Please enter your full name.</div>
         </div>
         <div class="button-group">
-          <button type="button" onclick="nextStep(2)">Next</button>
+          <button type="button" aria-label="Go to next step" onclick="nextStep(2)">Next</button>
         </div>
       </div>
 
@@ -877,10 +877,11 @@
         <div class="form-group">
           <label for="dob">Date of Birth*</label>
           <input type="date" name="dob" id="dob" required>
+          <div class="error-message" id="dob-error">Please select your date of birth.</div>
         </div>
         <div class="button-group">
-          <button type="button" onclick="prevStep(1)">Previous</button>
-          <button type="button" onclick="nextStep(3)">Next</button>
+          <button type="button" aria-label="Go to previous step" onclick="prevStep(1)">Previous</button>
+          <button type="button" aria-label="Go to next step" onclick="nextStep(3)">Next</button>
         </div>
       </div>
 
@@ -889,16 +890,18 @@
         <div class="form-row">
           <div class="form-group">
             <label for="phone">Phone Number*</label>
-            <input type="tel" name="phone" id="phone" maxlength="10" required>
+            <input type="tel" name="phone" id="phone" pattern="[0-9]{10}" maxlength="10" required>
+            <div class="error-message" id="phone-error">Please enter a valid 10-digit phone number.</div>
           </div>
           <div class="form-group">
             <label for="alt_phone">Alternate Phone</label>
-            <input type="tel" name="alt_phone" id="alt_phone" maxlength="10">
+            <input type="tel" name="alt_phone" id="alt_phone" pattern="[0-9]{10}" maxlength="10">
+            <div class="error-message" id="alt_phone-error">Please enter a valid 10-digit phone number.</div>
           </div>
         </div>
         <div class="button-group">
-          <button type="button" onclick="prevStep(2)">Previous</button>
-          <button type="button" onclick="nextStep(4)">Next</button>
+          <button type="button" aria-label="Go to previous step" onclick="prevStep(2)">Previous</button>
+          <button type="button" aria-label="Go to next step" onclick="nextStep(4)">Next</button>
         </div>
       </div>
 
@@ -908,15 +911,17 @@
           <div class="form-group">
             <label for="email">Email*</label>
             <input type="email" name="email" id="email" required>
+            <div class="error-message" id="email-error">Please enter a valid email address.</div>
           </div>
           <div class="form-group">
             <label for="pan">PAN Number*</label>
             <input type="text" name="pan" id="pan" maxlength="10" required>
+            <div class="error-message" id="pan-error">Please enter a valid PAN number.</div>
           </div>
         </div>
         <div class="button-group">
-          <button type="button" onclick="prevStep(3)">Previous</button>
-          <button type="button" onclick="nextStep(5)">Next</button>
+          <button type="button" aria-label="Go to previous step" onclick="prevStep(3)">Previous</button>
+          <button type="button" aria-label="Go to next step" onclick="nextStep(5)">Next</button>
         </div>
       </div>
 
@@ -926,15 +931,17 @@
           <div class="form-group">
             <label for="company_name">Company Name*</label>
             <input type="text" name="company_name" id="company_name" required>
+            <div class="error-message" id="company_name-error">Please enter your company name.</div>
           </div>
           <div class="form-group">
             <label for="monthly_income">Monthly Income (₹)*</label>
-            <input type="number" name="monthly_income" id="monthly_income" required>
+            <input type="number" name="monthly_income" id="monthly_income" min="0" required>
+            <div class="error-message" id="monthly_income-error">Please enter a valid monthly income.</div>
           </div>
         </div>
         <div class="button-group">
-          <button type="button" onclick="prevStep(4)">Previous</button>
-          <button type="button" onclick="nextStep(6)">Next</button>
+          <button type="button" aria-label="Go to previous step" onclick="prevStep(4)">Previous</button>
+          <button type="button" aria-label="Go to next step" onclick="nextStep(6)">Next</button>
         </div>
       </div>
 
@@ -944,6 +951,7 @@
           <div class="form-group">
             <label for="city">City*</label>
             <input type="text" name="city" id="city" list="city-list" required>
+            <div class="error-message" id="city-error">Please enter a valid city.</div>
             <datalist id="city-list">
               <option value="Mumbai"><option value="Delhi"><option value="Bangalore">
               <option value="Hyderabad"><option value="Chennai"><option value="Kolkata">
@@ -967,11 +975,12 @@
           <div class="form-group">
             <label for="pincode">Pincode*</label>
             <input type="text" name="pincode" id="pincode" pattern="[0-9]{6}" required>
+            <div class="error-message" id="pincode-error">Please enter a valid 6-digit pincode.</div>
           </div>
         </div>
         <div class="button-group">
-          <button type="button" onclick="prevStep(5)">Previous</button>
-          <button type="button" onclick="nextStep(7)">Next</button>
+          <button type="button" aria-label="Go to previous step" onclick="prevStep(5)">Previous</button>
+          <button type="button" aria-label="Go to next step" onclick="nextStep(7)">Next</button>
         </div>
       </div>
 
@@ -985,10 +994,11 @@
             <option value="home">Home Loan</option>
             <option value="business">Business Loan</option>
           </select>
+          <div class="error-message" id="loan_type-error">Please select a loan type.</div>
         </div>
         <div class="button-group">
-          <button type="button" onclick="prevStep(6)">Previous</button>
-          <button type="button" onclick="nextStep(8)">Next</button>
+          <button type="button" aria-label="Go to previous step" onclick="prevStep(6)">Previous</button>
+          <button type="button" aria-label="Go to next step" onclick="nextStep(8)">Next</button>
         </div>
       </div>
 
@@ -996,11 +1006,12 @@
       <div class="form-step" id="step-8">
         <div class="form-group">
           <label for="loan_amount">Loan Amount (₹)*</label>
-          <input type="number" name="loan_amount" id="loan_amount" required>
+          <input type="number" name="loan_amount" id="loan_amount" min="0" required>
+          <div class="error-message" id="loan_amount-error">Please enter a valid loan amount.</div>
         </div>
         <div class="button-group">
-          <button type="button" onclick="prevStep(7)">Previous</button>
-          <button type="button" onclick="nextStep(9)">Next</button>
+          <button type="button" aria-label="Go to previous step" onclick="prevStep(7)">Previous</button>
+          <button type="button" aria-label="Go to next step" onclick="nextStep(9)">Next</button>
         </div>
       </div>
 
@@ -1009,15 +1020,15 @@
         <div class="declaration" style="background-color:#e6ffe6; padding:10px; border-radius:5px;">
           <input type="checkbox" name="declaration" id="declaration" required>
           <label for="declaration">I hereby declare that all the information provided is true and correct to the best of my knowledge.</label>
+          <div class="error-message" id="declaration-error">Please agree to the declaration.</div>
         </div>
         <div class="button-group">
-          <button type="button" onclick="prevStep(8)">Previous</button>
-          <button type="submit">Submit Application</button>
+          <button type="button" aria-label="Go to previous step" onclick="prevStep(8)">Previous</button>
+          <button type="submit" aria-label="Submit loan application">Submit Application</button>
         </div>
       </div>
     </form>
 
-    <!-- Documents Required Section (unchanged) -->
     <div style="background-color:#e6ffe6; padding:15px; margin-top:20px; border-radius:5px;">
       <h3>Documents Required</h3>
       <ul>
@@ -1250,24 +1261,90 @@
       let isValid = true;
 
       inputs.forEach(input => {
-        if (!input.value.trim()) {
-          input.classList.add('error');
-          isValid = false;
+        let valid = false;
+        const error = document.getElementById(`${input.id}-error`);
+        
+        if (input.type === 'tel' && input.id === 'phone') {
+          valid = /^[0-9]{10}$/.test(input.value);
+        } else if (input.type === 'email') {
+          valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+        } else if (input.id === 'pan') {
+          valid = /^[A-Z]{3}P[A-Z][0-9]{4}[A-Z]$/.test(input.value.toUpperCase());
+        } else if (input.type === 'number' && input.id === 'monthly_income') {
+          valid = input.value > 0;
+        } else if (input.type === 'number' && input.id === 'loan_amount') {
+          valid = input.value > 0;
+        } else if (input.type === 'checkbox') {
+          valid = input.checked;
         } else {
-          input.classList.remove('error');
+          valid = input.value.trim() !== '';
         }
+
+        input.classList.toggle('error', !valid);
+        error.style.display = valid ? 'none' : 'block';
+        if (!valid) isValid = false;
       });
 
       if (isValid) {
         showStep(step);
       } else {
-        alert('Please fill all required fields.');
+        alert('Please fill all required fields correctly.');
       }
     }
 
     function prevStep(step) {
       showStep(step);
     }
+
+    // Real-time validation
+    document.getElementById('phone').addEventListener('input', function() {
+      const error = document.getElementById('phone-error');
+      const valid = /^[0-9]{10}$/.test(this.value);
+      this.classList.toggle('error', !valid);
+      error.style.display = valid ? 'none' : 'block';
+    });
+
+    document.getElementById('alt_phone').addEventListener('input', function() {
+      const error = document.getElementById('alt_phone-error');
+      const valid = this.value === '' || /^[0-9]{10}$/.test(this.value);
+      this.classList.toggle('error', !valid);
+      error.style.display = valid ? 'none' : 'block';
+    });
+
+    document.getElementById('email').addEventListener('input', function() {
+      const error = document.getElementById('email-error');
+      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
+      this.classList.toggle('error', !valid);
+      error.style.display = valid ? 'none' : 'block';
+    });
+
+    document.getElementById('pan').addEventListener('input', function() {
+      const error = document.getElementById('pan-error');
+      const valid = /^[A-Z]{3}P[A-Z][0-9]{4}[A-Z]$/.test(this.value.toUpperCase());
+      this.classList.toggle('error', !valid);
+      error.style.display = valid ? 'none' : 'block';
+    });
+
+    document.getElementById('pincode').addEventListener('input', function() {
+      const error = document.getElementById('pincode-error');
+      const valid = /^[0-9]{6}$/.test(this.value);
+      this.classList.toggle('error', !valid);
+      error.style.display = valid ? 'none' : 'block';
+    });
+
+    document.getElementById('monthly_income').addEventListener('input', function() {
+      const error = document.getElementById('monthly_income-error');
+      const valid = this.value > 0;
+      this.classList.toggle('error', !valid);
+      error.style.display = valid ? 'none' : 'block';
+    });
+
+    document.getElementById('loan_amount').addEventListener('input', function() {
+      const error = document.getElementById('loan_amount-error');
+      const valid = this.value > 0;
+      this.classList.toggle('error', !valid);
+      error.style.display = valid ? 'none' : 'block';
+    });
 
     // Form submission
     document.getElementById('loan-form').addEventListener('submit', function(event) {
@@ -1313,7 +1390,7 @@
       document.querySelector('.chat-widget').style.display = 'none';
     });
 
-    // EMI Calculator
+    // EMI Calculator (unchanged as per request)
     function calculateEMI() {
       const amount = parseFloat(document.getElementById('loan-amount').value);
       const rate = parseFloat(document.getElementById('interest-rate').value);
@@ -1348,6 +1425,13 @@
     document.getElementById('loan-tenure').addEventListener('input', calculateEMI);
     
     window.addEventListener('load', calculateEMI);
+
+    // Optimize ticker animation
+    const ticker = document.querySelector('.ticker');
+    const observer = new IntersectionObserver(([entry]) => {
+      ticker.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+    });
+    observer.observe(ticker);
   </script>
 </body>
 </html>

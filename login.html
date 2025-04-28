@@ -8,6 +8,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
@@ -21,9 +22,11 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    // Signup function
     window.signup = async function() {
+      const fullName = document.getElementById('fullName').value;
+      const mobile = document.getElementById('mobile').value;
       const email = document.getElementById('signupEmail').value;
       const password = document.getElementById('signupPassword').value;
       const passwordError = document.getElementById('passwordError');
@@ -39,28 +42,34 @@
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         await sendEmailVerification(userCredential.user);
-        alert('Signup successful! Verification email sent. Please verify before login.');
+
+        // Save Full Name and Mobile to Firestore
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+          fullName: fullName,
+          mobile: mobile,
+          email: email
+        });
+
+        alert('Signup successful! Verification email sent.');
         toggleForm();
       } catch (error) {
         alert(error.message);
       }
     };
 
-    // Login function
     window.login = async function() {
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
 
       try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        await signInWithEmailAndPassword(auth, email, password);
         alert('Login Successful!');
-        window.location.href = "account.html"; // After login, redirect to account page
+        window.location.href = "account.html";
       } catch (error) {
         alert(error.message);
       }
     };
 
-    // Forgot Password function
     window.forgotPassword = async function() {
       const email = prompt('Please enter your registered email:');
       if (email) {
@@ -111,6 +120,7 @@
       color: #6a0dad;
       font-weight: bold;
       cursor: pointer;
+      text-decoration: none;
     }
     #passwordError {
       color: red;
@@ -125,24 +135,31 @@
 
 <body>
 
-<h1><a href="index.html" style="color:white; text-decoration:none;">Welcome to Finvare.com</a></h1>
+<div class="container">
+  <h1>Welcome to <a href="index.html" style="color: #6a0dad;">Finvare.com</a></h1>
 
-<div class="container" id="loginForm">
-  <h2>Login</h2>
-  <input type="email" id="loginEmail" placeholder="Email ID">
-  <input type="password" id="loginPassword" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <p><a onclick="forgotPassword()">Forgot Password?</a></p>
-  <p><a onclick="toggleForm()">New User? Sign Up</a></p>
-</div>
+  <!-- Login Form -->
+  <div id="loginForm">
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email ID">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p><a onclick="forgotPassword()">Forgot Password?</a></p>
+    <p><a onclick="toggleForm()">New User? Sign Up</a></p>
+  </div>
 
-<div class="container" id="signupForm" style="display:none;">
-  <h2>Sign Up</h2>
-  <input type="email" id="signupEmail" placeholder="Email ID">
-  <input type="password" id="signupPassword" placeholder="Password" oninput="validatePassword()">
-  <p id="passwordError">Password must have 6+ characters, 1 uppercase, 1 lowercase, 1 number & 1 special character.</p>
-  <button onclick="signup()">Sign Up</button>
-  <p><a onclick="toggleForm()">Already have an account? Login</a></p>
+  <!-- Signup Form -->
+  <div id="signupForm" style="display:none;">
+    <h2>Sign Up</h2>
+    <input type="text" id="fullName" placeholder="Full Name">
+    <input type="text" id="mobile" placeholder="Mobile Number">
+    <input type="email" id="signupEmail" placeholder="Email ID">
+    <input type="password" id="signupPassword" placeholder="Password" oninput="validatePassword()">
+    <p id="passwordError">Password must have 6+ characters, 1 uppercase, 1 lowercase, 1 number & 1 special character.</p>
+    <button onclick="signup()">Sign Up</button>
+    <p><a onclick="toggleForm()">Already have an account? Login</a></p>
+  </div>
+
 </div>
 
 <script>

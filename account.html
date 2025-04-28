@@ -1,7 +1,82 @@
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Account - Finvare</title>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #6a0dad;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #4b0082;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .logout-btn {
+      background: white;
+      color: #6a0dad;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .logout-btn:hover {
+      background: #ddd;
+      color: #4b0082;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    footer {
+      background: #4b0082;
+      padding: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
 
+<body>
+
+<header>
+  <h1>Welcome to Your Account</h1>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</header>
+
+<main>
+  <h2>Hello, <span id="user-name">User</span>!</h2>
+  <p>Welcome to your Finvare.com account dashboard.</p>
+</main>
+
+<footer>
+  &copy; 2025 Finvare.com. All rights reserved.
+</footer>
+
+<script>
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
     authDomain: "finvare-login.firebaseapp.com",
@@ -12,23 +87,29 @@
     measurementId: "G-MCTMW1099Z"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
 
-  // Check user login
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      // User not logged in → redirect to login page
-      window.location.href = "login.html";
+  // Check if user is logged in
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      document.getElementById('user-name').innerText = user.displayName || "User";
+    } else {
+      window.location.href = "login.html"; // redirect to login if not logged in
     }
   });
 
   function logout() {
-    signOut(auth).then(() => {
-      alert('Logged out successfully!');
-      window.location.href = "index.html"; // Redirect to Home after logout
-    }).catch((error) => {
-      alert(error.message);
-    });
+    auth.signOut()
+      .then(() => {
+        alert('Logged out successfully!');
+        window.location.href = "index.html";
+      })
+      .catch(error => {
+        alert(error.message);
+      });
   }
 </script>
+
+</body>
+</html>

@@ -6,69 +6,58 @@
   <title>Login / Sign Up - Finvare</title>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #6a0dad, #8a4dff);
-      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #6a0dad;
+      color: #333;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
+      margin: 0;
     }
     .container {
-      background: #fff;
-      padding: 40px 30px;
-      border-radius: 15px;
-      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
-      width: 100%;
-      max-width: 380px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
       text-align: center;
-      animation: fadeIn 1s ease;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    h1 {
-      color: #6a0dad;
-      margin-bottom: 20px;
-      font-weight: 600;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
     }
     input {
       width: 100%;
-      padding: 12px;
-      margin: 10px 0;
+      padding: 10px;
+      margin: 8px 0;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 5px;
     }
     button {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       background: #6a0dad;
       color: white;
       border: none;
-      border-radius: 8px;
-      margin-top: 15px;
-      font-size: 16px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s;
-    }
-    button:hover {
-      background: #5a0dad;
+      margin-top: 10px;
     }
     .link {
-      display: block;
-      margin-top: 12px;
       color: #6a0dad;
-      font-size: 14px;
       cursor: pointer;
+      margin-top: 10px;
+      display: block;
+      font-size: 14px;
     }
     #signup-form {
       display: none;
+    }
+    h1 a {
+      color: #6a0dad;
+      text-decoration: none;
+    }
+    h1 a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -76,13 +65,12 @@
 <body>
 
 <div class="container">
-  <h1>Welcome to Finvare</h1>
-  <h2 id="form-title">Login</h2>
+  <h1>Welcome to <a href="index.html">Finvare.com</a></h1>
 
   <!-- Login Form -->
   <div id="login-form">
-    <input type="email" id="login-email" placeholder="Enter your email" required>
-    <input type="password" id="login-password" placeholder="Enter your password" required>
+    <input type="email" id="login-email" placeholder="Enter your email">
+    <input type="password" id="login-password" placeholder="Enter your password">
     <button onclick="login()">Login</button>
     <div class="link" onclick="toggleForm()">New User? Sign Up</div>
     <div class="link" onclick="forgotPassword()">Forgot Password?</div>
@@ -90,17 +78,16 @@
 
   <!-- Sign Up Form -->
   <div id="signup-form">
-    <input type="text" id="signup-name" placeholder="Enter your full name" required>
-    <input type="email" id="signup-email" placeholder="Enter your email" required>
-    <input type="password" id="signup-password" placeholder="Enter your password" required>
-    <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
+    <input type="text" id="signup-name" placeholder="Enter your full name">
+    <input type="email" id="signup-email" placeholder="Enter your email">
+    <input type="password" id="signup-password" placeholder="Enter your password">
+    <input type="password" id="signup-confirm" placeholder="Confirm your password">
     <button onclick="signup()">Sign Up</button>
     <div class="link" onclick="toggleForm()">Already have an account? Login</div>
   </div>
 </div>
 
 <script>
-  // Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
     authDomain: "finvare-login.firebaseapp.com",
@@ -117,15 +104,12 @@
   function toggleForm() {
     const loginForm = document.getElementById('login-form');
     const signupForm = document.getElementById('signup-form');
-    const title = document.getElementById('form-title');
     if (loginForm.style.display === 'none') {
       loginForm.style.display = 'block';
       signupForm.style.display = 'none';
-      title.innerText = 'Login';
     } else {
       loginForm.style.display = 'none';
       signupForm.style.display = 'block';
-      title.innerText = 'Sign Up';
     }
   }
 
@@ -134,7 +118,7 @@
     const password = document.getElementById('login-password').value;
 
     if (!email.includes('@')) {
-      alert('Please enter a valid email address.');
+      alert('Please enter a valid email.');
       return;
     }
     if (password.length < 6) {
@@ -143,7 +127,7 @@
     }
 
     auth.signInWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .then(() => {
         alert('Login Successful!');
         window.location.href = "account.html"; // Redirect to account page
       })
@@ -165,7 +149,7 @@
     const confirmPassword = document.getElementById('signup-confirm').value;
 
     if (!email.includes('@')) {
-      alert('Please enter a valid email address.');
+      alert('Please enter a valid email.');
       return;
     }
     if (password.length < 6) {
@@ -179,6 +163,7 @@
 
     auth.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
+        userCredential.user.updateProfile({ displayName: name });
         alert('Successfully Registered! Now you can login.');
         toggleForm();
       })
@@ -192,19 +177,16 @@
   }
 
   function forgotPassword() {
-    const email = prompt('Please enter your registered email:');
-    if (!email) {
-      alert('Email is required!');
-      return;
+    const email = prompt("Please enter your email for password reset:");
+    if (email) {
+      auth.sendPasswordResetEmail(email)
+        .then(() => {
+          alert('Password reset email sent.');
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
     }
-
-    auth.sendPasswordResetEmail(email)
-      .then(() => {
-        alert('Password reset email sent! Please check your inbox.');
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
   }
 </script>
 

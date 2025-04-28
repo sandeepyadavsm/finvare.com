@@ -43,7 +43,6 @@
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         await sendEmailVerification(userCredential.user);
 
-        // Save Full Name and Mobile to Firestore
         await setDoc(doc(db, "users", userCredential.user.uid), {
           fullName: fullName,
           mobile: mobile,
@@ -75,7 +74,7 @@
       if (email) {
         try {
           await sendPasswordResetEmail(auth, email);
-          alert('Password reset email sent. Please check your inbox.');
+          alert('Password reset email sent.');
         } catch (error) {
           alert(error.message);
         }
@@ -98,6 +97,15 @@
       margin: auto;
       padding: 20px;
       border-radius: 10px;
+    }
+    .welcome {
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+    .welcome a {
+      color: #6a0dad;
+      text-decoration: none;
+      font-weight: bold;
     }
     input {
       width: 90%;
@@ -127,16 +135,15 @@
       font-size: 12px;
       display: none;
     }
-    h1 {
-      margin-bottom: 20px;
-    }
   </style>
 </head>
 
 <body>
 
 <div class="container">
-  <h1>Welcome to <a href="index.html" style="color: #6a0dad;">Finvare.com</a></h1>
+  <div class="welcome">
+    Welcome to <a href="index.html">Finvare.com</a>
+  </div>
 
   <!-- Login Form -->
   <div id="loginForm">

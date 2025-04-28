@@ -2,62 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login / Sign Up - Finvare</title>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login / Signup - Finvare (Mobile OTP)</title>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #6a0dad;
-      color: #333;
+      background-color: #6a0dad;
+      color: white;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
-      margin: 0;
+      padding-top: 50px;
     }
     .container {
       background: white;
-      padding: 30px;
+      color: #333;
+      padding: 20px;
       border-radius: 10px;
       width: 300px;
       text-align: center;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
     }
     input {
-      width: 100%;
+      width: 90%;
       padding: 10px;
       margin: 8px 0;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
     button {
-      width: 100%;
+      width: 95%;
       padding: 10px;
+      margin-top: 10px;
       background: #6a0dad;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin-top: 10px;
     }
-    .link {
-      color: #6a0dad;
-      cursor: pointer;
-      margin-top: 10px;
-      display: block;
-      font-size: 14px;
-    }
-    #signup-form {
-      display: none;
-    }
-    h1 a {
-      color: #6a0dad;
-      text-decoration: none;
-    }
-    h1 a:hover {
-      text-decoration: underline;
+    #recaptcha-container {
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -65,26 +52,14 @@
 <body>
 
 <div class="container">
-  <h1>Welcome to <a href="index.html">Finvare.com</a></h1>
+  <h2>Login with Mobile</h2>
+  
+  <input type="text" id="mobile" placeholder="+91XXXXXXXXXX">
+  <div id="recaptcha-container"></div>
+  <button onclick="sendOTP()">Send OTP</button>
 
-  <!-- Login Form -->
-  <div id="login-form">
-    <input type="email" id="login-email" placeholder="Enter your email">
-    <input type="password" id="login-password" placeholder="Enter your password">
-    <button onclick="login()">Login</button>
-    <div class="link" onclick="toggleForm()">New User? Sign Up</div>
-    <div class="link" onclick="forgotPassword()">Forgot Password?</div>
-  </div>
-
-  <!-- Sign Up Form -->
-  <div id="signup-form">
-    <input type="text" id="signup-name" placeholder="Enter your full name">
-    <input type="email" id="signup-email" placeholder="Enter your email">
-    <input type="password" id="signup-password" placeholder="Enter your password">
-    <input type="password" id="signup-confirm" placeholder="Confirm your password">
-    <button onclick="signup()">Sign Up</button>
-    <div class="link" onclick="toggleForm()">Already have an account? Login</div>
-  </div>
+  <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
+  <button onclick="verifyOTP()" id="verify-btn" style="display:none;">Verify OTP</button>
 </div>
 
 <script>
@@ -101,92 +76,43 @@
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
 
-  function toggleForm() {
-    const loginForm = document.getElementById('login-form');
-    const signupForm = document.getElementById('signup-form');
-    if (loginForm.style.display === 'none') {
-      loginForm.style.display = 'block';
-      signupForm.style.display = 'none';
-    } else {
-      loginForm.style.display = 'none';
-      signupForm.style.display = 'block';
+  window.sendOTP = function() {
+    const phoneNumber = document.getElementById('mobile').value;
+    if (!phoneNumber.startsWith('+')) {
+      alert('Please enter number with country code, e.g., +91XXXXXXXXXX');
+      return;
     }
+    
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      'size': 'normal',
+      'callback': function(response) {
+        // reCAPTCHA solved - allow send OTP
+      }
+    });
+
+    auth.signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
+      .then(function(confirmationResult) {
+        window.confirmationResult = confirmationResult;
+        alert('OTP Sent Successfully!');
+        document.getElementById('otp').style.display = 'block';
+        document.getElementById('verify-btn').style.display = 'block';
+      }).catch(function(error) {
+        console.error(error);
+        alert(error.message);
+      });
   }
 
-  function login() {
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-
-    if (!email.includes('@')) {
-      alert('Please enter a valid email.');
-      return;
-    }
-    if (password.length < 6) {
-      alert('Please enter a valid password.');
-      return;
-    }
-
-    auth.signInWithEmailAndPassword(email, password)
-      .then(() => {
+  window.verifyOTP = function() {
+    const otp = document.getElementById('otp').value;
+    confirmationResult.confirm(otp)
+      .then(function(result) {
+        const user = result.user;
         alert('Login Successful!');
-        window.location.href = "account.html"; // Redirect to account page
-      })
-      .catch((error) => {
-        if (error.code === 'auth/user-not-found') {
-          alert('User not found. Please sign up.');
-        } else if (error.code === 'auth/wrong-password') {
-          alert('Incorrect password.');
-        } else {
-          alert(error.message);
-        }
+        window.location.href = "account.html"; // after login redirect
+      }).catch(function(error) {
+        console.error(error);
+        alert('Invalid OTP or Expired!');
       });
-  }
-
-  function signup() {
-    const name = document.getElementById('signup-name').value;
-    const email = document.getElementById('signup-email').value;
-    const password = document.getElementById('signup-password').value;
-    const confirmPassword = document.getElementById('signup-confirm').value;
-
-    if (!email.includes('@')) {
-      alert('Please enter a valid email.');
-      return;
-    }
-    if (password.length < 6) {
-      alert('Password must be at least 6 characters.');
-      return;
-    }
-    if (password !== confirmPassword) {
-      alert('Passwords do not match.');
-      return;
-    }
-
-    auth.createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
-        userCredential.user.updateProfile({ displayName: name });
-        alert('Successfully Registered! Now you can login.');
-        toggleForm();
-      })
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          alert('Email already in use. Please login.');
-        } else {
-          alert(error.message);
-        }
-      });
-  }
-
-  function forgotPassword() {
-    const email = prompt("Please enter your email for password reset:");
-    if (email) {
-      auth.sendPasswordResetEmail(email)
-        .then(() => {
-          alert('Password reset email sent.');
-        })
-        .catch((error) => {
-          alert(error.message);
-        });
-    }
   }
 </script>
 

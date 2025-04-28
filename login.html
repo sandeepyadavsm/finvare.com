@@ -7,50 +7,95 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; background: #6a0dad; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-    .container { background: white; padding: 30px; border-radius: 10px; width: 320px; text-align: center; }
-    input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 5px; }
-    button { width: 100%; padding: 10px; background: #6a0dad; color: white; border: none; border-radius: 5px; cursor: pointer; }
-    .link { color: #6a0dad; cursor: pointer; margin-top: 10px; display: inline-block; }
-    #signup-form { display: none; }
-    h1 { margin-bottom: 20px; color: #6a0dad; font-size: 24px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #6a0dad;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      color: #333;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    h1 {
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #6a0dad;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .link {
+      color: #6a0dad;
+      cursor: pointer;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    #signup-form {
+      display: none;
+    }
   </style>
 </head>
 
 <body>
 
+<h1>Welcome to Finvare</h1>
+
 <div class="container">
-  <h1>Welcome to Finvare</h1>
   <h2 id="form-title">Login</h2>
 
   <!-- Login Form -->
   <div id="login-form">
-    <input type="email" id="login-email" placeholder="Enter your email">
-    <input type="password" id="login-password" placeholder="Enter your password">
+    <input type="email" id="login-email" placeholder="Enter your email" required>
+    <input type="password" id="login-password" placeholder="Enter your password" required>
     <button onclick="login()">Login</button>
     <div class="link" onclick="toggleForm()">New User? Sign Up</div>
   </div>
 
   <!-- Sign Up Form -->
   <div id="signup-form">
-    <input type="text" id="signup-name" placeholder="Enter your full name">
-    <input type="email" id="signup-email" placeholder="Enter your email">
-    <input type="password" id="signup-password" placeholder="Enter your password">
-    <input type="password" id="signup-confirm" placeholder="Confirm your password">
+    <input type="text" id="signup-name" placeholder="Enter your full name" required>
+    <input type="email" id="signup-email" placeholder="Enter your email" required>
+    <input type="password" id="signup-password" placeholder="Enter your password" required>
+    <input type="password" id="signup-confirm" placeholder="Confirm your password" required>
     <button onclick="signup()">Sign Up</button>
     <div class="link" onclick="toggleForm()">Already have an account? Login</div>
   </div>
 </div>
 
 <script>
-  // Firebase Config
+  // Firebase Config - Corrected
   const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
+    authDomain: "finvare-login.firebaseapp.com",
+    projectId: "finvare-login",
+    storageBucket: "finvare-login.appspot.com",
+    messagingSenderId: "695522895152",
+    appId: "1:695522895152:web:cfbef6b0daca1d7bd094f5",
+    measurementId: "G-MCTMW1099Z"
   };
 
   firebase.initializeApp(firebaseConfig);
@@ -76,7 +121,7 @@
     const password = document.getElementById('login-password').value;
 
     if (!email.includes('@')) {
-      alert('Please enter a valid email.');
+      alert('Please enter a valid email address.');
       return;
     }
     if (password.length < 6) {
@@ -87,7 +132,7 @@
     auth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         alert('Login Successful!');
-        window.location.href = "https://finvare.com"; // ✅ Login ke baad redirect
+        window.location.href = "account.html"; // ✅ Redirect to account.html
       })
       .catch((error) => {
         if (error.code === 'auth/user-not-found') {
@@ -107,7 +152,7 @@
     const confirmPassword = document.getElementById('signup-confirm').value;
 
     if (!email.includes('@')) {
-      alert('Please enter a valid email.');
+      alert('Please enter a valid email address.');
       return;
     }
     if (password.length < 6) {
@@ -121,8 +166,8 @@
 
     auth.createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        alert('Successfully Registered! Redirecting to Finvare.');
-        window.location.href = "https://finvare.com"; // ✅ Signup ke baad redirect
+        alert('Successfully Registered! Now you can login.');
+        toggleForm();
       })
       .catch((error) => {
         if (error.code === 'auth/email-already-in-use') {

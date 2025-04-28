@@ -2,117 +2,119 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login / Signup - Finvare (Mobile OTP)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Signup - Finvare</title>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
 
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
+      authDomain: "finvare-login.firebaseapp.com",
+      projectId: "finvare-login",
+      storageBucket: "finvare-login.appspot.com",
+      messagingSenderId: "695522895152",
+      appId: "1:695522895152:web:cfbef6b0daca1d7bd094f5",
+      measurementId: "G-MCTMW1099Z"
+    };
 
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.signup = async function() {
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await sendEmailVerification(userCredential.user);
+        alert('Signup successful! A verification email has been sent. Please verify your email.');
+        window.location.href = "login.html"; // after signup redirect to login
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+
+    window.login = async function() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert('Login Successful!');
+        window.location.href = "account.html"; // after login go to account
+      } catch (error) {
+        alert(error.message);
+      }
+    }
+  </script>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #6a0dad;
       color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 50px;
+      text-align: center;
+      padding: 30px;
     }
-    .container {
+    .form-container {
       background: white;
       color: #333;
       padding: 20px;
-      border-radius: 10px;
+      margin: auto;
       width: 300px;
-      text-align: center;
+      border-radius: 10px;
     }
     input {
       width: 90%;
       padding: 10px;
       margin: 8px 0;
-      border: 1px solid #ccc;
       border-radius: 5px;
+      border: 1px solid #ccc;
     }
     button {
       width: 95%;
       padding: 10px;
-      margin-top: 10px;
-      background: #6a0dad;
+      background-color: #6a0dad;
       color: white;
       border: none;
       border-radius: 5px;
+      margin-top: 10px;
       cursor: pointer;
     }
-    #recaptcha-container {
-      margin-top: 15px;
+    h2 {
+      color: #6a0dad;
     }
   </style>
 </head>
-
 <body>
 
-<div class="container">
-  <h2>Login with Mobile</h2>
-  
-  <input type="text" id="mobile" placeholder="+91XXXXXXXXXX">
-  <div id="recaptcha-container"></div>
-  <button onclick="sendOTP()">Send OTP</button>
+<div class="form-container" id="loginForm">
+  <h2>Login</h2>
+  <input type="email" id="loginEmail" placeholder="Email ID">
+  <input type="password" id="loginPassword" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <p><a href="#" onclick="toggleForm()">New User? Sign Up</a></p>
+</div>
 
-  <input type="text" id="otp" placeholder="Enter OTP" style="display:none;">
-  <button onclick="verifyOTP()" id="verify-btn" style="display:none;">Verify OTP</button>
+<div class="form-container" id="signupForm" style="display: none;">
+  <h2>Sign Up</h2>
+  <input type="email" id="signupEmail" placeholder="Email ID">
+  <input type="password" id="signupPassword" placeholder="Password (6+ characters)">
+  <button onclick="signup()">Sign Up</button>
+  <p><a href="#" onclick="toggleForm()">Already have an account? Login</a></p>
 </div>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyDjmI_iSJ8HNlgNLXus7NAUfKgbBu7nPGA",
-    authDomain: "finvare-login.firebaseapp.com",
-    projectId: "finvare-login",
-    storageBucket: "finvare-login.appspot.com",
-    messagingSenderId: "695522895152",
-    appId: "1:695522895152:web:cfbef6b0daca1d7bd094f5",
-    measurementId: "G-MCTMW1099Z"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  window.sendOTP = function() {
-    const phoneNumber = document.getElementById('mobile').value;
-    if (!phoneNumber.startsWith('+')) {
-      alert('Please enter number with country code, e.g., +91XXXXXXXXXX');
-      return;
+  function toggleForm() {
+    var loginForm = document.getElementById('loginForm');
+    var signupForm = document.getElementById('signupForm');
+    if (loginForm.style.display === "none") {
+      loginForm.style.display = "block";
+      signupForm.style.display = "none";
+    } else {
+      loginForm.style.display = "none";
+      signupForm.style.display = "block";
     }
-    
-    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
-      'size': 'normal',
-      'callback': function(response) {
-        // reCAPTCHA solved - allow send OTP
-      }
-    });
-
-    auth.signInWithPhoneNumber(phoneNumber, window.recaptchaVerifier)
-      .then(function(confirmationResult) {
-        window.confirmationResult = confirmationResult;
-        alert('OTP Sent Successfully!');
-        document.getElementById('otp').style.display = 'block';
-        document.getElementById('verify-btn').style.display = 'block';
-      }).catch(function(error) {
-        console.error(error);
-        alert(error.message);
-      });
-  }
-
-  window.verifyOTP = function() {
-    const otp = document.getElementById('otp').value;
-    confirmationResult.confirm(otp)
-      .then(function(result) {
-        const user = result.user;
-        alert('Login Successful!');
-        window.location.href = "account.html"; // after login redirect
-      }).catch(function(error) {
-        console.error(error);
-        alert('Invalid OTP or Expired!');
-      });
   }
 </script>
 

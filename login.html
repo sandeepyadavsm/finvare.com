@@ -65,7 +65,11 @@
         alert('Login Successful!');
         window.location.href = "account.html";
       } catch (error) {
-        alert(error.message);
+        if (error.code === 'auth/invalid-login-credentials' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+          alert('Invalid email or password. Please try again.');
+        } else {
+          alert(error.message);
+        }
       }
     };
 
@@ -166,7 +170,6 @@
     <button onclick="signup()">Sign Up</button>
     <p><a onclick="toggleForm()">Already have an account? Login</a></p>
   </div>
-
 </div>
 
 <script>

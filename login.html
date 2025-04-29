@@ -25,21 +25,25 @@
     const db = getFirestore(app);
 
     window.signup = async function () {
-      const fullName = document.getElementById("fullName").value;
-      const mobile = document.getElementById("mobile").value;
-      const email = document.getElementById("signupEmail").value;
+      const fullName = document.getElementById("fullName").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
+      const email = document.getElementById("signupEmail").value.trim();
       const password = document.getElementById("signupPassword").value;
-      const passwordError = document.getElementById("passwordError");
       const errorMsg = document.getElementById("errorMsg");
 
       errorMsg.innerText = "";
 
-      const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-      if (!strongPasswordRegex.test(password)) {
-        passwordError.style.display = "block";
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/;
+      if (!passwordRegex.test(password)) {
+        document.getElementById("passwordError").style.display = "block";
         return;
       } else {
-        passwordError.style.display = "none";
+        document.getElementById("passwordError").style.display = "none";
+      }
+
+      if (!/^\d{10}$/.test(mobile)) {
+        errorMsg.innerText = "Mobile number must be exactly 10 digits.";
+        return;
       }
 
       try {
@@ -47,12 +51,12 @@
         await sendEmailVerification(userCredential.user);
 
         await setDoc(doc(db, "users", userCredential.user.uid), {
-          fullName: fullName,
-          mobile: mobile,
-          email: email
+          fullName,
+          mobile,
+          email
         });
 
-        errorMsg.innerText = "Signup successful! Verification email sent. Please verify your email before logging in.";
+        errorMsg.innerText = "Signup successful! A verification email has been sent. Please verify before login.";
         toggleForm();
       } catch (error) {
         errorMsg.innerText = error.message;
@@ -60,26 +64,31 @@
     };
 
     window.login = async function () {
-      const email = document.getElementById("loginEmail").value;
+      const email = document.getElementById("loginEmail").value.trim();
       const password = document.getElementById("loginPassword").value;
       const errorMsg = document.getElementById("errorMsg");
-
       errorMsg.innerText = "";
 
       try {
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        if (!user.emailVerified) {
+          errorMsg.innerText = "Please verify your email before logging in.";
+          return;
+        }
+
         window.location.href = "account.html";
       } catch (error) {
-        if (error.code === "auth/invalid-login-credentials" || error.code === "auth/user-not-found" || error.code === "auth/wrong-password") {
-          errorMsg.innerText = "Invalid email or password. Please try again.";
-        } else {
-          errorMsg.innerText = error.message;
-        }
+        errorMsg.innerText =
+          error.code === "auth/user-not-found" || error.code === "auth/wrong-password"
+            ? "Invalid email or password. Please try again."
+            : error.message;
       }
     };
 
     window.forgotPassword = async function () {
-      const email = prompt("Please enter your registered email:");
+      const email = prompt("Enter your registered email:");
       if (email) {
         try {
           await sendPasswordResetEmail(auth, email);
@@ -184,7 +193,7 @@
     <div id="signupForm" style="display: none;">
       <h2>Sign Up</h2>
       <input type="text" id="fullName" placeholder="Full Name" />
-      <input type="text" id="mobile" placeholder="Mobile Number" />
+      <input type="text" id="mobile" placeholder="Mobile Number" maxlength="10" />
       <input type="email" id="signupEmail" placeholder="Email ID" />
       <input type="password" id="signupPassword" placeholder="Password" oninput="validatePassword()" />
       <p id="passwordError">
@@ -201,25 +210,15 @@
       const signupForm = document.getElementById("signupForm");
       const errorMsg = document.getElementById("errorMsg");
       errorMsg.innerText = "";
-      if (loginForm.style.display === "none") {
-        loginForm.style.display = "block";
-        signupForm.style.display = "none";
-      } else {
-        loginForm.style.display = "none";
-        signupForm.style.display = "block";
-      }
+      loginForm.style.display = loginForm.style.display === "none" ? "block" : "none";
+      signupForm.style.display = signupForm.style.display === "none" ? "block" : "none";
     }
 
     function validatePassword() {
       const password = document.getElementById("signupPassword").value;
       const passwordError = document.getElementById("passwordError");
-      const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-
-      if (!strongPasswordRegex.test(password)) {
-        passwordError.style.display = "block";
-      } else {
-        passwordError.style.display = "none";
-      }
+      const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$/;
+      passwordError.style.display = strongPasswordRegex.test(password) ? "none" : "block";
     }
   </script>
 </body>

@@ -7,7 +7,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, sendEmailVerification, signOut } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
     import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -74,16 +74,14 @@
         const user = userCredential.user;
 
         if (!user.emailVerified) {
+          await signOut(auth);
           errorMsg.innerText = "Please verify your email before logging in.";
           return;
         }
 
         window.location.href = "account.html";
       } catch (error) {
-        errorMsg.innerText =
-          error.code === "auth/user-not-found" || error.code === "auth/wrong-password"
-            ? "Invalid email or password. Please try again."
-            : error.message;
+        errorMsg.innerText = "Invalid email or password. Please try again.";
       }
     };
 
@@ -108,7 +106,6 @@
       text-align: center;
       padding-top: 30px;
     }
-
     .container {
       background: white;
       color: #333;
@@ -117,26 +114,22 @@
       padding: 20px;
       border-radius: 10px;
     }
-
     .welcome {
       margin-bottom: 10px;
       font-size: 22px;
       color: #6a0dad;
     }
-
     .welcome a {
       color: #6a0dad;
       text-decoration: none;
       font-weight: bold;
     }
-
     #errorMsg {
       color: red;
       font-size: 14px;
       margin-bottom: 10px;
       min-height: 18px;
     }
-
     input {
       width: 90%;
       padding: 10px;
@@ -144,7 +137,6 @@
       border-radius: 5px;
       border: 1px solid #ccc;
     }
-
     button {
       width: 95%;
       padding: 10px;
@@ -155,14 +147,12 @@
       margin-top: 10px;
       cursor: pointer;
     }
-
     a {
       color: #6a0dad;
       font-weight: bold;
       cursor: pointer;
       text-decoration: none;
     }
-
     #passwordError {
       color: red;
       font-size: 12px;

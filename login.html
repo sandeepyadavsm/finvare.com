@@ -30,6 +30,9 @@
       const email = document.getElementById('signupEmail').value;
       const password = document.getElementById('signupPassword').value;
       const passwordError = document.getElementById('passwordError');
+      const errorMsg = document.getElementById('errorMsg');
+
+      errorMsg.innerText = '';
 
       const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
       if (!strongPasswordRegex.test(password)) {
@@ -49,26 +52,28 @@
           email: email
         });
 
-        alert('Signup successful! Verification email sent.');
+        errorMsg.innerText = "Signup successful! Please verify your email.";
         toggleForm();
       } catch (error) {
-        alert(error.message);
+        errorMsg.innerText = error.message;
       }
     };
 
     window.login = async function() {
       const email = document.getElementById('loginEmail').value;
       const password = document.getElementById('loginPassword').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      errorMsg.innerText = '';
 
       try {
         await signInWithEmailAndPassword(auth, email, password);
-        alert('Login Successful!');
         window.location.href = "account.html";
       } catch (error) {
         if (error.code === 'auth/invalid-login-credentials' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-          alert('Invalid email or password. Please try again.');
+          errorMsg.innerText = 'Invalid email or password. Please try again.';
         } else {
-          alert(error.message);
+          errorMsg.innerText = error.message;
         }
       }
     };
@@ -111,6 +116,12 @@
       text-decoration: none;
       font-weight: bold;
     }
+    #errorMsg {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+      min-height: 18px;
+    }
     input {
       width: 90%;
       padding: 10px;
@@ -149,6 +160,8 @@
     Welcome to <a href="index.html">Finvare.com</a>
   </div>
 
+  <div id="errorMsg"></div>
+
   <!-- Login Form -->
   <div id="loginForm">
     <h2>Login</h2>
@@ -176,6 +189,8 @@
   function toggleForm() {
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
+    const errorMsg = document.getElementById('errorMsg');
+    errorMsg.innerText = '';
     if (loginForm.style.display === 'none') {
       loginForm.style.display = 'block';
       signupForm.style.display = 'none';

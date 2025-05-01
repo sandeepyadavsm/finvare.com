@@ -1,32 +1,128 @@
-<div style="max-width: 400px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); font-family: Arial;">
-  <h2 style="color: #6a0dad; text-align:center;">SIP Calculator</h2>
-
-  <label style="font-weight:bold;">Monthly Investment (₹)</label>
-  <input id="monthly" type="number" placeholder="e.g. 5000" style="width:100%; padding:10px; margin:8px 0 15px 0; border-radius:5px; border:1px solid #ccc;" />
-
-  <label style="font-weight:bold;">Expected Annual Return (%)</label>
-  <input id="returnRate" type="number" placeholder="e.g. 12" style="width:100%; padding:10px; margin:8px 0 15px 0; border-radius:5px; border:1px solid #ccc;" />
-
-  <label style="font-weight:bold;">Investment Duration (Years)</label>
-  <input id="years" type="number" placeholder="e.g. 10" style="width:100%; padding:10px; margin:8px 0 15px 0; border-radius:5px; border:1px solid #ccc;" />
-
-  <button onclick="calculateSIP()" style="width:100%; background:#6a0dad; color:white; padding:10px; border:none; border-radius:5px; font-size:16px;">Calculate</button>
-
-  <p id="result" style="margin-top: 20px; text-align:center; font-weight:bold; color:#4b0082;"></p>
-</div>
-
-<script>
-  function calculateSIP() {
-    const P = parseFloat(document.getElementById("monthly").value);
-    const r = parseFloat(document.getElementById("returnRate").value) / 100 / 12;
-    const n = parseFloat(document.getElementById("years").value) * 12;
-
-    if (isNaN(P) || isNaN(r) || isNaN(n)) {
-      document.getElementById("result").innerText = "Please fill all fields correctly.";
-      return;
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIP Calculator - Finvare</title>
+  <style>
+    body {
+      background-color: #6a0dad;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
     }
+    .container {
+      max-width: 400px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      color: #333;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    h1 {
+      font-size: 22px;
+    }
+    h1 a {
+      color: #fff;
+      text-decoration: none;
+    }
+    h2 {
+      color: #6a0dad;
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #6a0dad;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      color: #4b0082;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      background: #4b0082;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>  <h1>Welcome to <a href="index.html">Finvare.com</a></h1>  <div class="container">
+    <h2>SIP Calculator</h2><label for="frequency">Frequency</label>
+<select id="frequency">
+  <option value="monthly">Monthly</option>
+  <option value="weekly">Weekly</option>
+  <option value="daily">Daily</option>
+</select>
 
-    const maturity = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
-    document.getElementById("result").innerText = `Maturity Amount: ₹${Math.round(maturity).toLocaleString()}`;
-  }
-</script>
+<label for="investment">Investment Amount (₹)</label>
+<input type="number" id="investment" placeholder="e.g. 5000">
+
+<label for="returnRate">Expected Annual Return (%)</label>
+<input type="number" id="returnRate" placeholder="e.g. 12">
+
+<label for="years">Investment Duration (Years)</label>
+<input type="number" id="years" placeholder="e.g. 10">
+
+<button onclick="calculateSIP()">Calculate</button>
+<p id="result"></p>
+
+  </div>  <footer>
+    &copy; 2025 Finvare.com. All rights reserved.
+  </footer>  <script>
+    function calculateSIP() {
+      const frequency = document.getElementById("frequency").value;
+      const P = parseFloat(document.getElementById("investment").value);
+      const r = parseFloat(document.getElementById("returnRate").value) / 100;
+      const years = parseFloat(document.getElementById("years").value);
+
+      if (isNaN(P) || isNaN(r) || isNaN(years)) {
+        document.getElementById("result").innerText = "Please fill all fields correctly.";
+        return;
+      }
+
+      let n;
+      if (frequency === "monthly") {
+        n = 12;
+      } else if (frequency === "weekly") {
+        n = 52;
+      } else {
+        n = 365;
+      }
+
+      const rate = r / n;
+      const totalPeriods = years * n;
+      const maturity = P * ((Math.pow(1 + rate, totalPeriods) - 1) / rate) * (1 + rate);
+
+      document.getElementById("result").innerText = `Maturity Amount: ₹${Math.round(maturity).toLocaleString()}`;
+    }
+  </script></body>
+</html>

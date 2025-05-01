@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,11 +59,18 @@
       font-size: 16px;
       cursor: pointer;
     }
-    #result {
-      margin-top: 20px;
+    .summary {
+      background-color: #f3f3f3;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 25px;
+      color: #333;
       text-align: center;
-      color: #4b0082;
-      font-weight: bold;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .summary h3 {
+      margin: 10px 0;
+      font-size: 16px;
     }
     footer {
       text-align: center;
@@ -76,50 +82,46 @@
     }
   </style>
 </head>
-<body>
+<body>  <h1>Welcome to <a href="index.html">Finvare.com</a></h1>  <div class="container">
+    <h2>SIP Calculator</h2><label for="frequency">Frequency</label>
+<select id="frequency">
+  <option value="monthly">Monthly</option>
+  <option value="weekly">Weekly</option>
+  <option value="daily">Daily</option>
+</select>
 
-  <h1>Welcome to <a href="index.html">Finvare.com</a></h1>
+<label for="investment">Investment Amount (₹)</label>
+<input type="number" id="investment" placeholder="e.g. 5000">
 
-  <div class="container">
-    <h2>SIP Calculator</h2>
+<label for="returnRate">Expected Annual Return (%)</label>
+<input type="number" id="returnRate" placeholder="e.g. 12">
 
-    <label for="frequency">Frequency</label>
-    <select id="frequency">
-      <option value="monthly">Monthly</option>
-      <option value="weekly">Weekly</option>
-      <option value="daily">Daily</option>
-    </select>
+<label for="years">Investment Duration (Years)</label>
+<input type="number" id="years" placeholder="e.g. 10">
 
-    <label for="investment">Investment Amount (₹)</label>
-    <input type="number" id="investment" placeholder="e.g. 5000">
+<button onclick="calculateSIP()">Calculate</button>
 
-    <label for="returnRate">Expected Annual Return (%)</label>
-    <input type="number" id="returnRate" placeholder="e.g. 12">
+<div class="summary" id="summary" style="display:none;">
+  <h3 id="totalInvestment">Total Investment: ₹0</h3>
+  <h3 id="interestEarned">Interest Earned: ₹0</h3>
+  <h3 id="totalValue">Total Value: ₹0</h3>
+</div>
 
-    <label for="years">Investment Duration (Years)</label>
-    <input type="number" id="years" placeholder="e.g. 10">
-
-    <button onclick="calculateSIP()">Calculate</button>
-    <p id="result"></p>
-  </div>
-
-  <footer>
+  </div>  <footer>
     &copy; 2025 Finvare.com. All rights reserved.
-  </footer>
-
-  <script>
+  </footer>  <script>
     function calculateSIP() {
-      const frequency = document.getElementById("frequency").value;
-      const P = parseFloat(document.getElementById("investment").value);
-      const r = parseFloat(document.getElementById("returnRate").value) / 100;
-      const years = parseFloat(document.getElementById("years").value);
+      var frequency = document.getElementById("frequency").value;
+      var P = parseFloat(document.getElementById("investment").value);
+      var r = parseFloat(document.getElementById("returnRate").value) / 100;
+      var years = parseFloat(document.getElementById("years").value);
 
       if (isNaN(P) || isNaN(r) || isNaN(years)) {
-        document.getElementById("result").innerText = "Please fill all fields correctly.";
+        alert("Please fill all fields correctly.");
         return;
       }
 
-      let n;
+      var n;
       if (frequency === "monthly") {
         n = 12;
       } else if (frequency === "weekly") {
@@ -128,13 +130,16 @@
         n = 365;
       }
 
-      const rate = r / n;
-      const totalPeriods = years * n;
-      const maturity = P * ((Math.pow(1 + rate, totalPeriods) - 1) / rate) * (1 + rate);
+      var rate = r / n;
+      var totalPeriods = years * n;
+      var maturity = P * ((Math.pow(1 + rate, totalPeriods) - 1) / rate) * (1 + rate);
+      var totalInvestment = P * totalPeriods;
+      var interestEarned = maturity - totalInvestment;
 
-      document.getElementById("result").innerText = `Maturity Amount: ₹${Math.round(maturity).toLocaleString()}`;
+      document.getElementById("summary").style.display = "block";
+      document.getElementById("totalInvestment").innerText = "Total Investment: ₹" + Math.round(totalInvestment).toLocaleString();
+      document.getElementById("interestEarned").innerText = "Interest Earned: ₹" + Math.round(interestEarned).toLocaleString();
+      document.getElementById("totalValue").innerText = "Total Value: ₹" + Math.round(maturity).toLocaleString();
     }
-  </script>
-
-</body>
+  </script></body>
 </html>

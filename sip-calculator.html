@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,29 +76,38 @@
     }
   </style>
 </head>
-<body>  <h1>Welcome to <a href="index.html">Finvare.com</a></h1>  <div class="container">
-    <h2>SIP Calculator</h2><label for="frequency">Frequency</label>
-<select id="frequency">
-  <option value="monthly">Monthly</option>
-  <option value="weekly">Weekly</option>
-  <option value="daily">Daily</option>
-</select>
+<body>
 
-<label for="investment">Investment Amount (₹)</label>
-<input type="number" id="investment" placeholder="e.g. 5000">
+  <h1>Welcome to <a href="index.html">Finvare.com</a></h1>
 
-<label for="returnRate">Expected Annual Return (%)</label>
-<input type="number" id="returnRate" placeholder="e.g. 12">
+  <div class="container">
+    <h2>SIP Calculator</h2>
 
-<label for="years">Investment Duration (Years)</label>
-<input type="number" id="years" placeholder="e.g. 10">
+    <label for="frequency">Frequency</label>
+    <select id="frequency">
+      <option value="monthly">Monthly</option>
+      <option value="weekly">Weekly</option>
+      <option value="daily">Daily</option>
+    </select>
 
-<button onclick="calculateSIP()">Calculate</button>
-<p id="result"></p>
+    <label for="investment">Investment Amount (₹)</label>
+    <input type="number" id="investment" placeholder="e.g. 5000">
 
-  </div>  <footer>
+    <label for="returnRate">Expected Annual Return (%)</label>
+    <input type="number" id="returnRate" placeholder="e.g. 12">
+
+    <label for="years">Investment Duration (Years)</label>
+    <input type="number" id="years" placeholder="e.g. 10">
+
+    <button onclick="calculateSIP()">Calculate</button>
+    <p id="result"></p>
+  </div>
+
+  <footer>
     &copy; 2025 Finvare.com. All rights reserved.
-  </footer>  <script>
+  </footer>
+
+  <script>
     function calculateSIP() {
       const frequency = document.getElementById("frequency").value;
       const P = parseFloat(document.getElementById("investment").value);
@@ -124,5 +134,7 @@
 
       document.getElementById("result").innerText = `Maturity Amount: ₹${Math.round(maturity).toLocaleString()}`;
     }
-  </script></body>
+  </script>
+
+</body>
 </html>

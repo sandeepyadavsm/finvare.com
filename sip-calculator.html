@@ -150,7 +150,7 @@
         var n = frequency === "monthly" ? 12 : frequency === "weekly" ? 52 : 365;
         var rate = r / n;
         var totalPeriods = years * n;
-        maturity = P * ((Math.pow(1 + rate, totalPeriods) - 1) / rate) * (1 + rate);
+        maturity = P * ((Math.pow(1 + rate, totalPeriods) - 1) / rate); // Groww-style formula (start of period)
         totalInvestment = P * totalPeriods;
       } else {
         var oneTime = parseFloat(document.getElementById("onetime").value);

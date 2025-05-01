@@ -87,8 +87,28 @@
   </style>
 </head>
 <body>  <h1>Welcome to <a href="index.html">Finvare.com</a></h1>  <div class="container">
-    <h2>One-Time Investment Calculator</h2><label for="onetime">One-Time Investment (₹)</label>
-<input type="number" id="onetime" placeholder="e.g. 94790">
+    <h2>Investment Calculator</h2><label for="mode">Investment Type</label>
+<select id="mode" onchange="toggleFields()">
+  <option value="sip">SIP (Daily/Weekly/Monthly)</option>
+  <option value="onetime">One-Time</option>
+</select>
+
+<div id="sipFields">
+  <label for="frequency">SIP Frequency</label>
+  <select id="frequency">
+    <option value="monthly">Monthly</option>
+    <option value="weekly">Weekly</option>
+    <option value="daily">Daily</option>
+  </select>
+
+  <label for="sipAmount">SIP Amount (₹)</label>
+  <input type="number" id="sipAmount" placeholder="e.g. 5000">
+</div>
+
+<div id="onetimeField" style="display:none;">
+  <label for="onetime">One-Time Investment (₹)</label>
+  <input type="number" id="onetime" placeholder="e.g. 100000">
+</div>
 
 <label for="returnRate">Expected Annual Return (%)</label>
 <input type="number" id="returnRate" placeholder="e.g. 12">
@@ -96,7 +116,7 @@
 <label for="years">Investment Duration (Years)</label>
 <input type="number" id="years" placeholder="e.g. 3">
 
-<button onclick="calculateOneTime()">Calculate</button>
+<button onclick="calculateInvestment()">Calculate</button>
 
 <div class="summary" id="summary" style="display:none;">
   <h4>Total Investment <strong id="totalInvestment">₹0</strong></h4>
@@ -107,22 +127,54 @@
   </div>  <footer>
     &copy; 2025 Finvare.com. All rights reserved.
   </footer>  <script>
-    function calculateOneTime() {
-      const principal = parseFloat(document.getElementById("onetime").value);
-      const rate = parseFloat(document.getElementById("returnRate").value);
-      const years = parseFloat(document.getElementById("years").value);
+    function toggleFields() {
+      var mode = document.getElementById("mode").value;
+      document.getElementById("sipFields").style.display = mode === "sip" ? "block" : "none";
+      document.getElementById("onetimeField").style.display = mode === "onetime" ? "block" : "none";
+    }
 
-      if (isNaN(principal) || isNaN(rate) || isNaN(years)) {
+    function calculateInvestment() {
+      var mode = document.getElementById("mode").value;
+      var rate = parseFloat(document.getElementById("returnRate").value) / 100;
+      var years = parseFloat(document.getElementById("years").value);
+
+      if (isNaN(rate) || isNaN(years)) {
         alert("Please fill all fields correctly.");
         return;
       }
 
-      const r = rate / 100;
-      const maturity = principal * Math.pow((1 + r), years);
-      const interest = maturity - principal;
+      let totalInvestment = 0, maturity = 0;
+
+      if (mode === "sip") {
+        var P = parseFloat(document.getElementById("sipAmount").value);
+        var freq = document.getElementById("frequency").value;
+        var n = freq === "monthly" ? 12 : freq === "weekly" ? 52 : 365;
+        var r = rate / n;
+        var t = years * n;
+
+        if (isNaN(P)) {
+          alert("Please enter SIP amount.");
+          return;
+        }
+
+        maturity = P * ((Math.pow(1 + r, t) - 1) / r);
+        totalInvestment = P * t;
+
+      } else {
+        var principal = parseFloat(document.getElementById("onetime").value);
+        if (isNaN(principal)) {
+          alert("Please enter one-time amount.");
+          return;
+        }
+
+        maturity = principal * Math.pow(1 + rate, years);
+        totalInvestment = principal;
+      }
+
+      var interest = maturity - totalInvestment;
 
       document.getElementById("summary").style.display = "block";
-      document.getElementById("totalInvestment").innerText = `₹${Math.round(principal).toLocaleString()}`;
+      document.getElementById("totalInvestment").innerText = `₹${Math.round(totalInvestment).toLocaleString()}`;
       document.getElementById("interestEarned").innerText = `₹${Math.round(interest).toLocaleString()}`;
       document.getElementById("totalValue").innerText = `₹${Math.round(maturity).toLocaleString()}`;
     }

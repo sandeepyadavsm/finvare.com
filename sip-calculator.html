@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIP Calculator - Finvare</title>
+  <title>Investment Calculator - Finvare</title>
   <style>
     body {
       background-color: #6a0dad;
@@ -65,12 +65,16 @@
       border-radius: 10px;
       margin-top: 25px;
       color: #333;
-      text-align: center;
+      text-align: left;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .summary h3 {
+    .summary h4 {
       margin: 10px 0;
       font-size: 16px;
+      font-weight: normal;
+    }
+    .summary strong {
+      float: right;
     }
     footer {
       text-align: center;
@@ -83,90 +87,44 @@
   </style>
 </head>
 <body>  <h1>Welcome to <a href="index.html">Finvare.com</a></h1>  <div class="container">
-    <h2>Investment Calculator</h2><label for="mode">Investment Type</label>
-<select id="mode" onchange="toggleFields()">
-  <option value="sip">SIP</option>
-  <option value="onetime">One-Time</option>
-</select>
-
-<div id="sipFields">
-  <label for="frequency">Frequency</label>
-  <select id="frequency">
-    <option value="monthly">Monthly</option>
-    <option value="weekly">Weekly</option>
-    <option value="daily">Daily</option>
-  </select>
-
-  <label for="investment">Investment Amount (₹)</label>
-  <input type="number" id="investment" placeholder="e.g. 5000">
-</div>
-
-<div id="oneTimeField" style="display:none;">
-  <label for="onetime">One-Time Investment (₹)</label>
-  <input type="number" id="onetime" placeholder="e.g. 100000">
-</div>
+    <h2>One-Time Investment Calculator</h2><label for="onetime">One-Time Investment (₹)</label>
+<input type="number" id="onetime" placeholder="e.g. 94790">
 
 <label for="returnRate">Expected Annual Return (%)</label>
 <input type="number" id="returnRate" placeholder="e.g. 12">
 
 <label for="years">Investment Duration (Years)</label>
-<input type="number" id="years" placeholder="e.g. 10">
+<input type="number" id="years" placeholder="e.g. 3">
 
-<button onclick="calculateInvestment()">Calculate</button>
+<button onclick="calculateOneTime()">Calculate</button>
 
 <div class="summary" id="summary" style="display:none;">
-  <h3 id="totalInvestment">Total Investment: ₹0</h3>
-  <h3 id="interestEarned">Interest Earned: ₹0</h3>
-  <h3 id="totalValue">Total Value: ₹0</h3>
+  <h4>Total Investment <strong id="totalInvestment">₹0</strong></h4>
+  <h4>Estimated Returns <strong id="interestEarned">₹0</strong></h4>
+  <h4>Maturity Amount <strong id="totalValue">₹0</strong></h4>
 </div>
 
   </div>  <footer>
     &copy; 2025 Finvare.com. All rights reserved.
   </footer>  <script>
-    function toggleFields() {
-      var mode = document.getElementById("mode").value;
-      document.getElementById("sipFields").style.display = mode === "sip" ? "block" : "none";
-      document.getElementById("oneTimeField").style.display = mode === "onetime" ? "block" : "none";
-    }
+    function calculateOneTime() {
+      const principal = parseFloat(document.getElementById("onetime").value);
+      const rate = parseFloat(document.getElementById("returnRate").value);
+      const years = parseFloat(document.getElementById("years").value);
 
-    function calculateInvestment() {
-      var mode = document.getElementById("mode").value;
-      var r = parseFloat(document.getElementById("returnRate").value) / 100;
-      var years = parseFloat(document.getElementById("years").value);
-      var maturity = 0, totalInvestment = 0;
-
-      if (isNaN(r) || isNaN(years)) {
+      if (isNaN(principal) || isNaN(rate) || isNaN(years)) {
         alert("Please fill all fields correctly.");
         return;
       }
 
-      if (mode === "sip") {
-        var frequency = document.getElementById("frequency").value;
-        var P = parseFloat(document.getElementById("investment").value);
-        if (isNaN(P)) {
-          alert("Please fill SIP amount.");
-          return;
-        }
-        var n = frequency === "monthly" ? 12 : frequency === "weekly" ? 52 : 365;
-        var rate = r / n;
-        var totalPeriods = years * n;
-        maturity = P * ((Math.pow(1 + rate, totalPeriods) - 1) / rate); // Groww-style formula (start of period)
-        totalInvestment = P * totalPeriods;
-      } else {
-        var oneTime = parseFloat(document.getElementById("onetime").value);
-        if (isNaN(oneTime)) {
-          alert("Please fill one-time amount.");
-          return;
-        }
-        maturity = oneTime * Math.pow(1 + r, years);
-        totalInvestment = oneTime;
-      }
+      const r = rate / 100;
+      const maturity = principal * Math.pow((1 + r), years);
+      const interest = maturity - principal;
 
-      var interestEarned = maturity - totalInvestment;
       document.getElementById("summary").style.display = "block";
-      document.getElementById("totalInvestment").innerText = "Total Investment: ₹" + Math.round(totalInvestment).toLocaleString();
-      document.getElementById("interestEarned").innerText = "Interest Earned: ₹" + Math.round(interestEarned).toLocaleString();
-      document.getElementById("totalValue").innerText = "Total Value: ₹" + Math.round(maturity).toLocaleString();
+      document.getElementById("totalInvestment").innerText = `₹${Math.round(principal).toLocaleString()}`;
+      document.getElementById("interestEarned").innerText = `₹${Math.round(interest).toLocaleString()}`;
+      document.getElementById("totalValue").innerText = `₹${Math.round(maturity).toLocaleString()}`;
     }
   </script></body>
 </html>

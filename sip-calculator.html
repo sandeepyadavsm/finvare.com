@@ -1,0 +1,32 @@
+<div style="max-width: 400px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); font-family: Arial;">
+  <h2 style="color: #6a0dad; text-align:center;">SIP Calculator</h2>
+
+  <label style="font-weight:bold;">Monthly Investment (₹)</label>
+  <input id="monthly" type="number" placeholder="e.g. 5000" style="width:100%; padding:10px; margin:8px 0 15px 0; border-radius:5px; border:1px solid #ccc;" />
+
+  <label style="font-weight:bold;">Expected Annual Return (%)</label>
+  <input id="returnRate" type="number" placeholder="e.g. 12" style="width:100%; padding:10px; margin:8px 0 15px 0; border-radius:5px; border:1px solid #ccc;" />
+
+  <label style="font-weight:bold;">Investment Duration (Years)</label>
+  <input id="years" type="number" placeholder="e.g. 10" style="width:100%; padding:10px; margin:8px 0 15px 0; border-radius:5px; border:1px solid #ccc;" />
+
+  <button onclick="calculateSIP()" style="width:100%; background:#6a0dad; color:white; padding:10px; border:none; border-radius:5px; font-size:16px;">Calculate</button>
+
+  <p id="result" style="margin-top: 20px; text-align:center; font-weight:bold; color:#4b0082;"></p>
+</div>
+
+<script>
+  function calculateSIP() {
+    const P = parseFloat(document.getElementById("monthly").value);
+    const r = parseFloat(document.getElementById("returnRate").value) / 100 / 12;
+    const n = parseFloat(document.getElementById("years").value) * 12;
+
+    if (isNaN(P) || isNaN(r) || isNaN(n)) {
+      document.getElementById("result").innerText = "Please fill all fields correctly.";
+      return;
+    }
+
+    const maturity = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+    document.getElementById("result").innerText = `Maturity Amount: ₹${Math.round(maturity).toLocaleString()}`;
+  }
+</script>
